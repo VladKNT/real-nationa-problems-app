@@ -4,15 +4,17 @@ import COLORS from '../../../constants/colors';
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#642762',
+        backgroundColor: COLORS.PRIMARY_BUTTON,
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
-        borderRadius: 3,
-        height: 35,
+        borderRadius: 24,
+        height: 40,
+        marginVertical: 5
     },
     textStyle: {
-        color: COLORS.WHITE
+        color: COLORS.WHITE,
+        fontSize: 18
     }
 });
 

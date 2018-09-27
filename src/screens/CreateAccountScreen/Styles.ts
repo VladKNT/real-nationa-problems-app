@@ -9,11 +9,6 @@ export default StyleSheet.create({
         padding: 10,
         backgroundColor: COLORS.PRIMARY_BACKGROUND
     },
-    questionText: {
-        color: COLORS.PRIMARY,
-        fontSize: 16,
-        alignSelf: 'center'
-    },
     title: {
         color: COLORS.PRIMARY,
         fontSize: 20,

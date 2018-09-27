@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { Button, Input } from '../../components/common';
-import _ from 'lodash';
 import STRINGS from '../../constants/strings';
 import styles from './Styles';
+import _ from "lodash";
 
 interface Props {
     navigation: any
@@ -12,26 +12,25 @@ interface Props {
 interface State {
     input: {
         email: string,
-        password: string
+        password: string,
+        firstName: string,
+        lastName: string
     }
 }
 
-class LoginScreen extends Component <Props, State> {
+class CreateAccountScreen extends Component <Props, State> {
     constructor(props: Props) {
         super(props);
 
         this.state = {
             input: {
                 email: '',
-                password: ''
+                password: '',
+                firstName: '',
+                lastName: ''
             }
         }
     }
-
-    createAccountPressed = () => {
-        const { navigate } = this.props.navigation;
-        navigate("CreateAccountScreen");
-    };
 
     onInputChange = (name: string, data: string) => {
         let input = this.state.input;
@@ -44,9 +43,13 @@ class LoginScreen extends Component <Props, State> {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>
-                    { STRINGS.LOGIN_TITLE }
+                    { STRINGS.CREATE_TITLE }
                 </Text>
 
+                <Input title={ STRINGS.FIRST_NAME }
+                       onChangeText={(data: string) => this.onInputChange('firstName', data)}/>
+                <Input title={ STRINGS.LAST_NAME }
+                       onChangeText={(data: string) => this.onInputChange('lastName', data)} />
                 <Input title={ STRINGS.EMAIL_ADDRESS }
                        onChangeText={(data: string) => this.onInputChange('email', data)} />
                 <Input title={ STRINGS.PASSWORD }
@@ -54,17 +57,11 @@ class LoginScreen extends Component <Props, State> {
                        secureTextEntry />
 
                 <Button>
-                    { STRINGS.LOGIN }
+                    { STRINGS.CREATE }
                 </Button>
-
-                <TouchableOpacity onPress={() => this.createAccountPressed()}>
-                    <Text style={styles.questionText}>
-                        { STRINGS.ACCOUNT_QUESTION }
-                    </Text>
-                </TouchableOpacity>
             </View>
         )
     }
 }
 
-export default LoginScreen;
+export default CreateAccountScreen;
