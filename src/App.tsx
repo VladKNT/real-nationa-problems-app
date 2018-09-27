@@ -6,6 +6,7 @@ import NavigationService from '../src/services/NavigationSecrvice';
 
 import SplashScreen from './screens/SplashScreen/SplashScreen';
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import CreateAccountScreen from "./screens/CreateAccountScreen/CreateAccountScreen";
 
 const navigationOptions = {
     navigationOptions: {
@@ -38,7 +39,8 @@ export default class App extends Component {
         const RootNavigator = createSwitchNavigator(
             {
                 SplashScreen: SplashScreen,
-                LoginScreen: LoginScreen
+                LoginScreen: LoginScreen,
+                CreateAccountScreen: CreateAccountScreen
             },
             {
                 initialRouteName: 'SplashScreen'
