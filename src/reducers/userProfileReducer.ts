@@ -15,7 +15,7 @@ export interface IUserProfileReducer {
 
 export default function(state: IUserProfileReducer = initialState, action: AnyAction) {
     switch (action.type) {
-        case ACTION.FETCH_USER_PROFILE: {
+        case ACTION.FETCH_USER_PROFILE_REQUESTING: {
             return {
                 ...state,
                 loading: true

@@ -13,5 +13,16 @@ export default StyleSheet.create({
         color: COLORS.PRIMARY,
         fontSize: 20,
         marginBottom: 10
-    }
+    },
+    arrowBack: {
+        position: "absolute",
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+        height: 42,
+        width: 80,
+        top: 50,
+        left: 6,
+        padding: 10
+    },
 })

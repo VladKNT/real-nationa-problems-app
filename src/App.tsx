@@ -30,17 +30,27 @@ const navigationOptions = {
     }
 };
 
-const AuthScreens = {
-    SplashScreen: SplashScreen
-};
+const AuthScreens = createStackNavigator(
+    {
+        LoginScreen: LoginScreen,
+        CreateAccountScreen: CreateAccountScreen,
+    },
+    {
+        headerMode: 'none',
+        initialRouteName: 'LoginScreen',
+        navigationOptions: {
+            gesturesEnabled: false
+        }
+    }
+);
 
 export default class App extends Component {
     render() {
         const RootNavigator = createSwitchNavigator(
             {
                 SplashScreen: SplashScreen,
-                LoginScreen: LoginScreen,
-                CreateAccountScreen: CreateAccountScreen
+                AuthScreens: AuthScreens
+
             },
             {
                 initialRouteName: 'SplashScreen'

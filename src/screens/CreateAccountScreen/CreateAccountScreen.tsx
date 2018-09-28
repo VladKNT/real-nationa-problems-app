@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { Button, Input } from '../../components/common';
 import STRINGS from '../../constants/strings';
+import IMAGES from '../../constants/images';
 import styles from './Styles';
 import _ from "lodash";
 
@@ -32,6 +33,15 @@ class CreateAccountScreen extends Component <Props, State> {
         }
     }
 
+    componentDidMount() {
+        console.info(this.props)
+    }
+
+    onBackPressed = () => {
+        const { goBack } = this.props.navigation;
+        goBack();
+    };
+
     onInputChange = (name: string, data: string) => {
         let input = this.state.input;
         _.set(input, name, data);
@@ -42,6 +52,10 @@ class CreateAccountScreen extends Component <Props, State> {
     render() {
         return (
             <View style={styles.container}>
+                <TouchableOpacity style={styles.arrowBack} onPress={() => this.onBackPressed()}>
+                    <Image source={ IMAGES.ARROW_LEFT }/>
+                </TouchableOpacity>
+
                 <Text style={styles.title}>
                     { STRINGS.CREATE_TITLE }
                 </Text>
