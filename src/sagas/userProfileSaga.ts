@@ -11,7 +11,6 @@ export function* getUser() {
   if (accessToken) {
     try {
       const userProfile =  yield call(UserResolver.getUser);
-      console.info(userProfile);
       if (userProfile){
         yield put({ type: ACTION.FETCH_USER_PROFILE_SUCCESS, userProfile });
         return userProfile;

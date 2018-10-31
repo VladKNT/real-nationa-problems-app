@@ -51,13 +51,10 @@ export default class UserResolver {
 
   static async refreshToken(token: string) {
     try {
-      console.info(token);
       const response = await client.mutate({
         variables: { token },
         mutation: refreshToken
       });
-
-      console.info(response);
 
       return response.data.refreshToken;
     } catch (error) {
