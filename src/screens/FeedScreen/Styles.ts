@@ -5,18 +5,8 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     padding: 10,
     backgroundColor: COLORS.PRIMARY_BACKGROUND
-  },
-  questionText: {
-    color: COLORS.PRIMARY,
-    fontSize: 16,
-    alignSelf: 'center'
-  },
-  title: {
-    color: COLORS.PRIMARY,
-    fontSize: 20,
-    marginBottom: 10
   }
 })

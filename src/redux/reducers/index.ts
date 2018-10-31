@@ -3,9 +3,9 @@ import { combineReducers } from 'redux';
 import userProfileReducer, { IUserProfileReducer } from './userProfileReducer';
 
 export interface IReducerStates {
-    userProfileReducer: IUserProfileReducer
+  userProfileReducer: IUserProfileReducer
 }
 
 export default combineReducers({
-    userProfileReducer
+  userProfileReducer
 })

@@ -1,13 +1,13 @@
 import { takeLatest } from "redux-saga/effects";
-import ACTION from '../actions/ActionTypes';
+import ACTION from '../redux/actions/ActionTypes';
 import * as commonSaga from './commonSaga';
 import * as userProfileSaga from './userProfileSaga';
 
 
 function* rootSaga() {
-    yield takeLatest(ACTION.ROUTE_CURRENT_USER, commonSaga.routeCurrentUser);
-    yield takeLatest(ACTION.CREATE_USER_PROFILE, userProfileSaga.createUserProfile);
-    yield takeLatest(ACTION.LOGIN_USER_PROFILE, userProfileSaga.loginUserProfile);
+  yield takeLatest(ACTION.ROUTE_CURRENT_USER, commonSaga.routeCurrentUser);
+  yield takeLatest(ACTION.CREATE_USER_PROFILE, userProfileSaga.signUp);
+  yield takeLatest(ACTION.LOGIN_USER_PROFILE, userProfileSaga.signIn);
 }
 
 export default rootSaga;
