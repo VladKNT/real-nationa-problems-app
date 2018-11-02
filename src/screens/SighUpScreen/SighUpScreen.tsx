@@ -21,7 +21,7 @@ interface State {
   input: SignUpParameters
 }
 
-class CreateAccountScreen extends Component <Props, State> {
+class SighUpScreen extends Component <Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -72,7 +72,7 @@ class CreateAccountScreen extends Component <Props, State> {
            secureTextEntry />
 
         <Button onPress={() => this.props.signUp(this.state.input)}>
-          { STRINGS.CREATE }
+          { STRINGS.SIGN_UP }
         </Button>
       </ScrollView>
     )
@@ -92,4 +92,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateAccountScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SighUpScreen);

@@ -10,10 +10,10 @@ export function* getUser() {
   const accessToken = yield call([AsyncStorage, "getItem"], "@SessionStorage:accessToken");
   if (accessToken) {
     try {
-      const userProfile =  yield call(UserResolver.getUser);
-      if (userProfile){
-        yield put({ type: ACTION.FETCH_USER_PROFILE_SUCCESS, userProfile });
-        return userProfile;
+      const user =  yield call(UserResolver.getUser);
+      if (user){
+        yield put({ type: ACTION.FETCH_USER_PROFILE_SUCCESS, user });
+        return user;
       }
 
       return null;
@@ -21,6 +21,9 @@ export function* getUser() {
       yield put({ type: ACTION.FETCH_USER_PROFILE_ERROR, error });
       console.warn("Error getting user: " + error);
     }
+  } else {
+    yield put({ type: ACTION.FETCH_USER_PROFILE_ERROR, error: 'Unauthorized' });
+    console.warn("Error getting user: Unauthorized");
   }
 }
 
@@ -35,8 +38,6 @@ export function* signUp(action: any) {
       yield AsyncStorage.setItem("@SessionStorage:accessToken", tokenPair.accessToken);
       yield AsyncStorage.setItem("@SessionStorage:refreshToken", tokenPair.refreshToken);
       yield call(routeCurrentUser);
-
-      yield put({ type: ACTION.CREATE_USER_PROFILE_SUCCESS, userProfile: {name: 'Test'} });
     }
   } catch (error) {
     yield put({ type: ACTION.CREATE_USER_PROFILE_ERROR, error });

@@ -1,7 +1,7 @@
 export default {
   // === Login and create an account screens
   LOGIN: 'LOGIN',
-  CREATE: 'CREATE',
+  SIGN_UP: 'SIGN UP',
   LOGIN_TITLE: 'Login',
   CREATE_TITLE: 'Create an account',
   ACCOUNT_QUESTION: 'Don\'t have an account?',

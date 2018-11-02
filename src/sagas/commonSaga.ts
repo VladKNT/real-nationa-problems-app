@@ -13,10 +13,10 @@ export function* routeCurrentUser() {
       nav.navigate('FeedScreen');
       SplashScreen.hide();
     } else {
-      nav.navigate("LoginScreen");
+      nav.navigate('SignInScreen');
       SplashScreen.hide();
     }
   } catch (error) {
-    console.warn("Error route current user " + error);
+    console.warn('Error route current user ' + error);
   }
 }

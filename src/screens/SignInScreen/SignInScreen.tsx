@@ -19,7 +19,7 @@ interface State {
   input: SignInParameters
 }
 
-class LoginScreen extends Component <Props, State> {
+class SignInScreen extends Component <Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -31,9 +31,9 @@ class LoginScreen extends Component <Props, State> {
     }
   }
 
-    createAccountPressed = () => {
+    signUpPressed = () => {
       const { navigate } = this.props.navigation;
-      navigate("CreateAccountScreen");
+      navigate("SighUpScreen");
     };
 
     onInputChange = (name: string, data: string) => {
@@ -60,7 +60,7 @@ class LoginScreen extends Component <Props, State> {
             { STRINGS.LOGIN }
           </Button>
 
-          <TouchableOpacity onPress={() => this.createAccountPressed()}>
+          <TouchableOpacity onPress={() => this.signUpPressed()}>
             <Text style={styles.questionText}>
                 { STRINGS.ACCOUNT_QUESTION }
             </Text>
@@ -83,4 +83,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);

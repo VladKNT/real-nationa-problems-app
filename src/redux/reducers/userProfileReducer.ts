@@ -2,14 +2,14 @@ import ACTION from '../actions/ActionTypes';
 import { AnyAction } from 'redux';
 
 const initialState = {
-  userProfile: null,
+  user: null,
 
   loading: false,
   error: ''
 };
 
 export interface IUserProfileReducer {
-  userProfile: any,
+  user: any,
   loading: boolean,
   error: string
 }
@@ -26,7 +26,7 @@ export default function(state: IUserProfileReducer = initialState, action: AnyAc
     case ACTION.FETCH_USER_PROFILE_SUCCESS: {
       return {
         ...state,
-        userProfile: action.userProfile,
+        user: action.user,
         loading: false,
       }
     }

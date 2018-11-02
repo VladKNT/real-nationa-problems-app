@@ -1,13 +1,16 @@
-import React, { Component } from "react";
-import { Platform } from "react-native";
-import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator } from "react-navigation";
+import React, { Component } from 'react';
+import { Platform } from 'react-native';
+import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import NavigationService from '../src/services/NavigationSecrvice';
+import COLORS from './constants/colors';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 import SplashScreen from './screens/SplashScreen/SplashScreen';
-import LoginScreen from "./screens/LoginScreen/LoginScreen";
-import CreateAccountScreen from "./screens/CreateAccountScreen/CreateAccountScreen";
-import FeedScreen from "./screens/FeedScreen/FeedScreen";
+import SignInScreen from './screens/SignInScreen/SignInScreen';
+import SighUpScreen from './screens/SighUpScreen/SighUpScreen';
+import FeedScreen from './screens/FeedScreen/FeedScreen';
+import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 
 const navigationOptions = {
   navigationOptions: {
@@ -31,19 +34,107 @@ const navigationOptions = {
   }
 };
 
-const AuthScreens = createStackNavigator({
-    LoginScreen: LoginScreen,
-    CreateAccountScreen: CreateAccountScreen,
+const Feed = createStackNavigator(
+  {
+    FeedScreen: { screen: FeedScreen },
   }, {
     headerMode: 'none',
-    initialRouteName: 'LoginScreen',
+    initialRouteName: 'FeedScreen',
+    ...navigationOptions
+  }
+);
+
+Feed.navigationOptions = ({ navigation }: any) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return { tabBarVisible };
+};
+
+const Profile = createStackNavigator(
+  {
+    ProfileScreen: { screen: ProfileScreen }
+  }, {
+    headerMode: 'none',
+    initialRouteName: 'ProfileScreen',
+    ...navigationOptions
+  }
+);
+
+Profile.navigationOptions = ({ navigation }: any) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return { tabBarVisible };
+};
+
+const tabBarOptions = {
+    showLabel: false,
+    activeTintColor: COLORS.PRIMARY,
+    inactiveTintColor: COLORS.INACTIVE_TB_TINT_COLOR,
+    tabStyle: {
+      backgroundColor: COLORS.PRIMARY_BACKGROUND,
+      paddingVertical: 5
+    },
+    labelStyle: {
+      fontSize: 11,
+    },
+    style: {
+      height: 50,
+      marginBottom: 0
+    }
+};
+
+const SignedInArea = createBottomTabNavigator(
+  {
+    FeedTab: {
+      screen: Feed,
+      path: '/feed',
+      navigationOptions: {
+        ...navigationOptions,
+        title: 'Home',
+        tabBarIcon: ({ tintColor }: any) => (
+          <Icon name={'md-home'} size={35} color={tintColor} />
+        )
+      }
+    },
+
+    ProfileTab: {
+      screen: Profile,
+      path: '/profile',
+      navigationOptions: {
+        ...navigationOptions,
+        title: 'Profile',
+        tabBarIcon: ({ tintColor }: any) => (
+          <Icon name={'md-person'} size={35} color={tintColor} />
+        )
+      }
+    }
+  }, {
+    tabBarOptions,
+    initialRouteName: 'FeedTab'
+  }
+);
+
+const AuthScreens = createStackNavigator(
+  {
+    SignInScreen: SignInScreen,
+    SighUpScreen: SighUpScreen,
+  }, {
+    headerMode: 'none',
+    initialRouteName: 'SignInScreen',
     navigationOptions: {
       gesturesEnabled: false
     }
   }
 );
 
-const SignInScreens = createStackNavigator({
+const SignedInScreens = createStackNavigator(
+  {
     FeedScreen: FeedScreen
   }, {
     headerMode: 'none',
@@ -56,10 +147,11 @@ const SignInScreens = createStackNavigator({
 
 export default class App extends Component {
   render() {
-    const RootNavigator = createSwitchNavigator({
+    const RootNavigator = createSwitchNavigator(
+      {
         SplashScreen: SplashScreen,
         AuthScreens: AuthScreens,
-        SignInScreens: SignInScreens
+        SignedInScreens: SignedInArea
       }, {
         initialRouteName: 'SplashScreen'
       }
