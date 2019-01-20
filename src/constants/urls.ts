@@ -1,5 +1,5 @@
-const rootUrl = 'http://10.1.1.210:3000/';
-const wsRootUrl = 'ws://10.1.1.210:3000/';
+const rootUrl = 'http://192.168.1.135:3000/';
+const wsRootUrl = 'ws://192.168.1.135:3000/';
 
 export default {
   ROOT_URL: rootUrl,
