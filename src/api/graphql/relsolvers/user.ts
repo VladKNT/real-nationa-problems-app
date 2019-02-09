@@ -1,16 +1,15 @@
 import configureClient from '../configureClient';
-import { SignUpParameters, SignInParameters } from '../../../constants/types';
+import { ISignUpParameters, ISignInParameters } from '../../../constants/types';
 import { signUp, signIn, getUser, refreshToken } from '../schema/user';
 import TokenService from '../../../services/TokenService';
 
 interface GetUserQuery {
   getUser: any
 }
-
 const client = configureClient();
 
 export default class UserResolver {
-  static async signUp({ email, password, firstName, lastName, username }: SignUpParameters) {
+  static async signUp({ email, password, firstName, lastName, username }: ISignUpParameters) {
     try {
       const response = await client.mutate({
         variables: { email, password, firstName, lastName, username },
@@ -24,7 +23,7 @@ export default class UserResolver {
     }
   }
 
-  static async signIn({ login, password }: SignInParameters) {
+  static async signIn({ login, password }: ISignInParameters) {
     try {
       const response = await client.mutate({
         variables: { login, password },

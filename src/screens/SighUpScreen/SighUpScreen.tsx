@@ -10,15 +10,15 @@ import {IReducerStates} from "../../redux/reducers";
 import {Dispatch} from "redux";
 import { signUp } from "../../redux/actions/ActionCreators";
 import { connect } from 'react-redux';
-import { SignUpParameters } from "../../constants/types";
+import { ISignUpParameters } from "../../constants/types";
 
 interface Props {
   navigation: any,
-  signUp: (signUpParameters: SignUpParameters) => void
+  signUp: (signUpParameters: ISignUpParameters) => void
 }
 
 interface State {
-  input: SignUpParameters
+  input: ISignUpParameters
 }
 
 class SighUpScreen extends Component <Props, State> {
@@ -88,7 +88,7 @@ const mapStateToProps = (state: IReducerStates) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    signUp: (signUpParameters: SignUpParameters) => dispatch(signUp(signUpParameters))
+    signUp: (signUpParameters: ISignUpParameters) => dispatch(signUp(signUpParameters))
   };
 };
 

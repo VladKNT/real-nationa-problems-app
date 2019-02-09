@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
-import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 import NavigationService from '../src/services/NavigationSecrvice';
 import COLORS from './constants/colors';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -147,7 +147,7 @@ const SignedInScreens = createStackNavigator(
 
 export default class App extends Component {
   render() {
-    const RootNavigator = createSwitchNavigator(
+    const RootNavigator = createAppContainer(createSwitchNavigator(
       {
         SplashScreen: SplashScreen,
         AuthScreens: AuthScreens,
@@ -155,7 +155,8 @@ export default class App extends Component {
       }, {
         initialRouteName: 'SplashScreen'
       }
-    );
+    ));
+
 
     return (
       <RootNavigator ref={(nav: any) => NavigationService.setNavigator(nav)} />

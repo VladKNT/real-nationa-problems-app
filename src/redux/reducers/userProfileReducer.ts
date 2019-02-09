@@ -8,8 +8,21 @@ const initialState = {
   error: ''
 };
 
+export interface IUserProfile {
+  firstName: string,
+  lastName: string,
+  profilePhoto: string | null
+}
+
+export interface IUser {
+  email: string
+  id: string
+  userProfile: IUserProfile
+  username: string
+}
+
 export interface IUserProfileReducer {
-  user: any,
+  user?: IUser | null,
   loading: boolean,
   error: string
 }

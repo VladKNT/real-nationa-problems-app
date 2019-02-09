@@ -5,7 +5,7 @@ import STRINGS from '../../constants/strings';
 import styles from './Styles';
 import {IReducerStates} from "../../redux/reducers";
 import {Dispatch} from "redux";
-import {SignInParameters} from "../../constants/types";
+import {ISignInParameters} from "../../constants/types";
 import {connect} from "react-redux";
 
 interface Props {
@@ -25,7 +25,7 @@ class FeedScreen extends Component <Props, State> {
     return (
       <View style={styles.container}>
         <Text>
-          FeedScreen
+          Feed Screen
         </Text>
       </View>
     )

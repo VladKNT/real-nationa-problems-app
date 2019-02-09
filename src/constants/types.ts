@@ -1,4 +1,4 @@
-export interface SignUpParameters {
+export interface ISignUpParameters {
   email: string,
   password: string,
   firstName: string,
@@ -6,7 +6,13 @@ export interface SignUpParameters {
   username: string
 }
 
-export interface SignInParameters {
+export interface ISignInParameters {
   login: string,
   password: string
+}
+
+export interface UserProfile {
+  firstName: string,
+  lastName: string,
+  profilePhoto: string
 }

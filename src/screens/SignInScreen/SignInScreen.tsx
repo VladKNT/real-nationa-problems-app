@@ -6,17 +6,17 @@ import STRINGS from '../../constants/strings';
 import styles from './Styles';
 import {IReducerStates} from "../../redux/reducers";
 import {Dispatch} from "redux";
-import {SignInParameters} from "../../constants/types";
+import {ISignInParameters} from "../../constants/types";
 import { signIn } from "../../redux/actions/ActionCreators";
 import {connect} from "react-redux";
 
 interface Props {
   navigation: any,
-  signIn: (signInParameters: SignInParameters) => void
+  signIn: (signInParameters: ISignInParameters) => void
 }
 
 interface State {
-  input: SignInParameters
+  input: ISignInParameters
 }
 
 class SignInScreen extends Component <Props, State> {
@@ -79,7 +79,7 @@ const mapStateToProps = (state: IReducerStates) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    signIn: (signInParameters: SignInParameters) => dispatch(signIn(signInParameters))
+    signIn: (signInParameters: ISignInParameters) => dispatch(signIn(signInParameters))
   };
 };
 

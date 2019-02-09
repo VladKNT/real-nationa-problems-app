@@ -1,5 +1,5 @@
 import ACTION from './ActionTypes';
-import { SignUpParameters, SignInParameters } from '../../constants/types';
+import { ISignUpParameters, ISignInParameters } from '../../constants/types';
 
 export const routeCurrentUser = () => {
   return {
@@ -7,7 +7,7 @@ export const routeCurrentUser = () => {
   }
 };
 
-export const signUp = ({ email, password, firstName, lastName, username }: SignUpParameters) => {
+export const signUp = ({ email, password, firstName, lastName, username }: ISignUpParameters) => {
   return {
     type: ACTION.CREATE_USER_PROFILE,
     email,
@@ -18,7 +18,7 @@ export const signUp = ({ email, password, firstName, lastName, username }: SignU
   }
 };
 
-export const signIn = ({ login, password }: SignInParameters) => {
+export const signIn = ({ login, password }: ISignInParameters) => {
   return {
     type: ACTION.LOGIN_USER_PROFILE,
     login,
