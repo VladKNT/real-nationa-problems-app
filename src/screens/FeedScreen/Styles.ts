@@ -7,6 +7,6 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     padding: 10,
-    backgroundColor: COLORS.PRIMARY_BACKGROUND
+    backgroundColor: COLORS.BACKGROUND
   }
-})
+});

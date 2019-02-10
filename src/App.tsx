@@ -10,6 +10,7 @@ import SignInScreen from './screens/SignInScreen/SignInScreen';
 import SighUpScreen from './screens/SighUpScreen/SighUpScreen';
 import FeedScreen from './screens/FeedScreen/FeedScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
+import EditProfileScreen from './screens/EditProfileScreen/EditProfileScreen';
 
 const defaultNavigationOptions = {
   defaultNavigationOptions: {
@@ -21,7 +22,7 @@ const defaultNavigationOptions = {
         height: 0,
       },
       elevation: 3,
-      backgroundColor: COLORS.PRIMARY_BAR,
+      backgroundColor: COLORS.BAR,
     },
     headerTitleAllowFontScaling: true,
   }
@@ -29,7 +30,7 @@ const defaultNavigationOptions = {
 
 const Feed = createStackNavigator(
   {
-    FeedScreen: { screen: FeedScreen },
+    FeedScreen: FeedScreen,
   }, {
     initialRouteName: 'FeedScreen',
     ...defaultNavigationOptions
@@ -47,7 +48,8 @@ Feed.navigationOptions = ({ navigation }: any) => {
 
 const Profile = createStackNavigator(
   {
-    ProfileScreen: { screen: ProfileScreen }
+    ProfileScreen: ProfileScreen,
+    EditProfileScreen: EditProfileScreen
   }, {
     initialRouteName: 'ProfileScreen',
     ...defaultNavigationOptions
@@ -68,7 +70,7 @@ const tabBarOptions = {
     activeTintColor: COLORS.BLACK,
     inactiveTintColor: COLORS.INACTIVE_TB_TINT_COLOR,
     tabStyle: {
-      backgroundColor: COLORS.PRIMARY_BAR,
+      backgroundColor: COLORS.BAR,
       paddingVertical: 5
     },
     labelStyle: {

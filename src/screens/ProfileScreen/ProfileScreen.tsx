@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {  Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
 import styles from './Styles';
@@ -25,6 +25,11 @@ class ProfileScreen extends Component <Props, State> {
     super(props);
   }
 
+  settingsPressed = () => {
+    const { navigate } = this.props.navigation;
+    navigate("EditProfileScreen");
+  };
+
   static navigationOptions = ({ navigation }: any) => ({
     headerLeft: (
       <Text style={styles.headerLeft}>
@@ -33,7 +38,7 @@ class ProfileScreen extends Component <Props, State> {
     ),
 
     headerRight: (
-      <TouchableOpacity style={styles.headerRight} onPress={() => alert('This is a button!')}>
+      <TouchableOpacity style={styles.headerRight} onPress={navigation.getParam('settingsPressed')}>
         <Icon name={'md-settings'} size={25} color={COLORS.BLACK} />
       </TouchableOpacity>
     ),
@@ -41,7 +46,10 @@ class ProfileScreen extends Component <Props, State> {
 
   componentDidMount() {
     const { navigation, userProfileState } = this.props;
-    navigation.setParams({ username: userProfileState.user.username});
+    navigation.setParams({
+      username: userProfileState.user.username,
+      settingsPressed: this.settingsPressed
+    });
   }
 
   render() {

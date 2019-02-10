@@ -4,16 +4,18 @@ import COLORS from '../../../constants/colors';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: COLORS.PRIMARY_BUTTON,
+    backgroundColor: COLORS.BUTTON,
+    borderColor: COLORS.BORDER,
+    borderWidth: 1,
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
-    borderRadius: 24,
+    borderRadius: 8,
     height: 40,
     marginVertical: 5
   },
   textStyle: {
-    color: COLORS.WHITE,
+    color: COLORS.TEXT,
     fontSize: 18
   }
 });

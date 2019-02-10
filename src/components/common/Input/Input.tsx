@@ -7,15 +7,14 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   title: {
-    fontSize: 14,
-    color: COLORS.WHITE
+    fontSize: 16,
+    color: COLORS.TITLE
   },
   input: {
     width: '100%',
     height: 40,
     paddingHorizontal: 5,
-    fontSize: 18,
-    color: COLORS.WHITE
+    color: COLORS.TEXT,
   },
   underline: {
     height: 2,
@@ -30,6 +29,7 @@ export interface Props {
   title?: string,
   secureTextEntry?: boolean,
   name?: string,
+  placeholder?: string,
   onChangeText?: any
 }
 
@@ -57,8 +57,9 @@ export default class Input extends Component<Props, State> {
           style={[ styles.input, this.props.inputStyle ]}
           onBlur={ () => this.setState({ isActive: false }) }
           onFocus={ () => this.setState({ isActive: true }) }
+          placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
           underlineColorAndroid={ 'transparent' } />
-        <View style={[ styles.underline, {backgroundColor: !this.state.isActive ? "rgba(255, 255, 255, 0.1)" : COLORS.PRIMARY} ]}/>
+        <View style={[ styles.underline, {backgroundColor: !this.state.isActive ? COLORS.UNDERLINE : COLORS.HIGHLIGHT} ]}/>
       </View>
     )
   }

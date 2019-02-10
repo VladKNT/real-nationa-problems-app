@@ -7,13 +7,13 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     padding: 10,
-    backgroundColor: COLORS.PRIMARY_BACKGROUND
+    backgroundColor: COLORS.BACKGROUND
   },
   image: {
     width: 100,
     height: 100,
     borderRadius: 50,
     borderWidth: 2,
-    borderColor: COLORS.PRIMARY
+    borderColor: COLORS.HIGHLIGHT
   }
 })

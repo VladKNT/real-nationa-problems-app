@@ -6,18 +6,18 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: COLORS.PRIMARY_BACKGROUND
+    backgroundColor: COLORS.BACKGROUND
   },
 
   headerLeft: {
-    marginLeft: 10,
+    marginLeft: 20,
     fontWeight: 'bold',
     fontSize: 18,
     color: COLORS.BLACK
   },
 
   headerRight: {
-    marginRight: 10,
+    marginRight: 20,
   },
 
   wallPosterContainer: {
@@ -38,6 +38,6 @@ export default StyleSheet.create({
   fullName: {
     marginTop: 5,
     fontSize: 18,
-    color: COLORS.PRIMARY
+    color: COLORS.HIGHLIGHT
   }
 })

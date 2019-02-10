@@ -7,15 +7,15 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: COLORS.PRIMARY_BACKGROUND
+    backgroundColor: COLORS.BACKGROUND
   },
   questionText: {
-    color: COLORS.PRIMARY,
+    color: COLORS.HIGHLIGHT,
     fontSize: 16,
     alignSelf: 'center'
   },
   title: {
-    color: COLORS.PRIMARY,
+    color: COLORS.HIGHLIGHT,
     fontSize: 20,
     marginBottom: 10
   }
