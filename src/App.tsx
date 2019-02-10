@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Platform } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 import NavigationService from '../src/services/NavigationSecrvice';
 import COLORS from './constants/colors';
@@ -12,8 +11,8 @@ import SighUpScreen from './screens/SighUpScreen/SighUpScreen';
 import FeedScreen from './screens/FeedScreen/FeedScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 
-const navigationOptions = {
-  navigationOptions: {
+const defaultNavigationOptions = {
+  defaultNavigationOptions: {
     headerStyle: {
       shadowColor: 'transparent',
       shadowRadius: 0,
@@ -21,14 +20,8 @@ const navigationOptions = {
       shadowOffset: {
         height: 0,
       },
-      elevation: 0,
-      borderBottomWidth: 0,
-      backgroundColor: '#fff',
-      ...Platform.select({
-        android: {
-          marginTop: 24,
-         }
-       })
+      elevation: 3,
+      backgroundColor: COLORS.PRIMARY_BAR,
     },
     headerTitleAllowFontScaling: true,
   }
@@ -38,9 +31,8 @@ const Feed = createStackNavigator(
   {
     FeedScreen: { screen: FeedScreen },
   }, {
-    headerMode: 'none',
     initialRouteName: 'FeedScreen',
-    ...navigationOptions
+    ...defaultNavigationOptions
   }
 );
 
@@ -57,9 +49,8 @@ const Profile = createStackNavigator(
   {
     ProfileScreen: { screen: ProfileScreen }
   }, {
-    headerMode: 'none',
     initialRouteName: 'ProfileScreen',
-    ...navigationOptions
+    ...defaultNavigationOptions
   }
 );
 
@@ -74,10 +65,10 @@ Profile.navigationOptions = ({ navigation }: any) => {
 
 const tabBarOptions = {
     showLabel: false,
-    activeTintColor: COLORS.PRIMARY,
+    activeTintColor: COLORS.BLACK,
     inactiveTintColor: COLORS.INACTIVE_TB_TINT_COLOR,
     tabStyle: {
-      backgroundColor: COLORS.PRIMARY_BACKGROUND,
+      backgroundColor: COLORS.PRIMARY_BAR,
       paddingVertical: 5
     },
     labelStyle: {
@@ -95,7 +86,7 @@ const SignedInArea = createBottomTabNavigator(
       screen: Feed,
       path: '/feed',
       navigationOptions: {
-        ...navigationOptions,
+        ...defaultNavigationOptions,
         title: 'Home',
         tabBarIcon: ({ tintColor }: any) => (
           <Icon name={'md-home'} size={35} color={tintColor} />
@@ -107,7 +98,7 @@ const SignedInArea = createBottomTabNavigator(
       screen: Profile,
       path: '/profile',
       navigationOptions: {
-        ...navigationOptions,
+        ...defaultNavigationOptions,
         title: 'Profile',
         tabBarIcon: ({ tintColor }: any) => (
           <Icon name={'md-person'} size={35} color={tintColor} />

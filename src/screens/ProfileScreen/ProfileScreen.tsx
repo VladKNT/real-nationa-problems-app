@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
-import { Button, Input } from '../../components/common';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {  Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
-import STRINGS from '../../constants/strings';
 import styles from './Styles';
 import { IReducerStates } from '../../redux/reducers';
 import { IUserProfileReducer, IUserProfile, IUser } from '../../redux/reducers/userProfileReducer';
-import { UserProfile } from "../../constants/types";
-import {  Dispatch } from 'redux';
-import { connect } from 'react-redux';
+import COLORS from '../../constants/colors';
 
 interface Props {
   navigation: any
@@ -26,8 +25,23 @@ class ProfileScreen extends Component <Props, State> {
     super(props);
   }
 
+  static navigationOptions = ({ navigation }: any) => ({
+    headerLeft: (
+      <Text style={styles.headerLeft}>
+        { navigation.getParam('username') }
+      </Text>
+    ),
+
+    headerRight: (
+      <TouchableOpacity style={styles.headerRight} onPress={() => alert('This is a button!')}>
+        <Icon name={'md-settings'} size={25} color={COLORS.BLACK} />
+      </TouchableOpacity>
+    ),
+  });
+
   componentDidMount() {
-    console.info(this.props.user)
+    const { navigation, userProfileState } = this.props;
+    navigation.setParams({ username: userProfileState.user.username});
   }
 
   render() {
