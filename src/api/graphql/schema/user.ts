@@ -37,6 +37,23 @@ export const getUser = gql `
         firstName
         lastName
         profilePhoto
+        bio
+      }
+    }
+  }
+`;
+
+export const updateUser = gql `
+  mutation updateUser($id: ID!, $username: String, $firstName: String, $lastName: String, $profilePhoto: String, $bio: String) {
+    updateUser(id: $id, username: $username, firstName: $firstName, lastName: $lastName, profilePhoto: $profilePhoto, bio: $bio) {
+      id
+      username
+      email
+      userProfile {
+        firstName
+        lastName
+        profilePhoto
+        bio
       }
     }
   }

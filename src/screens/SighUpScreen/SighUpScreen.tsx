@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, TouchableOpacity, Image } from 'react-native';
+import _ from "lodash";
+import { Dispatch } from "redux";
+import { connect } from 'react-redux';
+
+import { IReducerStates } from "../../redux/reducers";
+import { signUp } from "../../redux/actions/ActionCreators";
 import { Button, Input } from '../../components/common';
 import STRINGS from '../../constants/strings';
 import IMAGES from '../../constants/images';
-import styles from './Styles';
-import _ from "lodash";
-
-import {IReducerStates} from "../../redux/reducers";
-import {Dispatch} from "redux";
-import { signUp } from "../../redux/actions/ActionCreators";
-import { connect } from 'react-redux';
 import { ISignUpParameters } from "../../constants/types";
+import styles from './Styles';
 
 interface Props {
   navigation: any,

@@ -29,6 +29,7 @@ export interface Props {
   title?: string,
   secureTextEntry?: boolean,
   name?: string,
+  value?: any,
   placeholder?: string,
   onChangeText?: any
 }

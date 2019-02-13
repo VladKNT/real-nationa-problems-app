@@ -11,8 +11,11 @@ export interface ISignInParameters {
   password: string
 }
 
-export interface UserProfile {
+export interface IEditProfileParameters {
+  id: string
+  username: string,
   firstName: string,
   lastName: string,
-  profilePhoto: string
+  profilePhoto: string | null,
+  bio: string
 }

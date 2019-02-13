@@ -1,6 +1,6 @@
 import configureClient from '../configureClient';
-import { ISignUpParameters, ISignInParameters } from '../../../constants/types';
-import { signUp, signIn, getUser, refreshToken } from '../schema/user';
+import { ISignUpParameters, ISignInParameters, IEditProfileParameters } from '../../../constants/types';
+import { signUp, signIn, refreshToken, getUser, updateUser } from '../schema/user';
 import TokenService from '../../../services/TokenService';
 
 interface GetUserQuery {
@@ -37,6 +37,20 @@ export default class UserResolver {
     }
   }
 
+  static async refreshToken(token: string) {
+    try {
+      const response = await client.mutate({
+        variables: { token },
+        mutation: refreshToken
+      });
+
+      return response.data.refreshToken;
+    } catch (error) {
+      console.info(error);
+      return null;
+    }
+  }
+
   static async getUser() {
     try {
       await TokenService.checkTokenExpired();
@@ -48,14 +62,15 @@ export default class UserResolver {
     }
   }
 
-  static async refreshToken(token: string) {
+  static async updateUser({ id, username, firstName, lastName, profilePhoto, bio }: IEditProfileParameters) {
     try {
+      await TokenService.checkTokenExpired();
       const response = await client.mutate({
-        variables: { token },
-        mutation: refreshToken
+        variables: { id, username, firstName, lastName, profilePhoto, bio  },
+        mutation: updateUser
       });
 
-      return response.data.refreshToken;
+      return response.data.updateUser;
     } catch (error) {
       console.info(error);
       return null;

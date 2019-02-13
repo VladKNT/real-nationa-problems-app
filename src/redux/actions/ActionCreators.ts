@@ -1,5 +1,5 @@
 import ACTION from './ActionTypes';
-import { ISignUpParameters, ISignInParameters } from '../../constants/types';
+import { ISignUpParameters, ISignInParameters, IEditProfileParameters } from '../../constants/types';
 
 export const routeCurrentUser = () => {
   return {
@@ -23,5 +23,17 @@ export const signIn = ({ login, password }: ISignInParameters) => {
     type: ACTION.LOGIN_USER_PROFILE,
     login,
     password
+  }
+};
+
+export const updateUserProfile = ({ id, username, firstName, lastName, profilePhoto, bio }: IEditProfileParameters) => {
+  return {
+    type: ACTION.UPDATE_USER_PROFILE,
+    id,
+    username,
+    firstName,
+    lastName,
+    profilePhoto,
+    bio
   }
 };
