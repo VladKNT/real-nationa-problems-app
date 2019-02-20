@@ -37,3 +37,9 @@ export const updateUserProfile = ({ id, username, firstName, lastName, profilePh
     bio
   }
 };
+
+export const getEvents = () => {
+  return {
+    type: ACTION.FETCH_EVENTS
+  }
+};

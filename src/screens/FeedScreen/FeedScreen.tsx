@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Button, Input } from '../../components/common';
-import STRINGS from '../../constants/strings';
+import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import EventCard from '../../components/EventCard/EventCard';
 import styles from './Styles';
-import {IReducerStates} from "../../redux/reducers";
-import {Dispatch} from "redux";
-import {ISignInParameters} from "../../constants/types";
-import {connect} from "react-redux";
+import { IReducerStates } from '../../redux/reducers';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { getEvents } from '../../redux/actions/ActionCreators';
 
 interface Props {
-  navigation: any
+  navigation: any,
+  getEvents: () => void
 }
 
 interface State {
@@ -21,13 +21,17 @@ class FeedScreen extends Component <Props, State> {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.getEvents();
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>
-          Feed Screen
-        </Text>
-      </View>
+      <ScrollView style={styles.container}>
+        <EventCard />
+        <EventCard />
+        <EventCard />
+      </ScrollView>
     )
   }
 }
@@ -41,7 +45,7 @@ const mapStateToProps = (state: IReducerStates) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-
+    getEvents: () => dispatch(getEvents())
   };
 };
 

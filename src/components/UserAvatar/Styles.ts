@@ -10,9 +10,6 @@ export default StyleSheet.create({
     backgroundColor: COLORS.BACKGROUND
   },
   image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
     borderWidth: 2,
     borderColor: COLORS.HIGHLIGHT
   }

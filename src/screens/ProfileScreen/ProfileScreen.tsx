@@ -59,7 +59,7 @@ class ProfileScreen extends Component <Props, State> {
       <View style={styles.container}>
         <ImageBackground source={{ uri: 'https://i.photographers.ua/thumbnails/pictures/42779/800xdsc_1087_1200.jpg' }} style={styles.wallPosterContainer}>
           <View style={styles.personalInfoContainer}>
-            <UserAvatar />
+            <UserAvatar size={100}/>
 
             <Text style={styles.fullName}>
               {firstName} {lastName}

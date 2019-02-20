@@ -95,7 +95,7 @@ class EditProfileScreen extends Component <Props, State> {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.avatarContainer}>
-          <UserAvatar />
+          <UserAvatar size={100}/>
 
           <TouchableOpacity style={styles.changePhotoBtn}>
             <Text style={styles.changePhotoBtnText}>

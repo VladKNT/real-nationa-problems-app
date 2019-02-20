@@ -68,7 +68,7 @@ export function* signIn(action: any) {
 export function* updateUserProfile(action: any) {
   try {
   const { id, username, firstName, lastName, profilePhoto, bio } = action;
-  yield put({  type: ACTION. UPDATE_USER_PROFILE_REQUEST });
+  yield put({  type: ACTION. UPDATE_USER_PROFILE_REQUESTING });
 
   const user = yield call(UserResolver.updateUser, {id, username, firstName, lastName, profilePhoto, bio });
 
