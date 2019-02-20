@@ -7,7 +7,6 @@ export function* getEvents() {
   try {
     yield put({ type: ACTION.FETCH_EVENTS_REQUESTING });
     const events =  yield call(EventResolver.getEvents);
-    const events =  yield call(EventResolver.getEvents);
 
     if (events){
       yield put({ type: ACTION.FETCH_EVENTS_SUCCESS, events });
