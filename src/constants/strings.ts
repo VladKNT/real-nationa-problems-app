@@ -16,5 +16,13 @@ export default {
   BIO: 'Bio',
 
   // === Edit profile ===
-  CHANGE_PHOTO: 'Change Photo'
+  CHANGE_PHOTO: 'Change Photo',
+
+  // === Save event ===
+  EVENT_NAME: 'Event name',
+  DESCRIPTION: 'Description',
+  DATE_START: 'Date start',
+  DATE_END: 'Date end',
+  NEXT: 'Next',
+  DONE: 'Done'
 }

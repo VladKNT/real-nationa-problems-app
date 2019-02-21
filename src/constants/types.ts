@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export interface ISignUpParameters {
   email: string,
   password: string,
@@ -18,4 +20,13 @@ export interface IEditProfileParameters {
   lastName: string,
   profilePhoto: string | null,
   bio: string
+}
+
+export interface ISaveEventParameters {
+  id?: string,
+  name: string,
+  description: string,
+  photo: string,
+  dateStart: moment.Moment | null,
+  dateEnd: moment.Moment | null
 }

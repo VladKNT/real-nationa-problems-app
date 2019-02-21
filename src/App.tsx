@@ -11,6 +11,9 @@ import SighUpScreen from './screens/SighUpScreen/SighUpScreen';
 import FeedScreen from './screens/FeedScreen/FeedScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import EditProfileScreen from './screens/EditProfileScreen/EditProfileScreen';
+import SaveEventScreen from './screens/SaveEventScreen/SaveEventScreen';
+
+const ICON_SIZE = 35;
 
 const defaultNavigationOptions = {
   defaultNavigationOptions: {
@@ -65,6 +68,24 @@ Profile.navigationOptions = ({ navigation }: any) => {
   return { tabBarVisible };
 };
 
+const SaveEvent = createStackNavigator(
+  {
+    SaveEventScreen: SaveEventScreen
+  }, {
+    initialRouteName: 'SaveEventScreen',
+    ...defaultNavigationOptions
+  }
+);
+
+SaveEvent.navigationOptions = ({ navigation }: any) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return { tabBarVisible };
+};
+
 const tabBarOptions = {
     showLabel: false,
     activeTintColor: COLORS.BLACK,
@@ -91,7 +112,19 @@ const SignedInArea = createBottomTabNavigator(
         ...defaultNavigationOptions,
         title: 'Home',
         tabBarIcon: ({ tintColor }: any) => (
-          <Icon name={'md-home'} size={35} color={tintColor} />
+          <Icon name={'md-home'} size={ICON_SIZE} color={tintColor} />
+        )
+      }
+    },
+
+    SaveEventTab: {
+      screen: SaveEvent,
+      path: '/saveEvent',
+      navigationOptions: {
+        ...defaultNavigationOptions,
+        title: 'Save Event',
+        tabBarIcon: ({ tintColor }: any) => (
+          <Icon name={'md-add-circle-outline'} size={ICON_SIZE} color={tintColor} />
         )
       }
     },
@@ -103,7 +136,7 @@ const SignedInArea = createBottomTabNavigator(
         ...defaultNavigationOptions,
         title: 'Profile',
         tabBarIcon: ({ tintColor }: any) => (
-          <Icon name={'md-person'} size={35} color={tintColor} />
+          <Icon name={'md-person'} size={ICON_SIZE} color={tintColor} />
         )
       }
     }
