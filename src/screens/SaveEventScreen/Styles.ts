@@ -12,6 +12,10 @@ export default StyleSheet.create({
   },
 
   imageContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 10,
     width: '100%',
     height: height * 0.3
@@ -20,6 +24,15 @@ export default StyleSheet.create({
   image: {
     width: '100%',
     height: '100%'
+  },
+
+  addPhotoContainer:  {
+    alignItems: 'center'
+  },
+
+  addPhotoText: {
+    color: COLORS.TEXT,
+    fontSize: 16
   },
 
   fieldsContainer: {

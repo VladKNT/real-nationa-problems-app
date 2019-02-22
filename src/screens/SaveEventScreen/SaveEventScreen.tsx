@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import ActionSheet from 'react-native-actionsheet';
+import ImagePicker from 'react-native-image-crop-picker';
+
 import _ from 'lodash';
 import moment from 'moment';
-import styles from './Styles';
 import { Input, Button } from '../../components/common';
 import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
 import STRINGS from '../../constants/strings';
+import COLORS from '../../constants/colors';
 import { ISaveEventParameters } from '../../constants/types';
+import styles from './Styles';
 
 interface Props {
   style?: any
@@ -18,7 +23,6 @@ interface State {
   endDatePickerVisible: boolean
 }
 
-
 export default class SaveEventScreen extends Component <Props, State> {
   constructor(props: Props) {
     super(props);
@@ -28,13 +32,13 @@ export default class SaveEventScreen extends Component <Props, State> {
         id: '',
         name: '',
         description: '',
-        photo: 'https://i.photographers.ua/thumbnails/pictures/42779/800xdsc_1087_1200.jpg',
+        photo: '',
         dateStart: null,
         dateEnd: null
       },
       startDatePickerVisible: false,
       endDatePickerVisible: false
-    }
+    };
   }
 
   onInputChange = (name: string, data: any) => {
@@ -134,13 +138,82 @@ export default class SaveEventScreen extends Component <Props, State> {
     return null;
   };
 
+
+  onImagePicker = () => {
+    ImagePicker.openPicker({}).then((image: any) => {
+      this.onInputChange('photo', image.path);
+    }).catch((error) => {
+      if (error) {
+        console.log('ImagePicker Error: ', error.toString())
+      }
+    })
+  };
+
+  onPhotoPicker = () => {
+    ImagePicker.openCamera({}).then((image: any) => {
+      this.onInputChange('photo', image.path);
+    }).catch((error) => {
+      if (error) {
+        console.log('ImagePicker Error: ', error.toString())
+      }
+    })
+  };
+
+  ACTION_SHEET_OPTIONS = [
+    'Photo Library',
+    'Camera',
+  ];
+
+  handleActionSheetPress(index: number) {
+    switch (index) {
+      case 0:
+        this.onImagePicker();
+        break;
+
+      case 1:
+        this.onPhotoPicker();
+        break;
+    }
+  }
+
+  renderActionSheet() {
+    return (
+      <ActionSheet
+        ref={(ref) => this.ActionSheet = ref}
+        options={[...this.ACTION_SHEET_OPTIONS, 'Cancel']}
+        cancelButtonIndex={this.ACTION_SHEET_OPTIONS.length}
+        onPress={(index: number) => this.handleActionSheetPress(index)}
+      />
+    );
+  }
+
+  onImagePressed = () => {
+    this.ActionSheet.show();
+  };
+
+
+  renderImage = () => {
+    const { photo } = this.state.eventInfo;
+
+    if (photo) {
+      return  <Image source={{ uri: photo }} style={styles.image}/>
+    }
+
+    return (
+      <View style={styles.addPhotoContainer}>
+        <Icon name={'ios-camera'} size={40} color={COLORS.TEXT} />
+        <Text style={styles.addPhotoText}>Add photo</Text>
+      </View>
+    )
+  };
+
   render() {
     const { name, description, photo } = this.state.eventInfo;
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.imageContainer}>
-          <Image source={{ uri: photo }} style={styles.image}/>
+        <TouchableOpacity onPress={this.onImagePressed} style={styles.imageContainer}>
+          {this.renderImage()}
         </TouchableOpacity>
 
         <View style={styles.fieldsContainer}>
@@ -158,6 +231,7 @@ export default class SaveEventScreen extends Component <Props, State> {
         {this.renderDatePickerOverlay()}
         {this.renderDateStartPicker()}
         {this.renderDateEndPicker()}
+        {this.renderActionSheet()}
 
       </View>
     )
