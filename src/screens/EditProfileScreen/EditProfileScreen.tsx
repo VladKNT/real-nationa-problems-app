@@ -73,7 +73,7 @@ class EditProfileScreen extends Component <Props, State> {
   }
 
   static navigationOptions = ({ navigation }: any) => ({
-    headerTitle: 'Edit Profile',
+    headerTitle: STRINGS.EDIT_PROFILE,
 
     headerRight: (
       <TouchableOpacity style={styles.headerRight} onPress={navigation.getParam('onSavePressed')}>

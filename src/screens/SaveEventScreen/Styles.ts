@@ -42,6 +42,15 @@ export default StyleSheet.create({
     padding: 10
   },
 
+  addPlaceContainer: {
+    marginVertical: 10
+  },
+
+  addPlaceText: {
+    color: COLORS.TEXT,
+    fontSize: 18
+  },
+
   datePickerOverlay: {
     position: 'absolute',
     top: 0,

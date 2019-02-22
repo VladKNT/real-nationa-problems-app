@@ -12,6 +12,7 @@ import FeedScreen from './screens/FeedScreen/FeedScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import EditProfileScreen from './screens/EditProfileScreen/EditProfileScreen';
 import SaveEventScreen from './screens/SaveEventScreen/SaveEventScreen';
+import MapScreen from './screens/MapScreen/MapScreen';
 
 const ICON_SIZE = 35;
 
@@ -70,7 +71,8 @@ Profile.navigationOptions = ({ navigation }: any) => {
 
 const SaveEvent = createStackNavigator(
   {
-    SaveEventScreen: SaveEventScreen
+    SaveEventScreen: SaveEventScreen,
+    MapScreen: MapScreen,
   }, {
     initialRouteName: 'SaveEventScreen',
     ...defaultNavigationOptions

@@ -14,7 +14,8 @@ import { ISaveEventParameters } from '../../constants/types';
 import styles from './Styles';
 
 interface Props {
-  style?: any
+  style?: any,
+  navigation: any
 }
 
 interface State {
@@ -40,6 +41,11 @@ export default class SaveEventScreen extends Component <Props, State> {
       endDatePickerVisible: false
     };
   }
+
+  onAddPlacePressed = () => {
+    const { navigate } = this.props.navigation;
+    navigate("MapScreen");
+  };
 
   onInputChange = (name: string, data: any) => {
     let eventInfo = this.state.eventInfo;
@@ -202,7 +208,9 @@ export default class SaveEventScreen extends Component <Props, State> {
     return (
       <View style={styles.addPhotoContainer}>
         <Icon name={'ios-camera'} size={40} color={COLORS.TEXT} />
-        <Text style={styles.addPhotoText}>Add photo</Text>
+        <Text style={styles.addPhotoText}>
+          {STRINGS.ADD_PHOTO}
+        </Text>
       </View>
     )
   };
@@ -223,6 +231,12 @@ export default class SaveEventScreen extends Component <Props, State> {
           <Input title={STRINGS.DESCRIPTION}
                  value={description}
                  onChangeText={(data: string) => this.onInputChange('description', data)} />
+          <TouchableOpacity onPress={this.onAddPlacePressed} style={styles.addPlaceContainer}>
+            <Text style={styles.addPlaceText}>
+              <Icon name={'md-map'} size={25} color={COLORS.TEXT} /> {STRINGS.ADD_PLACE}
+            </Text>
+          </TouchableOpacity>
+
           <Button onPress={this.onOpenDatePicker}>
             Select Date/Time
           </Button>
@@ -232,7 +246,6 @@ export default class SaveEventScreen extends Component <Props, State> {
         {this.renderDateStartPicker()}
         {this.renderDateEndPicker()}
         {this.renderActionSheet()}
-
       </View>
     )
   }

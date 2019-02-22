@@ -1,4 +1,8 @@
 export default {
+  // === Header titles ===
+  EDIT_PROFILE: 'Edit Profile',
+  ADD_PLACE: 'Add Place',
+
   // === Login and create an account screens
   LOGIN: 'Login',
   SIGN_UP: 'Sign Up',
@@ -24,5 +28,6 @@ export default {
   DATE_START: 'Date start',
   DATE_END: 'Date end',
   NEXT: 'Next',
-  DONE: 'Done'
+  DONE: 'Done',
+  ADD_PHOTO: 'Add photo'
 }
