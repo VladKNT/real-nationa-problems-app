@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import UserAvatar from '../UserAvatar/UserAvatar';
 import styles from './Styles';
-import { IEvent } from '../../redux/reducers/event';
+import { IEvent } from '../../redux/reducers/eventReducer';
 
 interface Props {
   event: IEvent

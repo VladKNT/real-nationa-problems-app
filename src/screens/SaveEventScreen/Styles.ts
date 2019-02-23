@@ -11,6 +11,10 @@ export default StyleSheet.create({
     backgroundColor: COLORS.BACKGROUND
   },
 
+  headerRight: {
+    marginRight: 20,
+  },
+
   imageContainer: {
     flex: 1,
     flexDirection: 'column',

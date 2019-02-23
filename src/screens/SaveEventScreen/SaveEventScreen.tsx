@@ -3,9 +3,15 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ActionSheet from 'react-native-actionsheet';
 import ImagePicker from 'react-native-image-crop-picker';
-
 import _ from 'lodash';
 import moment from 'moment';
+
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { IReducerStates } from '../../redux/reducers';
+import { IEvent } from '../../redux/reducers/eventReducer';
+import { clearSaveEventData, setSaveEventData } from '../../redux/actions/ActionCreators';
+
 import { Input, Button } from '../../components/common';
 import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
 import STRINGS from '../../constants/strings';
@@ -14,8 +20,10 @@ import { ISaveEventParameters } from '../../constants/types';
 import styles from './Styles';
 
 interface Props {
-  style?: any,
-  navigation: any
+  navigation: any,
+  saveEvent: IEvent,
+  clearSaveEventData: () => void,
+  setSaveEventDate: (saveEvent: IEvent) => void
 }
 
 interface State {
@@ -24,27 +32,68 @@ interface State {
   endDatePickerVisible: boolean
 }
 
-export default class SaveEventScreen extends Component <Props, State> {
+class SaveEventScreen extends Component <Props, State> {
   constructor(props: Props) {
     super(props);
+    const { id, name, description, photo, dateStart, dateEnd } = props.saveEvent;
 
     this.state = {
       eventInfo: {
-        id: '',
-        name: '',
-        description: '',
-        photo: '',
-        dateStart: null,
-        dateEnd: null
+        id,
+        name,
+        description,
+        photo,
+        dateStart,
+        dateEnd
       },
       startDatePickerVisible: false,
       endDatePickerVisible: false
     };
+  };
+
+  static getDerivedStateFromProps(props: Props, state: State) {
+    const { id, name, description, photo, dateStart, dateEnd  } = props.saveEvent;
+
+    return {
+      eventInfo: {
+        id,
+        name,
+        description,
+        photo,
+        dateStart,
+        dateEnd
+      },
+    }
   }
 
+  onSavePressed = () => {
+    const { navigation, setSaveEventDate, clearSaveEventData } = this.props;
+
+    setSaveEventDate(this.state.eventInfo);
+    navigation.navigate('FeedScreen');
+    clearSaveEventData();
+  };
+
+  componentDidMount() {
+    const { navigation } = this.props;
+    navigation.setParams({
+      onSavePressed: this.onSavePressed
+    });
+  };
+
+  static navigationOptions = ({ navigation }: any) => ({
+    headerRight: (
+      <TouchableOpacity style={styles.headerRight} onPress={navigation.getParam('onSavePressed')}>
+        <Icon name={'md-checkmark'} size={25} color={COLORS.HIGHLIGHT}/>
+      </TouchableOpacity>
+    )
+  });
+
   onAddPlacePressed = () => {
-    const { navigate } = this.props.navigation;
-    navigate("MapScreen");
+    const { navigation, setSaveEventDate } = this.props;
+    setSaveEventDate(this.state.eventInfo);
+
+    navigation.navigate('MapScreen');
   };
 
   onInputChange = (name: string, data: any) => {
@@ -250,3 +299,19 @@ export default class SaveEventScreen extends Component <Props, State> {
     )
   }
 }
+
+const mapStateToProps = (state: IReducerStates) => {
+  return {
+    saveEvent: state.eventReducer.saveEvent
+  };
+};
+
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setSaveEventDate: (saveEvent: IEvent) => dispatch(setSaveEventData(saveEvent)),
+    clearSaveEventData: () => dispatch(clearSaveEventData())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SaveEventScreen);

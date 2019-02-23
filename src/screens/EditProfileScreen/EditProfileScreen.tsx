@@ -42,7 +42,7 @@ class EditProfileScreen extends Component <Props, State> {
         bio
       },
     };
-  }
+  };
 
   onSavePressed = () => {
     this.props.updateUserProfile(this.state.userInfo);
@@ -63,14 +63,14 @@ class EditProfileScreen extends Component <Props, State> {
         bio
       },
     }
-  }
+  };
 
   componentDidMount() {
     const { navigation } = this.props;
     navigation.setParams({
       onSavePressed: this.onSavePressed
     });
-  }
+  };
 
   static navigationOptions = ({ navigation }: any) => ({
     headerTitle: STRINGS.EDIT_PROFILE,

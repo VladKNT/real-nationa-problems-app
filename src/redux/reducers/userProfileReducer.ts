@@ -1,22 +1,6 @@
 import ACTION from '../actions/ActionTypes';
 import { AnyAction } from 'redux';
 
-const initialState = {
-  user: {
-    id: '',
-    username: '',
-    email: '',
-    userProfile: {
-      firstName: '',
-      lastName: '',
-      profilePhoto: '',
-      bio: ''
-    }
-  },
-
-  loading: false,
-  error: ''
-};
 
 export interface IUserProfile {
   firstName: string,
@@ -37,6 +21,25 @@ export interface IUserProfileReducer {
   loading: boolean,
   error: string
 }
+
+export const initUser = {
+  id: '',
+  username: '',
+  email: '',
+  userProfile: {
+    firstName: '',
+    lastName: '',
+    profilePhoto: '',
+    bio: ''
+  }
+};
+
+const initialState = {
+  user: initUser,
+
+  loading: false,
+  error: ''
+};
 
 export default function(state: IUserProfileReducer = initialState, action: AnyAction) {
   switch (action.type) {

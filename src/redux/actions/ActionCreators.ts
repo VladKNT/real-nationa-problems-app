@@ -1,5 +1,6 @@
 import ACTION from './ActionTypes';
 import { ISignUpParameters, ISignInParameters, IEditProfileParameters } from '../../constants/types';
+import { IEvent } from '../reducers/eventReducer';
 
 export const routeCurrentUser = () => {
   return {
@@ -41,5 +42,19 @@ export const updateUserProfile = ({ id, username, firstName, lastName, profilePh
 export const getEvents = () => {
   return {
     type: ACTION.FETCH_EVENTS
+  }
+};
+
+export const setSaveEventData = (saveEvent: IEvent) => {
+  return {
+    type: ACTION.SET_SAVE_EVENT_DATA,
+    saveEvent
+  }
+};
+
+
+export const clearSaveEventData = () => {
+  return {
+    type: ACTION.CLEAR_SAVE_EVENT_DATA,
   }
 };
