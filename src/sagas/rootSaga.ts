@@ -11,6 +11,7 @@ function* rootSaga() {
   yield takeLatest(ACTION.LOGIN_USER_PROFILE, userProfileSaga.signIn);
   yield takeLatest(ACTION.UPDATE_USER_PROFILE, userProfileSaga.updateUserProfile);
   yield takeLatest(ACTION.FETCH_EVENTS, eventSaga.getEvents);
+  yield takeLatest(ACTION.CREATE_EVENT, eventSaga.createEvent);
 }
 
 export default rootSaga;

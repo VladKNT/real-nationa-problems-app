@@ -8,7 +8,7 @@ import { IReducerStates } from '../../redux/reducers';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { setSaveEventData } from '../../redux/actions/ActionCreators';
-import { IEvent } from '../../redux/reducers/eventReducer';
+import { ISaveEventParameters } from '../../constants/types';
 
 import COLORS from '../../constants/colors';
 import STRINGS from '../../constants/strings';
@@ -16,14 +16,14 @@ import styles from './Styles';
 
 interface Props {
   navigation: any,
-  saveEvent: IEvent,
-  setSaveEventDate: (saveEvent: IEvent) => void
+  saveEvent: ISaveEventParameters,
+  setSaveEventDate: (saveEvent: ISaveEventParameters) => void
 }
 
 interface State {
   coordinate: {
-    longitude: number | null,
-    latitude: number | null
+    longitude?: number | null,
+    latitude?: number | null
   }
 }
 
@@ -120,7 +120,7 @@ const mapStateToProps = (state: IReducerStates) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setSaveEventDate: (saveEvent: IEvent) => dispatch(setSaveEventData(saveEvent)),
+    setSaveEventDate: (saveEvent: ISaveEventParameters) => dispatch(setSaveEventData(saveEvent)),
   };
 };
 

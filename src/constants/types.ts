@@ -28,5 +28,8 @@ export interface ISaveEventParameters {
   description: string,
   photo: string,
   dateStart: moment.Moment | null,
-  dateEnd: moment.Moment | null
+  dateEnd: moment.Moment | null,
+  participants?: [],
+  longitude?: number,
+  latitude?: number
 }

@@ -2,6 +2,7 @@ import ACTION from '../actions/ActionTypes';
 import { AnyAction } from 'redux';
 import { IUser, initUser } from './userProfileReducer';
 import moment from 'moment';
+import { ISaveEventParameters } from '../../constants/types';
 
 export interface IEvent {
   id?: string,
@@ -18,7 +19,7 @@ export interface IEvent {
 
 export interface IEventReducer {
   event: IEvent,
-  saveEvent: IEvent,
+  saveEvent: ISaveEventParameters,
   loading: boolean,
   error: string
 }
@@ -36,9 +37,21 @@ const event = {
   creator: initUser
 };
 
+const saveEvent = {
+  id: '',
+  name: '',
+  description: '',
+  photo: '',
+  dateStart: null,
+  dateEnd: null,
+  longitude: null,
+  latitude: null
+};
+
 const initialState = {
   event: event,
-  saveEvent: event,
+  events: event,
+  saveEvent: saveEvent,
 
   loading: false,
   error: ''
@@ -56,7 +69,7 @@ export default function(state: IEventReducer = initialState, action: AnyAction) 
     case ACTION.FETCH_EVENTS_SUCCESS: {
       return {
         ...state,
-        event: action.event,
+        events: action.events,
         loading: false,
       }
     }

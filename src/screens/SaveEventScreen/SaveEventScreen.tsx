@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import ActionSheet from 'react-native-actionsheet';
-import ImagePicker from 'react-native-image-crop-picker';
 import _ from 'lodash';
 import moment from 'moment';
 
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { IReducerStates } from '../../redux/reducers';
-import { IEvent } from '../../redux/reducers/eventReducer';
-import { clearSaveEventData, setSaveEventData } from '../../redux/actions/ActionCreators';
+import { setSaveEventData, createEvent } from '../../redux/actions/ActionCreators';
 
 import { Input, Button } from '../../components/common';
 import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
+import ImagePhotoPicker from '../../components/ImagePhotoPicker/ImagePhotoPicker';
 import STRINGS from '../../constants/strings';
 import COLORS from '../../constants/colors';
 import { ISaveEventParameters } from '../../constants/types';
@@ -21,9 +19,9 @@ import styles from './Styles';
 
 interface Props {
   navigation: any,
-  saveEvent: IEvent,
-  clearSaveEventData: () => void,
-  setSaveEventDate: (saveEvent: IEvent) => void
+  saveEvent: ISaveEventParameters,
+  createEvent: () => void,
+  setSaveEventDate: (saveEvent: ISaveEventParameters) => void
 }
 
 interface State {
@@ -67,11 +65,10 @@ class SaveEventScreen extends Component <Props, State> {
   }
 
   onSavePressed = () => {
-    const { navigation, setSaveEventDate, clearSaveEventData } = this.props;
+    const { setSaveEventDate, createEvent } = this.props;
 
     setSaveEventDate(this.state.eventInfo);
-    navigation.navigate('FeedScreen');
-    clearSaveEventData();
+    createEvent();
   };
 
   componentDidMount() {
@@ -193,59 +190,9 @@ class SaveEventScreen extends Component <Props, State> {
     return null;
   };
 
-
-  onImagePicker = () => {
-    ImagePicker.openPicker({}).then((image: any) => {
-      this.onInputChange('photo', image.path);
-    }).catch((error) => {
-      if (error) {
-        console.log('ImagePicker Error: ', error.toString())
-      }
-    })
+  onImagePicked = (uri: string) => {
+    this.onInputChange('photo', uri);
   };
-
-  onPhotoPicker = () => {
-    ImagePicker.openCamera({}).then((image: any) => {
-      this.onInputChange('photo', image.path);
-    }).catch((error) => {
-      if (error) {
-        console.log('ImagePicker Error: ', error.toString())
-      }
-    })
-  };
-
-  ACTION_SHEET_OPTIONS = [
-    'Photo Library',
-    'Camera',
-  ];
-
-  handleActionSheetPress(index: number) {
-    switch (index) {
-      case 0:
-        this.onImagePicker();
-        break;
-
-      case 1:
-        this.onPhotoPicker();
-        break;
-    }
-  }
-
-  renderActionSheet() {
-    return (
-      <ActionSheet
-        ref={(ref) => this.ActionSheet = ref}
-        options={[...this.ACTION_SHEET_OPTIONS, 'Cancel']}
-        cancelButtonIndex={this.ACTION_SHEET_OPTIONS.length}
-        onPress={(index: number) => this.handleActionSheetPress(index)}
-      />
-    );
-  }
-
-  onImagePressed = () => {
-    this.ActionSheet.show();
-  };
-
 
   renderImage = () => {
     const { photo } = this.state.eventInfo;
@@ -269,9 +216,9 @@ class SaveEventScreen extends Component <Props, State> {
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={this.onImagePressed} style={styles.imageContainer}>
+        <ImagePhotoPicker  onPick={this.onImagePicked} style={styles.imageContainer}>
           {this.renderImage()}
-        </TouchableOpacity>
+        </ImagePhotoPicker>
 
         <View style={styles.fieldsContainer}>
           <Input title={STRINGS.EVENT_NAME}
@@ -294,7 +241,6 @@ class SaveEventScreen extends Component <Props, State> {
         {this.renderDatePickerOverlay()}
         {this.renderDateStartPicker()}
         {this.renderDateEndPicker()}
-        {this.renderActionSheet()}
       </View>
     )
   }
@@ -309,8 +255,8 @@ const mapStateToProps = (state: IReducerStates) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setSaveEventDate: (saveEvent: IEvent) => dispatch(setSaveEventData(saveEvent)),
-    clearSaveEventData: () => dispatch(clearSaveEventData())
+    setSaveEventDate: (saveEvent: ISaveEventParameters) => dispatch(setSaveEventData(saveEvent)),
+    createEvent: () => dispatch(createEvent())
   };
 };
 
