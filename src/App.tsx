@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { createBottomTabNavigator, createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
-import NavigationService from '../src/services/NavigationSecrvice';
+import NavigationService from './application/data/services/NavigationSecrvice';
 import COLORS from './constants/colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-import SplashScreen from './screens/SplashScreen/SplashScreen';
-import SignInScreen from './screens/SignInScreen/SignInScreen';
-import SighUpScreen from './screens/SighUpScreen/SighUpScreen';
-import FeedScreen from './screens/FeedScreen/FeedScreen';
-import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
-import EditProfileScreen from './screens/EditProfileScreen/EditProfileScreen';
-import EventScreen from './screens/EventScreen/EventScreen';
-import SaveEventScreen from './screens/SaveEventScreen/SaveEventScreen';
-import MapScreen from './screens/MapScreen/MapScreen';
+import SplashScreen from './application/view/screens/SplashScreen/SplashScreen';
+import SignInScreen from './application/view/screens/SignInScreen/SignInScreen';
+import SighUpScreen from './application/view/screens/SighUpScreen/SighUpScreen';
+import FeedScreen from './application/view/screens/FeedScreen/FeedScreen';
+import ProfileScreen from './application/view/screens/ProfileScreen/ProfileScreen';
+import EditProfileScreen from './application/view/screens/EditProfileScreen/EditProfileScreen';
+import EventScreen from './application/view/screens/EventScreen/EventScreen';
+import SaveEventScreen from './application/view/screens/SaveEventScreen/SaveEventScreen';
+import MapScreen from './application/view/screens/MapScreen/MapScreen';
 
 const ICON_SIZE = 35;
 

@@ -1,6 +1,6 @@
 import configureClient from '../configureClient';
 import { getEvent, getEvents, createEvent } from '../schema/event';
-import TokenService from '../../../services/TokenService';
+import TokenService from '../../../application/data/services/TokenService';
 import { ISaveEventParameters } from '../../../constants/types';
 
 interface GetEventsQuery {

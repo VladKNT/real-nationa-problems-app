@@ -1,7 +1,7 @@
 import configureClient from '../configureClient';
 import { ISignUpParameters, ISignInParameters, IEditProfileParameters } from '../../../constants/types';
 import { signUp, signIn, refreshToken, getUser, updateUser } from '../schema/user';
-import TokenService from '../../../services/TokenService';
+import TokenService from '../../../application/data/services/TokenService';
 
 interface GetUserQuery {
   getUser: any
