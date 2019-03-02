@@ -10,6 +10,7 @@ import { updateUserProfile } from "../../redux/actions/ActionCreators";
 import { IUserProfileReducer } from '../../redux/reducers/userProfileReducer';
 import { Input } from '../../components/common';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
+import ImagePhotoPicker from '../../components/ImagePhotoPicker/ImagePhotoPicker';
 import STRINGS from '../../constants/strings';
 import COLORS from '../../constants/colors';
 import { IEditProfileParameters} from '../../constants/types';
@@ -89,19 +90,23 @@ class EditProfileScreen extends Component <Props, State> {
     this.setState({ userInfo });
   };
 
+  onImagePicked = (uri: string) => {
+    this.onInputChange('profilePhoto', uri);
+  };
+
   render() {
     const { username, firstName, lastName, profilePhoto, bio } = this.state.userInfo;
 
     return (
       <ScrollView style={styles.container}>
         <View style={styles.avatarContainer}>
-          <UserAvatar size={100}/>
+          <UserAvatar size={100} uri={ profilePhoto }/>
 
-          <TouchableOpacity style={styles.changePhotoBtn}>
+          <ImagePhotoPicker onPick={this.onImagePicked} style={styles.changePhotoBtn}>
             <Text style={styles.changePhotoBtnText}>
               { STRINGS.CHANGE_PHOTO }
             </Text>
-          </TouchableOpacity>
+          </ImagePhotoPicker>
         </View>
 
         <View>
