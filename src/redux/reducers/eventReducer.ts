@@ -19,6 +19,7 @@ export interface IEvent {
 
 export interface IEventReducer {
   event: IEvent,
+  events: IEvent[],
   saveEvent: ISaveEventParameters,
   loading: boolean,
   error: string
