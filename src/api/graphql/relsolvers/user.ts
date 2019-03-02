@@ -62,11 +62,11 @@ export default class UserResolver {
     }
   }
 
-  static async updateUser({ id, username, firstName, lastName, profilePhoto, bio }: IEditProfileParameters) {
+  static async updateUser({ id, username, firstName, lastName, imageFile, bio }: IEditProfileParameters) {
     try {
       await TokenService.checkTokenExpired();
       const response = await client.mutate({
-        variables: { id, username, firstName, lastName, profilePhoto, bio  },
+        variables: { id, username, firstName, lastName, imageFile, bio  },
         mutation: updateUser
       });
 

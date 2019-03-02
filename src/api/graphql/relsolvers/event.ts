@@ -22,11 +22,11 @@ export default class EventResolver {
     }
   }
 
-  static async createEvent({ name, description, latitude, longitude, dateEnd, dateStart, photo, participants }: ISaveEventParameters) {
+  static async createEvent({ name, description, latitude, longitude, dateEnd, dateStart, imageFile, participants }: ISaveEventParameters) {
     try {
       await TokenService.checkTokenExpired();
       const response = await client.mutate({
-        variables: { name, description, participants, photo, latitude, longitude, dateEnd, dateStart },
+        variables: { name, description, participants, imageFile, latitude, longitude, dateEnd, dateStart },
         mutation: createEvent
       });
 

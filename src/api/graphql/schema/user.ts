@@ -44,8 +44,8 @@ export const getUser = gql `
 `;
 
 export const updateUser = gql `
-  mutation updateUser($id: ID!, $username: String, $firstName: String, $lastName: String, $profilePhoto: String, $bio: String) {
-    updateUser(id: $id, username: $username, firstName: $firstName, lastName: $lastName, profilePhoto: $profilePhoto, bio: $bio) {
+  mutation updateUser($id: ID!, $username: String, $firstName: String, $lastName: String, $imageFile: Upload, $bio: String) {
+    updateUser(id: $id, username: $username, firstName: $firstName, lastName: $lastName, imageFile: $imageFile, bio: $bio) {
       id
       username
       email

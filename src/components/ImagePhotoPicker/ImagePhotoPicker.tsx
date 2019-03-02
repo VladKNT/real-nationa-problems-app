@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import ImagePicker from 'react-native-image-crop-picker';
+import { ReactNativeFile,  } from 'apollo-upload-client';
+import { ReactNativeFileOptions } from "extract-files";
 
 interface Props {
-  onPick: (uri: string) => void,
+  onPick: (uri: string, file: ReactNativeFileOptions) => void,
   children: any,
   style?: any
 }
@@ -12,7 +14,14 @@ interface Props {
 export default class ImagePhotoPicker extends Component <Props> {
   onImagePicker = () => {
     ImagePicker.openPicker({}).then((image: any) => {
-      this.props.onPick(image.path);
+      const { path, mime } = image;
+      const file = new ReactNativeFile({
+        uri: path,
+        type: mime,
+        name: 'image'
+      });
+
+      this.props.onPick(path, file);
     }).catch((error) => {
       if (error) {
         console.log('ImagePicker Error: ', error.toString())
@@ -22,7 +31,14 @@ export default class ImagePhotoPicker extends Component <Props> {
 
   onPhotoPicker = () => {
     ImagePicker.openCamera({}).then((image: any) => {
-      this.props.onPick(image.path);
+      const { path, mime } = image;
+      const file = new ReactNativeFile({
+        uri: path,
+        type: mime,
+        name: 'image'
+      });
+
+      this.props.onPick(path, file);
     }).catch((error) => {
       if (error) {
         console.log('ImagePicker Error: ', error.toString())

@@ -30,9 +30,9 @@ export const getEvents = gql `
 `;
 
 export const createEvent = gql `
-  mutation createEvent($name: String!, $description: String!, $participants: [ID], $photo: String!, 
+  mutation createEvent($name: String!, $description: String!, $participants: [ID], $imageFile: Upload!, 
                        $latitude: Float!, $longitude: Float!, $dateStart: String! $dateEnd: String!) {
-    createEvent(name: $name, description: $description, participants: $participants, photo: $photo, 
+    createEvent(name: $name, description: $description, participants: $participants, imageFile: $imageFile, 
                 latitude: $latitude, longitude: $longitude, dateStart: $dateStart, dateEnd: $dateEnd) {
       id
       name

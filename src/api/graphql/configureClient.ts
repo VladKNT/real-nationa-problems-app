@@ -2,6 +2,7 @@ import { AsyncStorage } from 'react-native';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import { HttpLink} from 'apollo-link-http';
+import { createUploadLink } from 'apollo-upload-client';
 import URLS from '../../constants/urls';
 import { WebSocketLink } from 'apollo-link-ws';
 import { ApolloLink, split } from 'apollo-link';
@@ -27,7 +28,7 @@ function configureClient() {
       if (networkError) console.log(`[Network error]: ${networkError}`);
     });
 
-  const httpLink = new HttpLink({ uri: URLS.API_URL });
+  const httpLink = createUploadLink({ uri: URLS.API_URL });
 
   const authLink = setContext(async () => {
     const token = await AsyncStorage.getItem('@SessionStorage:accessToken');

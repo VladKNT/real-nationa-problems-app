@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { ReactNativeFileOptions } from 'extract-files';
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -33,7 +34,7 @@ interface State {
 class SaveEventScreen extends Component <Props, State> {
   constructor(props: Props) {
     super(props);
-    const { id, name, description, photo, dateStart, dateEnd } = props.saveEvent;
+    const { id, name, description, photo, dateStart, dateEnd, imageFile } = props.saveEvent;
 
     this.state = {
       eventInfo: {
@@ -42,7 +43,8 @@ class SaveEventScreen extends Component <Props, State> {
         description,
         photo,
         dateStart,
-        dateEnd
+        dateEnd,
+        imageFile
       },
       startDatePickerVisible: false,
       endDatePickerVisible: false
@@ -50,7 +52,7 @@ class SaveEventScreen extends Component <Props, State> {
   };
 
   static getDerivedStateFromProps(props: Props, state: State) {
-    const { id, name, description, photo, dateStart, dateEnd  } = props.saveEvent;
+    const { id, name, description, photo, dateStart, dateEnd, imageFile  } = props.saveEvent;
 
     return {
       eventInfo: {
@@ -59,7 +61,8 @@ class SaveEventScreen extends Component <Props, State> {
         description,
         photo,
         dateStart,
-        dateEnd
+        dateEnd,
+        imageFile
       },
     }
   }
@@ -190,8 +193,9 @@ class SaveEventScreen extends Component <Props, State> {
     return null;
   };
 
-  onImagePicked = (uri: string) => {
+  onImagePicked = (uri: string, imageFile: ReactNativeFileOptions) => {
     this.onInputChange('photo', uri);
+    this.onInputChange('imageFile', imageFile);
   };
 
   renderImage = () => {

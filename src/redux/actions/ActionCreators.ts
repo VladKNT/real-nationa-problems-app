@@ -31,14 +31,14 @@ export const signIn = ({ login, password }: ISignInParameters) => {
   }
 };
 
-export const updateUserProfile = ({ id, username, firstName, lastName, profilePhoto, bio }: IEditProfileParameters) => {
+export const updateUserProfile = ({ id, username, firstName, lastName, imageFile, bio }: IEditProfileParameters) => {
   return {
     type: ACTION.UPDATE_USER_PROFILE,
     id,
     username,
     firstName,
     lastName,
-    profilePhoto,
+    imageFile,
     bio
   }
 };

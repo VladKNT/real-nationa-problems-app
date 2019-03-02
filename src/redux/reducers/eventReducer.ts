@@ -42,6 +42,7 @@ const saveEvent = {
   name: '',
   description: '',
   photo: '',
+  imageFile: null,
   dateStart: null,
   dateEnd: null,
   longitude: null,

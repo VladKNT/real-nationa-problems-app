@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { ReactNativeFileOptions } from 'extract-files';
 
 export interface ISignUpParameters {
   email: string,
@@ -19,6 +20,7 @@ export interface IEditProfileParameters {
   firstName: string,
   lastName: string,
   profilePhoto: string | null,
+  imageFile: ReactNativeFileOptions | null,
   bio: string
 }
 
@@ -27,6 +29,7 @@ export interface ISaveEventParameters {
   name: string,
   description: string,
   photo: string,
+  imageFile: ReactNativeFileOptions | null,
   dateStart: moment.Moment | null,
   dateEnd: moment.Moment | null,
   participants?: [],

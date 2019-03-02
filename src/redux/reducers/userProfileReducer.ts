@@ -1,11 +1,13 @@
 import ACTION from '../actions/ActionTypes';
 import { AnyAction } from 'redux';
+import { ReactNativeFileOptions } from 'extract-files';
 
 
 export interface IUserProfile {
   firstName: string,
   lastName: string,
   profilePhoto: string | null,
+  imageFile: ReactNativeFileOptions | null,
   bio: string
 }
 

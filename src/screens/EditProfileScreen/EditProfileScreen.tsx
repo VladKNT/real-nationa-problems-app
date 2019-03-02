@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import _ from 'lodash';
+import { ReactNativeFileOptions } from 'extract-files';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { IReducerStates } from '../../redux/reducers';
 import { updateUserProfile } from "../../redux/actions/ActionCreators";
 import { IUserProfileReducer } from '../../redux/reducers/userProfileReducer';
+
 import { Input } from '../../components/common';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
 import ImagePhotoPicker from '../../components/ImagePhotoPicker/ImagePhotoPicker';
 import STRINGS from '../../constants/strings';
 import COLORS from '../../constants/colors';
-import { IEditProfileParameters} from '../../constants/types';
+import { IEditProfileParameters } from '../../constants/types';
 import styles from './Styles';
 
 interface Props {
@@ -30,7 +32,7 @@ class EditProfileScreen extends Component <Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const { firstName, lastName, profilePhoto, bio } = props.userProfileState.user.userProfile;
+    const { firstName, lastName, profilePhoto, imageFile, bio } = props.userProfileState.user.userProfile;
     const { id, username } = props.userProfileState.user;
 
     this.state = {
@@ -40,6 +42,7 @@ class EditProfileScreen extends Component <Props, State> {
         firstName,
         lastName,
         profilePhoto,
+        imageFile,
         bio
       },
     };
@@ -90,8 +93,9 @@ class EditProfileScreen extends Component <Props, State> {
     this.setState({ userInfo });
   };
 
-  onImagePicked = (uri: string) => {
+  onImagePicked = (uri: string, imageFile: ReactNativeFileOptions) => {
     this.onInputChange('profilePhoto', uri);
+    this.onInputChange('imageFile', imageFile);
   };
 
   render() {
