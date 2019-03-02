@@ -43,6 +43,13 @@ export const updateUserProfile = ({ id, username, firstName, lastName, imageFile
   }
 };
 
+export const getEvent = (id: string) => {
+  return {
+    type: ACTION.FETCH_EVENT,
+    id
+  }
+};
+
 export const getEvents = () => {
   return {
     type: ACTION.FETCH_EVENTS

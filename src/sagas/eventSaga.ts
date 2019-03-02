@@ -3,6 +3,23 @@ import ACTION from '../redux/actions/ActionTypes';
 import EventResolver from '../api/graphql/relsolvers/event';
 import nav from '../services/NavigationSecrvice';
 
+export function* getEvent(action: any) {
+  try {
+    yield put({ type: ACTION.FETCH_EVENT_REQUESTING });
+    const event =  yield call(EventResolver.getEvent, action.id);
+
+    if (event){
+      yield put({ type: ACTION.FETCH_EVENT_SUCCESS, event });
+      return event;
+    }
+
+    return null;
+  } catch (error) {
+    yield put({ type: ACTION.FETCH_EVENT_ERROR, error });
+    console.warn('Error getting event: ' + error);
+  }
+}
+
 
 export function* getEvents() {
   try {

@@ -11,6 +11,7 @@ import SighUpScreen from './screens/SighUpScreen/SighUpScreen';
 import FeedScreen from './screens/FeedScreen/FeedScreen';
 import ProfileScreen from './screens/ProfileScreen/ProfileScreen';
 import EditProfileScreen from './screens/EditProfileScreen/EditProfileScreen';
+import EventScreen from './screens/EventScreen/EventScreen';
 import SaveEventScreen from './screens/SaveEventScreen/SaveEventScreen';
 import MapScreen from './screens/MapScreen/MapScreen';
 
@@ -35,6 +36,7 @@ const defaultNavigationOptions = {
 const Feed = createStackNavigator(
   {
     FeedScreen: FeedScreen,
+    EventScreen: EventScreen,
   }, {
     initialRouteName: 'FeedScreen',
     ...defaultNavigationOptions

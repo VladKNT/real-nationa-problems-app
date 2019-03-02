@@ -9,10 +9,14 @@ import styles from './Styles';
 
 interface Props {
   event: IEvent
-  style?: any,
+  onPress: (id: string) => void
 }
 
 export default class EventCard extends Component <Props> {
+  onPress = () => {
+    this.props.onPress(this.props.event.id);
+  };
+
   renderDate = () => {
     const { dateStart } = this.props.event;
     const date =  moment(parseInt(dateStart)).format('MMMM Do, dddd');
@@ -38,6 +42,7 @@ export default class EventCard extends Component <Props> {
 
   render() {
     const {
+      id,
       name,
       description,
       photo,
@@ -50,7 +55,7 @@ export default class EventCard extends Component <Props> {
     } = this.props.event;
 
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity onPress={(this.onPress)} style={styles.container}>
         <View style={styles.dateSection}>
           {this.renderDate()}
           {this.renderTime()}

@@ -1,14 +1,16 @@
 import gql from 'graphql-tag';
 
-export const getEvents = gql `
-  query {
-    allEvents {
-      id
+export const getEvent = gql `
+  query event($id: ID!) {
+    event(id: $id) {
+       id
       name
       description
       photo
       dateStart
       dateEnd
+      longitude,
+      latitude,
       participants {
         username
         userProfile {
@@ -19,10 +21,29 @@ export const getEvents = gql `
       }
       creator {
         username
-          userProfile {
-            firstName
-            lastName
-            profilePhoto
+        userProfile {
+          firstName
+          lastName
+          profilePhoto
+        }
+      }
+    }
+  }
+`;
+
+export const getEvents = gql `
+  query {
+    allEvents {
+      id
+      name
+      description
+      photo
+      dateStart
+      dateEnd
+      creator {
+        username
+        userProfile {
+          profilePhoto
         }
       }
     }
@@ -50,10 +71,10 @@ export const createEvent = gql `
       }
       creator {
         username
-          userProfile {
-            firstName
-            lastName
-            profilePhoto
+        userProfile {
+          firstName
+          lastName
+          profilePhoto
         }
       }
     }

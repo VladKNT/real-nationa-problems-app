@@ -27,8 +27,12 @@ class FeedScreen extends Component <Props, State> {
     this.props.getEvents();
   }
 
+  onCardPressed = (id: string) => {
+    this.props.navigation.navigate('EventScreen', { id });
+  };
+
   renderEvent = ({ item: event }: { item: IEvent }) => {
-    return <EventCard event={event}/>
+    return <EventCard event={event} onPress={this.onCardPressed} />
   };
 
   render() {
@@ -36,7 +40,10 @@ class FeedScreen extends Component <Props, State> {
 
     return (
       <View style={styles.container}>
-        <FlatList data={events} renderItem={this.renderEvent}/>
+        <FlatList
+          data={events}
+          renderItem={this.renderEvent}
+          keyExtractor={ (item) => item.id }/>
       </View>
     )
   }

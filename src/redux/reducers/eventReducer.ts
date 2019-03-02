@@ -61,6 +61,29 @@ const initialState = {
 
 export default function(state: IEventReducer = initialState, action: AnyAction) {
   switch (action.type) {
+    case ACTION.FETCH_EVENT_REQUESTING: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+
+    case ACTION.FETCH_EVENT_SUCCESS: {
+      return {
+        ...state,
+        event: action.event,
+        loading: false,
+      }
+    }
+
+    case ACTION.FETCH_EVENT_ERROR: {
+      return {
+        ...state,
+        error: action.error,
+        loading: false
+      }
+    }
+
     case ACTION.FETCH_EVENTS_REQUESTING: {
       return {
         ...state,
