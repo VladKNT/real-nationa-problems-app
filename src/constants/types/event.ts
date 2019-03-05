@@ -22,6 +22,8 @@ export interface ISaveEvent {
   imageFile?: ReactNativeFileOptions;
   dateStart: string;
   dateEnd: string;
+  longitude: number;
+  latitude: number;
 }
 
 export interface ISaveEventParams {
@@ -34,6 +36,7 @@ export interface ISaveEventParams {
   dateEnd?: string;
   longitude?: number;
   latitude?: number;
+  participants?: IUser[]
 }
 
 export interface IEventReducer {

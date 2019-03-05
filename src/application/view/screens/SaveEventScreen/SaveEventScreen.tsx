@@ -11,7 +11,7 @@ import { IReducerStates } from "../../../data/store/rootReducer";
 import { setSaveEventData, createEvent } from "../../../data/store/event/eventActions";
 
 
-import { Input, Button } from "../../components/common";
+import {Input, HiglightButton} from "../../components/common";
 import DateTimePicker from "../../components/DateTimePicker/DateTimePicker";
 import ImagePhotoPicker from "../../components/ImagePhotoPicker/ImagePhotoPicker";
 import STRINGS from "../../../../constants/strings";
@@ -35,7 +35,7 @@ interface IState {
 class SaveEventScreen extends Component <IProps, IState> {
   constructor(props: IProps) {
     super(props);
-    const { id, name, description, photo, dateStart, dateEnd, imageFile } = props.saveEvent;
+    const { id, name, description, photo, dateStart, dateEnd, imageFile, latitude, longitude } = props.saveEvent;
 
     this.state = {
       eventInfo: {
@@ -45,15 +45,17 @@ class SaveEventScreen extends Component <IProps, IState> {
         photo,
         dateStart,
         dateEnd,
-        imageFile
+        imageFile,
+        latitude,
+        longitude
       },
       startDatePickerVisible: false,
       endDatePickerVisible: false
     };
   };
 
-  static getDerivedStateFromProps(props: IProps, state: IState) {
-    const { id, name, description, photo, dateStart, dateEnd, imageFile  } = props.saveEvent;
+  static getDerivedStateFromProps(props: IProps) {
+    const { id, name, description, photo, dateStart, dateEnd, imageFile, latitude, longitude  } = props.saveEvent;
 
     return {
       eventInfo: {
@@ -63,7 +65,9 @@ class SaveEventScreen extends Component <IProps, IState> {
         photo,
         dateStart,
         dateEnd,
-        imageFile
+        imageFile,
+        latitude,
+        longitude
       },
     }
   }
@@ -94,7 +98,7 @@ class SaveEventScreen extends Component <IProps, IState> {
     const { navigation, setSaveEventDate } = this.props;
     setSaveEventDate(this.state.eventInfo);
 
-    navigation.navigate("MapScreen");
+    navigation.navigate("MapScreen", { showMode: false });
   };
 
   onInputChange = (name: string, data: any) => {
@@ -168,7 +172,8 @@ class SaveEventScreen extends Component <IProps, IState> {
 
     if (endDatePickerVisible) {
       const { dateStart, dateEnd } = this.state.eventInfo;
-      let date = moment(dateStart).add(30, "minutes");
+      let minimumDate = moment(dateStart).add(30, "minutes");
+      let date = minimumDate;
 
       if (dateEnd && dateStart < dateEnd) {
         date = moment(dateEnd);
@@ -178,7 +183,7 @@ class SaveEventScreen extends Component <IProps, IState> {
         <DateTimePicker
           title={STRINGS.DATE_END}
           date={date}
-          minimumDate={moment(date)}
+          minimumDate={minimumDate}
           maximumDate={moment(date).add(1, "days")}
           onBack={() => {
             this.showEndDatePicker(false)
@@ -216,6 +221,26 @@ class SaveEventScreen extends Component <IProps, IState> {
     )
   };
 
+  mapIcon = () => {
+    const { latitude, longitude } = this.state.eventInfo;
+
+    if (latitude && longitude) {
+      return "md-checkmark";
+    }
+
+    return "md-map";
+  };
+
+  renderDateTimeText = () => {
+    const { dateStart, dateEnd } = this.state.eventInfo;
+
+    if (dateStart && dateStart) {
+      return `${moment(dateStart).format("MMMM Do, LT")} - ${moment(dateEnd).format("MMMM Do, LT")}`
+    }
+
+    return STRINGS.SELECT_DATE_TIME;
+  };
+
   render() {
     const { name, description } = this.state.eventInfo;
 
@@ -232,15 +257,16 @@ class SaveEventScreen extends Component <IProps, IState> {
           <Input title={STRINGS.DESCRIPTION}
                  value={description}
                  onChangeText={(data: string) => this.onInputChange("description", data)} />
-          <TouchableOpacity onPress={this.onAddPlacePressed} style={styles.addPlaceContainer}>
-            <Text style={styles.addPlaceText}>
-              <Icon name={"md-map"} size={25} color={COLORS.TEXT} /> {STRINGS.ADD_PLACE}
-            </Text>
-          </TouchableOpacity>
 
-          <Button onPress={this.onOpenDatePicker}>
-            Select Date/Time
-          </Button>
+          <HiglightButton onPress={this.onAddPlacePressed} style={styles.addPlaceContainer}>
+            <Icon name={this.mapIcon()} size={25} color={COLORS.HIGHLIGHT} /> {STRINGS.ADD_PLACE}
+          </HiglightButton>
+
+
+
+          <HiglightButton onPress={this.onOpenDatePicker}>
+            {this.renderDateTimeText()}
+          </HiglightButton>
         </View>
 
         {this.renderDatePickerOverlay()}

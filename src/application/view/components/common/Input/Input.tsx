@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export interface Props {
+export interface IProps {
   style?: any,
   titleStyle?: any,
   inputStyle?: any,
@@ -34,12 +34,12 @@ export interface Props {
   onChangeText?: any
 }
 
-export interface State {
+export interface IState {
   isActive: boolean
 }
 
-export default class Input extends Component<Props, State> {
-  constructor(props: Props) {
+export default class Input extends Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {

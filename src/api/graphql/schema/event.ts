@@ -12,6 +12,7 @@ export const getEvent = gql `
       longitude,
       latitude,
       participants {
+        id
         username
         userProfile {
           firstName
@@ -20,6 +21,7 @@ export const getEvent = gql `
         }
       }
       creator {
+        id
         username
         userProfile {
           firstName
@@ -62,6 +64,7 @@ export const createEvent = gql `
       dateStart
       dateEnd
       participants {
+        id
         username
         userProfile {
           firstName
@@ -70,6 +73,7 @@ export const createEvent = gql `
         }
       }
       creator {
+        id
         username
         userProfile {
           firstName

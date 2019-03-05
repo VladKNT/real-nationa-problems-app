@@ -1,11 +1,16 @@
 import configureClient from '../configureClient';
 import { getEvent, getEvents, createEvent } from '../schema/event';
 import TokenService from '../../../application/data/services/TokenService';
-import { ISaveEventParameters } from '../../../constants/types';
+import { ISaveEventParams } from '../../../constants/types/event';
 
-interface GetEventsQuery {
-  allEvents: any
+interface IGetEventsQuery {
+  allEvents: any;
 }
+
+interface IGetEventQuery {
+  event: any;
+}
+
 const client = configureClient();
 
 export default class EventResolver {
@@ -13,7 +18,7 @@ export default class EventResolver {
   static async getEvent(id: string) {
     try {
       await TokenService.checkTokenExpired();
-      const response = await client. query<GetEventsQuery>({
+      const response = await client. query<IGetEventQuery>({
         variables: { id },
         query: getEvent
       });
@@ -28,7 +33,7 @@ export default class EventResolver {
   static async getEvents() {
     try {
       await TokenService.checkTokenExpired();
-      const response = await client. query<GetEventsQuery>({ query: getEvents });
+      const response = await client. query<IGetEventsQuery>({ query: getEvents });
 
       return response.data.allEvents;
     } catch (error) {
@@ -37,7 +42,7 @@ export default class EventResolver {
     }
   }
 
-  static async createEvent({ name, description, latitude, longitude, dateEnd, dateStart, imageFile, participants }: ISaveEventParameters) {
+  static async createEvent({ name, description, latitude, longitude, dateEnd, dateStart, imageFile, participants = [] }: ISaveEventParams) {
     try {
       await TokenService.checkTokenExpired();
       const response = await client.mutate({

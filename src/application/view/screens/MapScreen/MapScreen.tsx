@@ -8,7 +8,7 @@ import { IReducerStates } from "../../../data/store/rootReducer";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { setSaveEventData } from "../../../data/store/event/eventActions";
-import { ISaveEventParams } from "../../../../constants/types/event";
+import { ISaveEventParams, IEvent } from "../../../../constants/types/event";
 
 import COLORS from "../../../../constants/colors";
 import STRINGS from "../../../../constants/strings";
@@ -17,6 +17,7 @@ import styles from "./Styles";
 interface IProps {
   navigation: any;
   saveEvent: LatLng;
+  event: IEvent;
   setSaveEventDate(saveEvent: ISaveEventParams): void;
 }
 
@@ -27,7 +28,8 @@ interface IState {
 class MapScreen extends Component <IProps, IState> {
   constructor(props: IProps) {
     super(props);
-    const { longitude, latitude } = props.saveEvent;
+    const showMode = props.navigation.getParam('showMode');
+    const { longitude, latitude } = showMode ? props.event :  props.saveEvent;
 
     this.state = {
       coordinate: {
@@ -38,7 +40,8 @@ class MapScreen extends Component <IProps, IState> {
   };
 
   static getDerivedStateFromProps(props: IProps) {
-    const { longitude, latitude  } = props.saveEvent;
+    const showMode = props.navigation.getParam('showMode');
+    const { longitude, latitude } = showMode ? props.event :  props.saveEvent;
 
     return {
       coordinate: {
@@ -47,6 +50,10 @@ class MapScreen extends Component <IProps, IState> {
       }
     }
   }
+
+  isShowMode = () => {
+    return this.props.navigation.getParam('showMode');
+  };
 
   onSavePressed = () => {
     const { navigation, setSaveEventDate } = this.props;
@@ -58,25 +65,38 @@ class MapScreen extends Component <IProps, IState> {
 
   componentDidMount() {
     const { navigation } = this.props;
-    navigation.setParams({
-      onSavePressed: this.onSavePressed
-    });
+
+    if (!this.isShowMode()) {
+      navigation.setParams({
+        onSavePressed: this.onSavePressed
+      });
+    }
   };
 
-  static navigationOptions = ({ navigation }: any) => ({
-    headerTitle: STRINGS.ADD_PLACE,
+  static navigationOptions = ({ navigation }: any) => {
+    if (navigation.getParam('showMode')) {
+      return {
+        headerTitle: STRINGS.PACE_ON_MAP
+      }
+    }
 
-    headerRight: (
-      <TouchableOpacity style={styles.headerRight} onPress={navigation.getParam("onSavePressed")}>
-        <Icon name={"md-checkmark"} size={25} color={COLORS.HIGHLIGHT}/>
-      </TouchableOpacity>
-    )
-  });
+    return {
+      headerTitle: STRINGS.ADD_PLACE,
+
+      headerRight: (
+        <TouchableOpacity style={styles.headerRight} onPress={navigation.getParam("onSavePressed")}>
+          <Icon name={"md-checkmark"} size={25} color={COLORS.HIGHLIGHT}/>
+        </TouchableOpacity>
+      )
+    }
+  };
 
   onMapPressed = (e: any) => {
-    const { longitude, latitude } = e.nativeEvent.coordinate;
+    if (!this.isShowMode()) {
+      const { longitude, latitude } = e.nativeEvent.coordinate;
 
-    this.setState({ coordinate: { longitude, latitude }});
+      this.setState({ coordinate: { longitude, latitude }});
+    }
   };
 
   renderMarker = () => {
@@ -110,8 +130,10 @@ class MapScreen extends Component <IProps, IState> {
 }
 
 const mapStateToProps = (state: IReducerStates) => {
+  const { event, saveEvent } = state.eventReducer;
   return {
-    saveEvent: state.eventReducer.saveEvent
+    saveEvent,
+    event
   };
 };
 

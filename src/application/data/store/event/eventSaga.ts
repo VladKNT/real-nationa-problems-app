@@ -58,8 +58,7 @@ export function* createEvent() {
     yield put({ type: CREATE_EVENT_REQUESTING });
     const store = yield select();
     const { name, description, latitude, longitude, dateEnd, dateStart, imageFile } = store.eventReducer.saveEvent;
-    const participants: [] = [];
-    const event = yield call(EventResolver.createEvent, { name, description, latitude, longitude, dateEnd, dateStart, imageFile, participants });
+    const event = yield call(EventResolver.createEvent, { name, description, latitude, longitude, dateEnd, dateStart, imageFile });
 
     if (event) {
       yield put({ type: CREATE_EVENT_SUCCESS });

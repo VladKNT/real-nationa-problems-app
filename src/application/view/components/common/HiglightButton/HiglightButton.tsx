@@ -4,18 +4,10 @@ import COLORS from '../../../../../constants/colors';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: COLORS.BUTTON,
-    borderColor: COLORS.BORDER,
-    borderWidth: 1,
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    borderRadius: 8,
-    height: 40,
-    marginVertical: 5
+    alignItems: 'center'
   },
   textStyle: {
-    color: COLORS.TEXT,
+    color: COLORS.HIGHLIGHT,
     fontSize: 18
   }
 });
@@ -27,7 +19,7 @@ export interface IProps {
   onPress: any
 }
 
-export default class Button extends Component<IProps> {
+export default class HiglightButton extends Component<IProps> {
   constructor(props: IProps) {
     super(props);
   }

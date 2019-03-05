@@ -30,7 +30,7 @@ export default class EventCard extends Component <IProps> {
 
   renderTime = () => {
     const { dateStart, dateEnd } = this.props.event;
-    const start = moment(parseInt(dateStart)).format("h:mm a") ;
+    const start = moment(parseInt(dateStart)).format("h:mm a");
     const end = moment(parseInt(dateEnd)).format("h:mm a");
 
     return (

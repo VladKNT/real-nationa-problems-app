@@ -47,12 +47,7 @@ export default StyleSheet.create({
   },
 
   addPlaceContainer: {
-    marginVertical: 10
-  },
-
-  addPlaceText: {
-    color: COLORS.TEXT,
-    fontSize: 18
+    marginVertical: 5
   },
 
   datePickerOverlay: {
