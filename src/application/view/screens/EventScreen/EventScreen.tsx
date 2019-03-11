@@ -59,7 +59,6 @@ class EventScreen extends Component <IProps, IState> {
 
   isFollowed = () => {
     const { event: { participants }, userId } = this.props;
-    console.info(_.find(participants, _.matchesProperty('id', userId)));
     return _.find(participants, _.matchesProperty('id', userId));
   };
 
@@ -84,11 +83,12 @@ class EventScreen extends Component <IProps, IState> {
 
     return _.map(participants, (participant) => {
       return (
-        <UserAvatar
-          size={70}
-          key={participant.id}
-          style={styles.participantAvatar}
-          uri={`${URLS.ROOT_URL}${participant.userProfile.profilePhoto}`}/>
+        <TouchableOpacity style={styles.participantAvatar}>
+          <UserAvatar
+            size={70}
+            key={participant.id}
+            uri={participant.userProfile.profilePhoto} />
+        </TouchableOpacity>
       )
     })
   };
@@ -140,15 +140,6 @@ class EventScreen extends Component <IProps, IState> {
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}>
-            {this.renderParticipants()}
-            {this.renderParticipants()}
-            {this.renderParticipants()}
-            {this.renderParticipants()}
-            {this.renderParticipants()}
-            {this.renderParticipants()}
-            {this.renderParticipants()}
-            {this.renderParticipants()}
-            {this.renderParticipants()}
             {this.renderParticipants()}
           </ScrollView>
         </View>

@@ -23,6 +23,7 @@ export default {
 
   // === Edit profile ===
   CHANGE_PHOTO: "Change Photo",
+  LOGOUT: 'Logout',
 
   // === Save event ===
   EVENT_NAME: "Event name",

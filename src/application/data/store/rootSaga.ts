@@ -1,6 +1,17 @@
 import { takeLatest } from "redux-saga/effects";
-import { ROUTE_CURRENT_USER, CREATE_USER_PROFILE, LOGIN_USER_PROFILE, UPDATE_USER_PROFILE } from "./user/userActionTypes";
-import { FETCH_EVENT, FETCH_EVENTS, CREATE_EVENT, FOLLOW_EVENT } from "./event/eventActionTypes";
+import {
+  ROUTE_CURRENT_USER,
+  CREATE_USER_PROFILE,
+  LOGIN_USER_PROFILE,
+  LOGOUT_USER,
+  UPDATE_USER_PROFILE
+} from "./user/userActionTypes";
+import {
+  FETCH_EVENT,
+  FETCH_EVENTS,
+  CREATE_EVENT,
+  FOLLOW_EVENT
+} from "./event/eventActionTypes";
 import * as userProfileSaga from './user/userSaga';
 import * as eventSaga from './event/eventSaga';
 
@@ -9,6 +20,7 @@ function* rootSaga() {
   yield takeLatest(ROUTE_CURRENT_USER, userProfileSaga.routeCurrentUser);
   yield takeLatest(CREATE_USER_PROFILE, userProfileSaga.signUp);
   yield takeLatest(LOGIN_USER_PROFILE, userProfileSaga.signIn);
+  yield takeLatest(LOGOUT_USER, userProfileSaga.signOut);
   yield takeLatest(UPDATE_USER_PROFILE, userProfileSaga.updateUserProfile);
   
   yield takeLatest(FETCH_EVENT, eventSaga.getEvent);

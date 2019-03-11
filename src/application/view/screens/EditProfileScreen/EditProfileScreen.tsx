@@ -7,9 +7,9 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import { IReducerStates } from "../../../data/store/rootReducer";
-import { updateUserProfile } from "../../../data/store/user/userActions";
+import { updateUserProfile, signOut } from "../../../data/store/user/userActions";
 
-import { Input } from "../../components/common";
+import { HiglightButton, Input } from "../../components/common";
 import UserAvatar from "../../components/UserAvatar/UserAvatar";
 import ImagePhotoPicker from "../../components/ImagePhotoPicker/ImagePhotoPicker";
 import STRINGS from "../../../../constants/strings";
@@ -21,6 +21,7 @@ interface IProps {
   navigation: any;
   user: IUser;
   updateUserProfile(userInfo: IEditProfile): void;
+  signOut(): void;
 }
 
 interface IState {
@@ -99,6 +100,7 @@ class EditProfileScreen extends Component <IProps, IState> {
 
   render() {
     const { username, firstName, lastName, profilePhoto, bio } = this.state.userInfo;
+    const { signOut } = this.props;
 
     return (
       <ScrollView style={styles.container}>
@@ -126,6 +128,13 @@ class EditProfileScreen extends Component <IProps, IState> {
                  value={bio}
                  onChangeText={(data: string) => this.onInputChange("bio", data)} />
         </View>
+
+        <HiglightButton
+          style={styles.logout}
+          textStyle={styles.logoutText}
+          onPress={signOut}>
+          {STRINGS.LOGOUT}
+        </HiglightButton>
       </ScrollView>
     )
   }
@@ -143,7 +152,8 @@ const mapStateToProps = (state: IReducerStates) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    updateUserProfile: (userInfo: IEditProfile) => dispatch(updateUserProfile(userInfo))
+    updateUserProfile: (userInfo: IEditProfile) => dispatch(updateUserProfile(userInfo)),
+    signOut: () => dispatch(signOut())
   };
 };
 

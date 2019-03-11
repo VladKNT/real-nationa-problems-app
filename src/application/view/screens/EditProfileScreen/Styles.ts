@@ -27,6 +27,15 @@ export default StyleSheet.create({
   },
 
   headerRight: {
-    marginRight: 20,
+    marginRight: 20
   },
+
+  logout: {
+    marginTop: 20
+  },
+
+  logoutText: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  }
 });

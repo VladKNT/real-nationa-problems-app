@@ -12,6 +12,7 @@ interface Props {
 export default class UserAvatar extends Component <Props> {
   getUri = () => {
     const { uri } = this.props;
+    console.info(uri);
 
     if (uri) {
       const source = uri.split('/');

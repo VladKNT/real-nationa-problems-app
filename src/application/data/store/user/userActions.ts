@@ -2,7 +2,8 @@ import {
   ROUTE_CURRENT_USER,
   CREATE_USER_PROFILE,
   UPDATE_USER_PROFILE,
-  LOGIN_USER_PROFILE
+  LOGIN_USER_PROFILE,
+  LOGOUT_USER
 } from "./userActionTypes";
 
 import { IEditProfile } from "../../../../constants/types/user";
@@ -30,6 +31,12 @@ export const signIn = ({ login, password }: ISignInParameters) => {
     type: LOGIN_USER_PROFILE,
     login,
     password
+  }
+};
+
+export const signOut = () => {
+  return {
+    type: LOGOUT_USER
   }
 };
 

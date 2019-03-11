@@ -99,6 +99,16 @@ export function* signIn(action: any) {
   }
 }
 
+export function* signOut() {
+  try {
+    yield AsyncStorage.removeItem('@SessionStorage:accessToken');
+    yield AsyncStorage.removeItem('@SessionStorage:refreshToken');
+
+    nav.navigate('SignInScreen');
+  } catch (error) {
+    console.warn('Sign out error ' + error);
+  }
+}
 
 export function* updateUserProfile(action: any) {
   try {
