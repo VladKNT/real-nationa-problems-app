@@ -1,5 +1,5 @@
 import configureClient from '../configureClient';
-import { getEvent, getEvents, createEvent } from '../schema/event';
+import { getEvent, getEvents, createEvent, follow } from '../schema/event';
 import TokenService from '../../../application/data/services/TokenService';
 import { ISaveEventParams } from '../../../constants/types/event';
 
@@ -18,7 +18,7 @@ export default class EventResolver {
   static async getEvent(id: string) {
     try {
       await TokenService.checkTokenExpired();
-      const response = await client. query<IGetEventQuery>({
+      const response = await client.query<IGetEventQuery>({
         variables: { id },
         query: getEvent
       });
@@ -33,7 +33,7 @@ export default class EventResolver {
   static async getEvents() {
     try {
       await TokenService.checkTokenExpired();
-      const response = await client. query<IGetEventsQuery>({ query: getEvents });
+      const response = await client.query<IGetEventsQuery>({ query: getEvents });
 
       return response.data.allEvents;
     } catch (error) {
@@ -48,6 +48,21 @@ export default class EventResolver {
       const response = await client.mutate({
         variables: { name, description, participants, imageFile, latitude, longitude, dateEnd, dateStart },
         mutation: createEvent
+      });
+
+      return response.data.createEvent;
+    } catch (error) {
+      console.info(error);
+      return null;
+    }
+  }
+
+  static async follow({ id }: { id: string }) {
+    try {
+      await TokenService.checkTokenExpired();
+      const response = await client.mutate({
+        variables: { id },
+        mutation: follow
       });
 
       return response.data.createEvent;

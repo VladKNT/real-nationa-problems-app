@@ -228,7 +228,7 @@ class SaveEventScreen extends Component <IProps, IState> {
       return "md-checkmark";
     }
 
-    return "md-map";
+    return "md-pin";
   };
 
   renderDateTimeText = () => {

@@ -3,7 +3,8 @@ import {
   FETCH_EVENTS,
   SET_SAVE_EVENT_DATA,
   CLEAR_SAVE_EVENT_DATA,
-  CREATE_EVENT
+  CREATE_EVENT,
+  FOLLOW_EVENT
 } from "./eventActionTypes";
 import { ISaveEventParams } from "../../../../constants/types/event";
 
@@ -35,7 +36,14 @@ export const clearSaveEventData = () => {
 };
 
 export const createEvent = () => {
-  return{
+  return {
     type: CREATE_EVENT
+  }
+};
+
+export const followEvent = (id: string) => {
+  return {
+    type: FOLLOW_EVENT,
+    id
   }
 };

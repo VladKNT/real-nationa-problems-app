@@ -1,26 +1,30 @@
 import React, { Component } from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import _ from 'lodash';
 import moment from 'moment';
 
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { getEvent } from "../../../data/store/event/eventActions";
+import { getEvent, followEvent } from "../../../data/store/event/eventActions";
 
+import UserAvatar from "../../components/UserAvatar/UserAvatar";
+import { HiglightButton } from "../../components/common";
 import URLS from "../../../../constants/urls";
 import { IEvent } from "../../../../constants/types/event";
 import STRINGS from "../../../../constants/strings";
+import COLORS from "../../../../constants/colors";
 import styles from "./Styles";
-import UserAvatar from "../../components/UserAvatar/UserAvatar";
-import {HiglightButton} from "../../components/common";
 
 interface IProps {
   navigation: any;
   event: IEvent;
   loading: boolean;
   error: string;
+  userId: string;
   getEvent(id: string): void;
+  followEvent(id: string): void;
 }
 
 interface IState {
@@ -38,20 +42,36 @@ class EventScreen extends Component <IProps, IState> {
 
     getEvent(id);
 
-    // navigation.setParams({
-    //   onSavePressed: this.onSavePressed
-    // });
+    navigation.setParams({
+      onShowMap: this.onShowMap
+    });
   };
 
   static navigationOptions = ({ navigation }: any) => ({
     headerTitle: STRINGS.EVENT,
 
-    // headerRight: (
-    //   <TouchableOpacity style={styles.headerRight} onPress={navigation.getParam("onSavePressed")}>
-    //     <Icon name={"md-checkmark"} size={25} color={COLORS.HIGHLIGHT}/>
-    //   </TouchableOpacity>
-    // )
+    headerRight: (
+      <TouchableOpacity style={styles.headerRight} onPress={navigation.getParam("onShowMap")}>
+        <Icon name={"ios-map"} size={30} color={COLORS.TEXT}/>
+      </TouchableOpacity>
+    )
   });
+
+  isFollowed = () => {
+    const { event: { participants }, userId } = this.props;
+    console.info(_.find(participants, _.matchesProperty('id', userId)));
+    return _.find(participants, _.matchesProperty('id', userId));
+  };
+
+  followEvent = () => {
+    const {
+      followEvent,
+      event: {
+        id
+      }
+    } = this.props;
+    followEvent(id);
+  };
 
   onShowMap = () => {
     const { navigation } = this.props;
@@ -78,7 +98,7 @@ class EventScreen extends Component <IProps, IState> {
     const date =  moment(parseInt(dateStart)).format("MMMM Do, dddd");
 
     return (
-      <Text style={styles.infoText}>
+      <Text style={styles.timeText}>
         {STRINGS.WHEN}: {date}
       </Text>
     )
@@ -90,7 +110,7 @@ class EventScreen extends Component <IProps, IState> {
     const end = moment(parseInt(dateEnd)).format("h:mm a");
 
     return (
-      <Text style={styles.infoText}>
+      <Text style={styles.timeText}>
         {STRINGS.TIME}: {start} - {end}
       </Text>
     )
@@ -146,11 +166,16 @@ class EventScreen extends Component <IProps, IState> {
             {description}
           </Text>
 
-          {this.renderDate()}
-          {this.renderTime()}
+          <View style={styles.timeContainer}>
+            {this.renderDate()}
+            {this.renderTime()}
+          </View>
 
-          <HiglightButton onPress={this.onShowMap} style={styles.mapButton}>
-            { STRINGS.SHOW_ON_MAP }
+          <HiglightButton
+            onPress={this.followEvent}
+            style={styles.checkButton}
+            textStyle={styles.checkButtonText}>
+            {this.isFollowed() ? STRINGS.CHECK_OUT : STRINGS.CHECK_IN }
           </HiglightButton>
         </View>
       </ScrollView>
@@ -161,10 +186,17 @@ class EventScreen extends Component <IProps, IState> {
 
 const mapStateToProps = (state: IReducerStates) => {
   const { event, loading, error } = state.eventReducer;
+  const {
+    user: {
+      id: userId
+    }
+  } = state.userProfileReducer;
+
   return {
     event,
     loading,
-    error
+    error,
+    userId
   };
 };
 
@@ -172,6 +204,7 @@ const mapStateToProps = (state: IReducerStates) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getEvent: (id: string) => dispatch(getEvent(id)),
+    followEvent: (id: string) => dispatch(followEvent(id))
   };
 };
 

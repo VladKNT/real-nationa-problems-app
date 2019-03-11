@@ -37,5 +37,6 @@ export default {
   // === Event screen ===
   WHEN: "When",
   TIME: "Time",
-  SHOW_ON_MAP: "Show on map"
+  CHECK_IN: "Check in",
+  CHECK_OUT: "Check out"
 }

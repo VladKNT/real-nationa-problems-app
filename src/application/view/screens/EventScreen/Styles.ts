@@ -1,6 +1,5 @@
 import {Dimensions, StyleSheet} from "react-native";
 import COLORS from "../../../../constants/colors";
-import colors from "../../../../constants/colors";
 
 const { height } = Dimensions.get('window');
 
@@ -48,7 +47,21 @@ export default StyleSheet.create({
     color: COLORS.TEXT
   },
 
-  mapButton: {
+  timeContainer: {
     marginTop: 10
+  },
+
+  timeText: {
+    fontSize: 16,
+    color: COLORS.TITLE
+  },
+
+  checkButton: {
+    marginTop: 10
+  },
+
+  checkButtonText: {
+    fontSize: 20,
+    fontWeight: 'bold'
   }
 });

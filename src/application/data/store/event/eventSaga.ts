@@ -12,7 +12,11 @@ import {
   CREATE_EVENT_SUCCESS,
   CREATE_EVENT_ERROR,
 
-  CLEAR_SAVE_EVENT_DATA
+  CLEAR_SAVE_EVENT_DATA,
+
+  FOLLOW_EVENT_REQUESTING,
+  FOLLOW_EVENT_SUCCESS,
+  FOLLOW_EVENT_ERROR
 } from "./eventActionTypes";
 
 import EventResolver from '../../../../api/graphql/relsolvers/event';
@@ -68,6 +72,23 @@ export function* createEvent() {
 
   } catch (error) {
     yield put({ type: CREATE_EVENT_ERROR, error });
+    console.warn('Error create event: ' + error);
+  }
+}
+
+export function* followEvent(action: any) {
+  try {
+    yield put({ type: FOLLOW_EVENT_REQUESTING });
+    const { id } = action;
+    const event = yield call(EventResolver.follow, { id });
+
+    if (event) {
+      yield put({ type: FOLLOW_EVENT_SUCCESS });
+      nav.navigate('FeedScreen');
+    }
+
+  } catch (error) {
+    yield put({ type: FOLLOW_EVENT_ERROR, error });
     console.warn('Error create event: ' + error);
   }
 }

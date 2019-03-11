@@ -7,7 +7,7 @@ export default {
   BORDER: '#CCCCCC',
 
   TEXT: '#000000',
-  TITLE: '#B8B8B8',
+  TITLE: '#acacac',
   HIGHLIGHTED_TEXT: '#4094DF',
   PLACEHOLDER_TEXT: '#CCCCCC',
 

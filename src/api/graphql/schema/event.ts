@@ -82,5 +82,14 @@ export const createEvent = gql `
         }
       }
     }
-   }
+  }
+  
+`;
+
+export const follow = gql `
+  mutation follow($id: ID!) {
+    follow(id: $id) {
+      id
+    }
+  }
 `;
