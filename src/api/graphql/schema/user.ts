@@ -43,6 +43,22 @@ export const getUser = gql `
   }
 `;
 
+export const getUserById = gql `
+  query getUserById($id: ID!) {
+    getUserById(id: $id) {
+      id
+      username
+      email
+      userProfile {
+        firstName
+        lastName
+        profilePhoto
+        bio
+      }
+    }
+  }
+`;
+
 export const updateUser = gql `
   mutation updateUser($id: ID!, $username: String, $firstName: String, $lastName: String, $imageFile: Upload, $bio: String) {
     updateUser(id: $id, username: $username, firstName: $firstName, lastName: $lastName, imageFile: $imageFile, bio: $bio) {

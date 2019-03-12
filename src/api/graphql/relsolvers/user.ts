@@ -1,10 +1,15 @@
 import configureClient from '../configureClient';
-import { ISignUpParameters, ISignInParameters, IEditProfileParameters } from '../../../constants/types';
-import { signUp, signIn, refreshToken, getUser, updateUser } from '../schema/user';
+import { ISignUpParameters, ISignInParameters } from '../../../constants/types/auth';
+import { IEditProfile } from '../../../constants/types/user';
+import { signUp, signIn, refreshToken, getUser, updateUser, getUserById } from '../schema/user';
 import TokenService from '../../../application/data/services/TokenService';
 
 interface GetUserQuery {
   getUser: any
+}
+
+interface GetUserByIdQuery {
+  getUserById: any
 }
 const client = configureClient();
 
@@ -62,7 +67,21 @@ export default class UserResolver {
     }
   }
 
-  static async updateUser({ id, username, firstName, lastName, imageFile, bio }: IEditProfileParameters) {
+  static async getUserById(id: string) {
+    try {
+      await TokenService.checkTokenExpired();
+      const response = await client.query<GetUserByIdQuery>({
+        variables: { id },
+        query: getUserById
+      });
+      return response.data.getUserById;
+    } catch (error) {
+      console.info(error);
+      return null;
+    }
+  }
+
+  static async updateUser({ id, username, firstName, lastName, imageFile, bio }: IEditProfile) {
     try {
       await TokenService.checkTokenExpired();
       const response = await client.mutate({

@@ -126,6 +126,9 @@ class EditProfileScreen extends Component <IProps, IState> {
                  onChangeText={(data: string) => this.onInputChange("username", data)} />
           <Input title={STRINGS.BIO}
                  value={bio}
+                 multiline={true}
+                 numberOfLines={2}
+                 inputStyle={styles.bio}
                  onChangeText={(data: string) => this.onInputChange("bio", data)} />
         </View>
 

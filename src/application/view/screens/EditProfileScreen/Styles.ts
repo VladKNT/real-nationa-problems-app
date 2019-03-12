@@ -30,6 +30,11 @@ export default StyleSheet.create({
     marginRight: 20
   },
 
+  bio: {
+    height: 'auto',
+    textAlignVertical: 'top'
+  },
+
   logout: {
     marginTop: 20
   },

@@ -2,6 +2,7 @@ import {
   ROUTE_CURRENT_USER,
   CREATE_USER_PROFILE,
   UPDATE_USER_PROFILE,
+  GET_USER_BY_ID,
   LOGIN_USER_PROFILE,
   LOGOUT_USER
 } from "./userActionTypes";
@@ -49,5 +50,12 @@ export const updateUserProfile = ({ id, username, firstName, lastName, imageFile
     lastName,
     imageFile,
     bio
+  }
+};
+
+export const getUserById = (id: string) => {
+  return {
+    type: GET_USER_BY_ID,
+    id
   }
 };

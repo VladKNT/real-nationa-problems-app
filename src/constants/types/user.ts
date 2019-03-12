@@ -17,6 +17,7 @@ export interface IUser {
 
 export interface IUserReducer {
   user: IUser;
+  selectedUser: IUser;
   loading: boolean;
   error: string;
 }

@@ -6,7 +6,11 @@ import {
 
   UPDATE_USER_PROFILE_REQUESTING,
   UPDATE_USER_PROFILE_SUCCESS,
-  UPDATE_USER_PROFILE_ERROR
+  UPDATE_USER_PROFILE_ERROR,
+
+  GET_USER_BY_ID_REQUESTING,
+  GET_USER_BY_ID_SUCCESS,
+  GET_USER_BY_ID_ERROR
 } from "./userActionTypes";
 import { IUser, IUserProfile, IUserReducer } from "../../../../constants/types/user";
 
@@ -26,6 +30,7 @@ export const initUser: IUser = {
 
 const initialState = {
   user: initUser,
+  selectedUser: initUser,
   loading: false,
   error: ''
 };
@@ -33,6 +38,7 @@ const initialState = {
 export default function(state: IUserReducer = initialState, action: AnyAction) {
   switch (action.type) {
     case FETCH_USER_PROFILE_REQUESTING:
+    case GET_USER_BY_ID_REQUESTING:
     case UPDATE_USER_PROFILE_REQUESTING: {
       return {
         ...state,
@@ -50,10 +56,19 @@ export default function(state: IUserReducer = initialState, action: AnyAction) {
     }
 
     case FETCH_USER_PROFILE_ERROR:
+    case GET_USER_BY_ID_ERROR:
     case UPDATE_USER_PROFILE_ERROR: {
       return {
         ...state,
         error: action.error,
+        loading: false
+      }
+    }
+
+    case GET_USER_BY_ID_SUCCESS: {
+      return {
+        ...state,
+        selectedUser: action.user,
         loading: false
       }
     }

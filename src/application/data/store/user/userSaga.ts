@@ -15,7 +15,11 @@ import {
 
   UPDATE_USER_PROFILE_REQUESTING,
   UPDATE_USER_PROFILE_SUCCESS,
-  UPDATE_USER_PROFILE_ERROR
+  UPDATE_USER_PROFILE_ERROR,
+
+  GET_USER_BY_ID_REQUESTING,
+  GET_USER_BY_ID_SUCCESS,
+  GET_USER_BY_ID_ERROR
 } from "./userActionTypes";
 
 import UserResolver from '../../../../api/graphql/relsolvers/user';
@@ -126,5 +130,24 @@ export function* updateUserProfile(action: any) {
   } catch (error) {
     yield put({ type: UPDATE_USER_PROFILE_ERROR, error });
     console.warn('Update user profile error ' + error);
+  }
+}
+
+export function* getUserById(action: any) {
+  try {
+    const { id } = action;
+    yield put({  type:  GET_USER_BY_ID_REQUESTING });
+
+    const user = yield call(UserResolver.getUserById, id);
+
+    if (user){
+      yield put({ type: GET_USER_BY_ID_SUCCESS, user });
+      return user;
+    }
+
+    return null;
+  } catch (error) {
+    yield put({ type: GET_USER_BY_ID_ERROR, error });
+    console.warn('Get user by id error ' + error);
   }
 }

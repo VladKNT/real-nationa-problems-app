@@ -4,7 +4,8 @@ import {
   CREATE_USER_PROFILE,
   LOGIN_USER_PROFILE,
   LOGOUT_USER,
-  UPDATE_USER_PROFILE
+  UPDATE_USER_PROFILE,
+  GET_USER_BY_ID
 } from "./user/userActionTypes";
 import {
   FETCH_EVENT,
@@ -22,7 +23,8 @@ function* rootSaga() {
   yield takeLatest(LOGIN_USER_PROFILE, userProfileSaga.signIn);
   yield takeLatest(LOGOUT_USER, userProfileSaga.signOut);
   yield takeLatest(UPDATE_USER_PROFILE, userProfileSaga.updateUserProfile);
-  
+  yield takeLatest(GET_USER_BY_ID, userProfileSaga.getUserById);
+
   yield takeLatest(FETCH_EVENT, eventSaga.getEvent);
   yield takeLatest(FETCH_EVENTS, eventSaga.getEvents);
   yield takeLatest(CREATE_EVENT, eventSaga.createEvent);

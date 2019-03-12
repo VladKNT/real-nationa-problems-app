@@ -78,15 +78,23 @@ class EventScreen extends Component <IProps, IState> {
     navigation.navigate("MapScreen", { showMode: true });
   };
 
+  onAvatarPressed = (id: string) => {
+    const { navigation } = this.props;
+
+    navigation.navigate("ProfileScreen", { id });
+  };
+
   renderParticipants = () => {
     const { participants } = this.props.event;
 
     return _.map(participants, (participant) => {
       return (
-        <TouchableOpacity style={styles.participantAvatar}>
+        <TouchableOpacity
+          key={participant.id}
+          style={styles.participantAvatar}
+          onPress={() => this.onAvatarPressed(participant.id)}>
           <UserAvatar
             size={70}
-            key={participant.id}
             uri={participant.userProfile.profilePhoto} />
         </TouchableOpacity>
       )

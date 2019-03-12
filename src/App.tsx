@@ -37,7 +37,8 @@ const Feed = createStackNavigator(
   {
     FeedScreen: FeedScreen,
     EventScreen: EventScreen,
-    MapScreen: MapScreen
+    MapScreen: MapScreen,
+    ProfileScreen: ProfileScreen
   }, {
     initialRouteName: 'FeedScreen',
     ...defaultNavigationOptions

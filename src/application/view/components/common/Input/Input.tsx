@@ -23,15 +23,17 @@ const styles = StyleSheet.create({
 });
 
 export interface IProps {
-  style?: any,
-  titleStyle?: any,
-  inputStyle?: any,
-  title?: string,
-  secureTextEntry?: boolean,
-  name?: string,
-  value?: any,
-  placeholder?: string,
-  onChangeText?: any
+  style?: any;
+  titleStyle?: any;
+  inputStyle?: any;
+  title?: string;
+  secureTextEntry?: boolean;
+  name?: string;
+  value?: any;
+  multiline?: boolean;
+  numberOfLines?: number;
+  placeholder?: string;
+  onChangeText?: any;
 }
 
 export interface IState {
