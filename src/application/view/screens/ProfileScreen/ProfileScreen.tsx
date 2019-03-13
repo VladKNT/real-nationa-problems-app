@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import _ from 'lodash';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
@@ -9,6 +10,7 @@ import { HiglightButton } from "../../components/common";
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { IUser, IUserReducer } from "../../../../constants/types/user";
 import COLORS from "../../../../constants/colors";
+import STRINGS from "../../../../constants/strings";
 import styles from "./Styles";
 
 interface IProps {
@@ -33,32 +35,56 @@ class ProfileScreen extends Component <IProps, IState> {
     navigate("EditProfileScreen");
   };
 
-  static navigationOptions = ({ navigation }: any) => ({
-    headerLeft: (
-      <Text style={styles.headerLeft}>
-        { navigation.getParam("username") }
-      </Text>
-    ),
+  static navigationOptions = ({ navigation }: any) => {
+    const settingsPressed = navigation.getParam("settingsPressed");
+    if (settingsPressed) {
+      return {
+        headerTitle: (
+          <Text style={styles.headerLeft}>
+            { navigation.getParam("username") }
+          </Text>
+        ),
 
-    headerRight: (
-      <TouchableOpacity style={styles.headerRight} onPress={navigation.getParam("settingsPressed")}>
-        <Icon name={"md-settings"} size={25} color={COLORS.BLACK} />
-      </TouchableOpacity>
-    ),
-  });
+        headerRight: (
+          <TouchableOpacity style={styles.headerRight} onPress={settingsPressed}>
+            <Icon name={"md-settings"} size={25} color={COLORS.BLACK} />
+          </TouchableOpacity>
+        )
+      }
+    }
+
+    return {
+      headerTitle: (
+        <Text style={styles.headerLeft}>
+          { navigation.getParam("username") }
+        </Text>
+      ),
+    }
+  };
+
+  isCurrentUser = () => {
+    const { navigation, user: { id} } = this.props;
+    const selectedId = navigation.getParam('id');
+
+    return _.isNil(selectedId) || selectedId == id
+  };
 
   componentDidMount() {
     const { navigation, user, selectedUser, getUserById } = this.props;
     const id = navigation.getParam('id');
 
-    if (id) {
-      getUserById(id)
-    }
+    if (!this.isCurrentUser()) {
+      getUserById(id);
 
-    navigation.setParams({
-      username: id ? selectedUser.username : user.username,
-      settingsPressed: this.settingsPressed
-    });
+      navigation.setParams({
+        username: selectedUser.username,
+      });
+    } else {
+      navigation.setParams({
+        username: user.username,
+        settingsPressed: this.settingsPressed
+      });
+    }
   }
 
   componentDidUpdate(prevProps: IProps) {
@@ -78,9 +104,8 @@ class ProfileScreen extends Component <IProps, IState> {
   }
 
   render() {
-    const { navigation, user, selectedUser, loading } = this.props;
-    const id = navigation.getParam('id');
-    const { firstName, lastName, profilePhoto, bio } = id ? selectedUser.userProfile : user.userProfile;
+    const { user, selectedUser, loading } = this.props;
+    const { firstName, lastName, profilePhoto, bio } = !this.isCurrentUser() ? selectedUser.userProfile : user.userProfile;
 
     if (loading) {
       return (
@@ -112,7 +137,7 @@ class ProfileScreen extends Component <IProps, IState> {
 
         <View style={styles.buttonContainer}>
           <HiglightButton onPress={() =>{}} textStyle={styles.messageButtonText}>
-            Send message
+            {this.isCurrentUser() ? STRINGS.MESSAGES : STRINGS.SEND_MESSAGE}
           </HiglightButton>
         </View>
       </View>

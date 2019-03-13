@@ -39,6 +39,15 @@ export const getUser = gql `
         profilePhoto
         bio
       }
+      chats {
+        id
+        lastMessage {
+          message
+        }
+        members {
+          id
+        }
+      }
     }
   }
 `;
@@ -55,6 +64,15 @@ export const getUserById = gql `
         profilePhoto
         bio
       }
+      chats {
+        id
+        lastMessage {
+          message
+        }
+        members {
+          id
+        }
+      }
     }
   }
 `;
@@ -70,6 +88,15 @@ export const updateUser = gql `
         lastName
         profilePhoto
         bio
+      }
+      chats {
+        id
+        lastMessage {
+          message
+        }
+        members {
+          id
+        }
       }
     }
   }

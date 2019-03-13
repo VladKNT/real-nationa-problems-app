@@ -39,5 +39,9 @@ export default {
   WHEN: "When",
   TIME: "Time",
   CHECK_IN: "Check in",
-  CHECK_OUT: "Check out"
+  CHECK_OUT: "Check out",
+
+  //=== Profile screen ===
+  MESSAGES: "Messages",
+  SEND_MESSAGE: "Send message"
 }
