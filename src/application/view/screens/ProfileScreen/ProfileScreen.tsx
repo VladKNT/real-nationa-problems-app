@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { getUserById } from "../../../data/store/user/userActions";
+import { createPrivateChat } from "../../../data/store/chat/chatActions";
 import UserAvatar from "../../components/UserAvatar/UserAvatar";
 import { HiglightButton } from "../../components/common";
 import { IReducerStates } from "../../../data/store/rootReducer";
@@ -19,6 +20,7 @@ interface IProps {
   selectedUser: IUser;
   loading: boolean;
   getUserById(id: string): void;
+  createPrivateChat(recipientId: string): void;
 }
 
 interface IState {
@@ -103,6 +105,13 @@ class ProfileScreen extends Component <IProps, IState> {
     }
   }
 
+  onMessagePressed = () => {
+    const { createPrivateChat, navigation } = this.props;
+    const recipientId = navigation.getParam('id');
+
+    createPrivateChat(recipientId);
+  };
+
   render() {
     const { user, selectedUser, loading } = this.props;
     const { firstName, lastName, profilePhoto, bio } = !this.isCurrentUser() ? selectedUser.userProfile : user.userProfile;
@@ -136,7 +145,7 @@ class ProfileScreen extends Component <IProps, IState> {
         </View>
 
         <View style={styles.buttonContainer}>
-          <HiglightButton onPress={() =>{}} textStyle={styles.messageButtonText}>
+          <HiglightButton onPress={this.onMessagePressed} textStyle={styles.messageButtonText}>
             {this.isCurrentUser() ? STRINGS.MESSAGES : STRINGS.SEND_MESSAGE}
           </HiglightButton>
         </View>
@@ -159,7 +168,8 @@ const mapStateToProps = (state: IReducerStates) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    getUserById: (id: string) => dispatch(getUserById(id))
+    getUserById: (id: string) => dispatch(getUserById(id)),
+    createPrivateChat: (recipientId: string) => dispatch(createPrivateChat(recipientId))
   };
 };
 

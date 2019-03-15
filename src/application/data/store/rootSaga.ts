@@ -13,8 +13,10 @@ import {
   CREATE_EVENT,
   FOLLOW_EVENT
 } from "./event/eventActionTypes";
+import { CREATE_PRIVATE_CHAT } from "./chat/chatActionTypes";
 import * as userProfileSaga from './user/userSaga';
-import * as eventSaga from './event/eventSaga';
+import * as eventSaga from "./event/eventSaga";
+import * as chatSaga from "./chat/chatSaga";
 
 
 function* rootSaga() {
@@ -29,6 +31,8 @@ function* rootSaga() {
   yield takeLatest(FETCH_EVENTS, eventSaga.getEvents);
   yield takeLatest(CREATE_EVENT, eventSaga.createEvent);
   yield takeLatest(FOLLOW_EVENT, eventSaga.followEvent);
+
+  yield takeLatest(CREATE_PRIVATE_CHAT, chatSaga.createPrivateChat);
 }
 
 export default rootSaga;
