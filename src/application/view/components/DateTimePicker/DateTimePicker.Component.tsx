@@ -11,7 +11,7 @@ import moment from 'moment';
 import STRINGS from '../../../../constants/strings';
 import COLORS from '../../../../constants/colors';
 
-import styles from './Styles';
+import styles from './DateTimePicker.Styles';
 
 interface Props {
   style?: any,

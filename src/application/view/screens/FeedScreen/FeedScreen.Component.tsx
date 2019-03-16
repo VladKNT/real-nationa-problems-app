@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, FlatList } from "react-native";
-import EventCard from "../../components/EventCard/EventCard";
-import styles from "./Styles";
+import EventCardComponent from "../../components/EventCard/EventCard.Component";
+import styles from "./FeedScreen.Styles";
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
@@ -32,7 +32,7 @@ class FeedScreen extends Component <IProps, IState> {
   };
 
   renderEvent = ({ item: event }: { item: IEvent }) => {
-    return <EventCard event={event} onPress={this.onCardPressed} />
+    return <EventCardComponent event={event} onPress={this.onCardPressed} />
   };
 
   render() {

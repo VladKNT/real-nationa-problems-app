@@ -6,14 +6,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 
 import SplashScreen from './application/view/screens/SplashScreen/SplashScreen';
-import SignInScreen from './application/view/screens/SignInScreen/SignInScreen';
-import SighUpScreen from './application/view/screens/SighUpScreen/SighUpScreen';
-import FeedScreen from './application/view/screens/FeedScreen/FeedScreen';
-import ProfileScreen from './application/view/screens/ProfileScreen/ProfileScreen';
-import EditProfileScreen from './application/view/screens/EditProfileScreen/EditProfileScreen';
-import EventScreen from './application/view/screens/EventScreen/EventScreen';
-import SaveEventScreen from './application/view/screens/SaveEventScreen/SaveEventScreen';
-import MapScreen from './application/view/screens/MapScreen/MapScreen';
+import SignInScreen from './application/view/screens/SignInScreen/SignInScreen.Component';
+import SighUpScreen from './application/view/screens/SighUpScreen/SighUpScreen.Component';
+import FeedScreen from './application/view/screens/FeedScreen/FeedScreen.Component';
+import ProfileScreen from './application/view/screens/ProfileScreen/ProfileScreen.Component';
+import EditProfileScreen from './application/view/screens/EditProfileScreen/EditProfileScreen.Component';
+import EventScreen from './application/view/screens/EventScreen/EventScreen.Component';
+import SaveEventScreen from './application/view/screens/SaveEventScreen/SaveEventScreen.Component';
+import MapScreen from './application/view/screens/MapScreen/MapScreen.Component';
 
 const ICON_SIZE = 35;
 

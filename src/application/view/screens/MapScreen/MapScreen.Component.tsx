@@ -12,7 +12,7 @@ import { ISaveEventParams, IEvent } from "../../../../constants/types/event";
 
 import COLORS from "../../../../constants/colors";
 import STRINGS from "../../../../constants/strings";
-import styles from "./Styles";
+import styles from "./MapScreen.Styles";
 
 interface IProps {
   navigation: any;

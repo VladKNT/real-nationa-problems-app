@@ -9,13 +9,13 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { getEvent, followEvent } from "../../../data/store/event/eventActions";
 
-import UserAvatar from "../../components/UserAvatar/UserAvatar";
+import UserAvatar from "../../components/UserAvatar/UserAvatar.Component";
 import { HiglightButton } from "../../components/common";
 import URLS from "../../../../constants/urls";
 import { IEvent } from "../../../../constants/types/event";
 import STRINGS from "../../../../constants/strings";
 import COLORS from "../../../../constants/colors";
-import styles from "./Styles";
+import styles from "./EventScreen.Styles";
 
 interface IProps {
   navigation: any;

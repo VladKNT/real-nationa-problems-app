@@ -6,13 +6,13 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { getUserById } from "../../../data/store/user/userActions";
 import { createPrivateChat } from "../../../data/store/chat/chatActions";
-import UserAvatar from "../../components/UserAvatar/UserAvatar";
+import UserAvatar from "../../components/UserAvatar/UserAvatar.Component";
 import { HiglightButton } from "../../components/common";
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { IUser, IUserReducer } from "../../../../constants/types/user";
 import COLORS from "../../../../constants/colors";
 import STRINGS from "../../../../constants/strings";
-import styles from "./Styles";
+import styles from "./ProfileScreen.Styles";
 
 interface IProps {
   navigation: any;

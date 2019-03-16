@@ -12,12 +12,12 @@ import { setSaveEventData, createEvent } from "../../../data/store/event/eventAc
 
 
 import {Input, HiglightButton} from "../../components/common";
-import DateTimePicker from "../../components/DateTimePicker/DateTimePicker";
+import DateTimePickerComponent from "../../components/DateTimePicker/DateTimePicker.Component";
 import ImagePhotoPicker from "../../components/ImagePhotoPicker/ImagePhotoPicker";
 import STRINGS from "../../../../constants/strings";
 import COLORS from "../../../../constants/colors";
 import { ISaveEvent, ISaveEventParams } from "../../../../constants/types/event";
-import styles from "./Styles";
+import styles from "./SaveEventScreen.Styles";
 
 interface IProps {
   navigation: any;
@@ -147,7 +147,7 @@ class SaveEventScreen extends Component <IProps, IState> {
       const date = dateStart || moment();
 
       return (
-        <DateTimePicker
+        <DateTimePickerComponent
           title={STRINGS.DATE_START}
           date={moment(date)}
           minimumDate={moment(date)}
@@ -180,7 +180,7 @@ class SaveEventScreen extends Component <IProps, IState> {
       }
 
       return (
-        <DateTimePicker
+        <DateTimePickerComponent
           title={STRINGS.DATE_END}
           date={date}
           minimumDate={minimumDate}

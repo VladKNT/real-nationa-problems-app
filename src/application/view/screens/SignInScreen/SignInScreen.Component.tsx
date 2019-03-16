@@ -11,7 +11,7 @@ import { ISignInParameters } from "../../../../constants/types/auth";
 import { signIn } from "../../../data/store/user/userActions";
 
 import STRINGS from "../../../../constants/strings";
-import styles from "./Styles";
+import styles from "./SignInScreen.Styles";
 
 interface Props {
   navigation: any,

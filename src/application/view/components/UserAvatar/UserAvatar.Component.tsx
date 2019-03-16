@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import URLS from '../../../../constants/urls';
-import styles from './Styles';
+import styles from './UserAvatar.Styles';
 
 interface Props {
   style?: any,

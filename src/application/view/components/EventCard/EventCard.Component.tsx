@@ -2,10 +2,10 @@ import React, {Component} from "react";
 import { View, Image, TouchableOpacity, Text } from "react-native";
 import moment from "moment";
 
-import UserAvatar from "../UserAvatar/UserAvatar";
+import UserAvatar from "../UserAvatar/UserAvatar.Component";
 import { IEvent } from "../../../../constants/types/event";
 import URLS from "../../../../constants/urls";
-import styles from "./Styles";
+import styles from "./EventCard.Styles";
 
 interface IProps {
   event: IEvent;

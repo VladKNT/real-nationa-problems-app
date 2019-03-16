@@ -10,12 +10,12 @@ import { IReducerStates } from "../../../data/store/rootReducer";
 import { updateUserProfile, signOut } from "../../../data/store/user/userActions";
 
 import { HiglightButton, Input } from "../../components/common";
-import UserAvatar from "../../components/UserAvatar/UserAvatar";
+import UserAvatar from "../../components/UserAvatar/UserAvatar.Component";
 import ImagePhotoPicker from "../../components/ImagePhotoPicker/ImagePhotoPicker";
 import STRINGS from "../../../../constants/strings";
 import COLORS from "../../../../constants/colors";
 import { IEditProfile, IUser } from "../../../../constants/types/user";
-import styles from "./Styles";
+import styles from "./EditProfileScreen.Styles";
 
 interface IProps {
   navigation: any;

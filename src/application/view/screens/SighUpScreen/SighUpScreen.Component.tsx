@@ -10,7 +10,7 @@ import { Button, Input } from "../../components/common";
 import STRINGS from "../../../../constants/strings";
 import IMAGES from "../../../../constants/images";
 import { ISignUpParameters } from "../../../../constants/types/auth";
-import styles from "./Styles";
+import styles from "./SighUpScreen.Styles";
 
 interface Props {
   navigation: any;
