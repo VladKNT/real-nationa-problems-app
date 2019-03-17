@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import SplashScreen from './application/view/screens/SplashScreen/SplashScreen';
 import SignInScreen from './application/view/screens/SignInScreen/SignInScreen.Component';
-import SighUpScreen from './application/view/screens/SighUpScreen/SighUpScreen.Component';
+import SighUpScreen from './application/view/screens/SignUpScreen/SignUpScreen.Component';
 import FeedScreen from './application/view/screens/FeedScreen/FeedScreen.Component';
 import ProfileScreen from './application/view/screens/ProfileScreen/ProfileScreen.Component';
 import EditProfileScreen from './application/view/screens/EditProfileScreen/EditProfileScreen.Component';

@@ -10,7 +10,7 @@ import { Button, Input } from "../../components/common";
 import STRINGS from "../../../../constants/strings";
 import IMAGES from "../../../../constants/images";
 import { ISignUpParameters } from "../../../../constants/types/auth";
-import styles from "./SighUpScreen.Styles";
+import styles from "./SignUpScreen.Styles";
 
 interface Props {
   navigation: any;
@@ -21,7 +21,7 @@ interface State {
   input: ISignUpParameters;
 }
 
-class SighUpScreen extends Component <Props, State> {
+export class SignUpScreen extends Component <Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -92,4 +92,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SighUpScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);
