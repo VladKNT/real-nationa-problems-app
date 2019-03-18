@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { getUserById } from "../../../data/store/user/userActions";
 import { createPrivateChat } from "../../../data/store/chat/chatActions";
 import UserAvatar from "../../components/UserAvatar/UserAvatar.Component";
-import { HiglightButton } from "../../components/common";
+import { HighlightButton } from "../../components/common";
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { IUser, IUserReducer } from "../../../../constants/types/user";
 import COLORS from "../../../../constants/colors";
@@ -145,9 +145,9 @@ class ProfileScreen extends Component <IProps, IState> {
         </View>
 
         <View style={styles.buttonContainer}>
-          <HiglightButton onPress={this.onMessagePressed} textStyle={styles.messageButtonText}>
+          <HighlightButton onPress={this.onMessagePressed} textStyle={styles.messageButtonText}>
             {this.isCurrentUser() ? STRINGS.MESSAGES : STRINGS.SEND_MESSAGE}
-          </HiglightButton>
+          </HighlightButton>
         </View>
       </View>
     )

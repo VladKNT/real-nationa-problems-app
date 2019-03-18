@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { updateUserProfile, signOut } from "../../../data/store/user/userActions";
 
-import { HiglightButton, Input } from "../../components/common";
+import { HighlightButton, Input } from "../../components/common";
 import UserAvatar from "../../components/UserAvatar/UserAvatar.Component";
 import ImagePhotoPicker from "../../components/ImagePhotoPicker/ImagePhotoPicker";
 import STRINGS from "../../../../constants/strings";
@@ -132,12 +132,12 @@ class EditProfileScreen extends Component <IProps, IState> {
                  onChangeText={(data: string) => this.onInputChange("bio", data)} />
         </View>
 
-        <HiglightButton
+        <HighlightButton
           style={styles.logout}
           textStyle={styles.logoutText}
           onPress={signOut}>
           {STRINGS.LOGOUT}
-        </HiglightButton>
+        </HighlightButton>
       </ScrollView>
     )
   }

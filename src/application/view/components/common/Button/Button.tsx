@@ -24,7 +24,7 @@ export interface IProps {
   children: any,
   style?: any,
   textStyle?: any,
-  onPress: any
+  onPress?: any
 }
 
 export default class Button extends Component<IProps> {

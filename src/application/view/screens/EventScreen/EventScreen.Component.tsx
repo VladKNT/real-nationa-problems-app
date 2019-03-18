@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { getEvent, followEvent } from "../../../data/store/event/eventActions";
 
 import UserAvatar from "../../components/UserAvatar/UserAvatar.Component";
-import { HiglightButton } from "../../components/common";
+import { HighlightButton } from "../../components/common";
 import URLS from "../../../../constants/urls";
 import { IEvent } from "../../../../constants/types/event";
 import STRINGS from "../../../../constants/strings";
@@ -170,12 +170,12 @@ class EventScreen extends Component <IProps, IState> {
             {this.renderTime()}
           </View>
 
-          <HiglightButton
+          <HighlightButton
             onPress={this.followEvent}
             style={styles.checkButton}
             textStyle={styles.checkButtonText}>
             {this.isFollowed() ? STRINGS.CHECK_OUT : STRINGS.CHECK_IN }
-          </HiglightButton>
+          </HighlightButton>
         </View>
       </ScrollView>
     )

@@ -11,8 +11,8 @@ import { IReducerStates } from "../../../data/store/rootReducer";
 import { setSaveEventData, createEvent } from "../../../data/store/event/eventActions";
 
 
-import {Input, HiglightButton} from "../../components/common";
-import DateTimePickerComponent from "../../components/DateTimePicker/DateTimePicker.Component";
+import {Input, HighlightButton} from "../../components/common";
+import DateTimePicker from "../../components/DateTimePicker/DateTimePicker.Component";
 import ImagePhotoPicker from "../../components/ImagePhotoPicker/ImagePhotoPicker";
 import STRINGS from "../../../../constants/strings";
 import COLORS from "../../../../constants/colors";
@@ -147,7 +147,7 @@ class SaveEventScreen extends Component <IProps, IState> {
       const date = dateStart || moment();
 
       return (
-        <DateTimePickerComponent
+        <DateTimePicker
           title={STRINGS.DATE_START}
           date={moment(date)}
           minimumDate={moment(date)}
@@ -180,7 +180,7 @@ class SaveEventScreen extends Component <IProps, IState> {
       }
 
       return (
-        <DateTimePickerComponent
+        <DateTimePicker
           title={STRINGS.DATE_END}
           date={date}
           minimumDate={minimumDate}
@@ -258,15 +258,15 @@ class SaveEventScreen extends Component <IProps, IState> {
                  value={description}
                  onChangeText={(data: string) => this.onInputChange("description", data)} />
 
-          <HiglightButton onPress={this.onAddPlacePressed} style={styles.addPlaceContainer}>
+          <HighlightButton onPress={this.onAddPlacePressed} style={styles.addPlaceContainer}>
             <Icon name={this.mapIcon()} size={25} color={COLORS.HIGHLIGHT} /> {STRINGS.ADD_PLACE}
-          </HiglightButton>
+          </HighlightButton>
 
 
 
-          <HiglightButton onPress={this.onOpenDatePicker}>
+          <HighlightButton onPress={this.onOpenDatePicker}>
             {this.renderDateTimeText()}
-          </HiglightButton>
+          </HighlightButton>
         </View>
 
         {this.renderDatePickerOverlay()}

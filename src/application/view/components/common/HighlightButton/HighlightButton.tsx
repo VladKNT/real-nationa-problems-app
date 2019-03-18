@@ -16,10 +16,10 @@ export interface IProps {
   children: any,
   style?: any,
   textStyle?: any,
-  onPress: any
+  onPress?: any
 }
 
-export default class HiglightButton extends Component<IProps> {
+export default class HighlightButton extends Component<IProps> {
   constructor(props: IProps) {
     super(props);
   }

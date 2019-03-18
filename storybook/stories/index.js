@@ -4,4 +4,5 @@ import { withKnobs } from '@storybook/addon-knobs';
 
 addDecorator(withKnobs);
 
-require('./components');
+require('./components/common');
+require('./components/DateTimePicker/DateTimePicker');
