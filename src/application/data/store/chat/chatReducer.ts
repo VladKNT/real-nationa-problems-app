@@ -8,11 +8,12 @@ import {
 import { initUser } from "../user/userReducer";
 import { initMessage } from "../message/messageReducer";
 
-const initChat: IChat = {
+export const initChat: IChat = {
   id: '',
   name: '',
   description: '',
   icon: '',
+  private: true,
   lastMessage: initMessage,
   members: [initUser],
   creatorId: ''

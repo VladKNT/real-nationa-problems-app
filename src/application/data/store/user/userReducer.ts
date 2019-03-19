@@ -13,6 +13,7 @@ import {
   GET_USER_BY_ID_ERROR
 } from "./userActionTypes";
 import { IUser, IUserProfile, IUserReducer } from "../../../../constants/types/user";
+import {initChat} from "../chat/chatReducer";
 
 export const initUserProfile: IUserProfile = {
   firstName: '',
@@ -25,7 +26,8 @@ export const initUser: IUser = {
   id: '',
   username: '',
   email: '',
-  userProfile: initUserProfile
+  userProfile: initUserProfile,
+  chats: [initChat]
 };
 
 const initialState = {

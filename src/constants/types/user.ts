@@ -1,4 +1,5 @@
 import { ReactNativeFileOptions } from "extract-files";
+import { IChat } from "./chat";
 
 export interface IUserProfile {
   firstName: string;
@@ -13,6 +14,7 @@ export interface IUser {
   id: string;
   userProfile: IUserProfile;
   username: string;
+  chats: IChat[];
 }
 
 export interface IUserReducer {

@@ -13,6 +13,7 @@ import { IUser, IUserReducer } from "../../../../constants/types/user";
 import COLORS from "../../../../constants/colors";
 import STRINGS from "../../../../constants/strings";
 import styles from "./ProfileScreen.Styles";
+import {IChat} from "../../../../constants/types/chat";
 
 interface IProps {
   navigation: any;
@@ -104,12 +105,42 @@ class ProfileScreen extends Component <IProps, IState> {
       });
     }
   }
+  // TODO: Clear selected user
+  componentWillUnmount() {
+    console.info('UNMOUNT!');
+  }
+
+  getChatId = () => {
+    const {
+      selectedUser: {
+        chats: selectedUserChats
+      },
+      user: {
+        chats: currentUserChats
+      }
+     } = this.props;
+
+    const chats = _.intersectionWith(selectedUserChats, currentUserChats, (selectedUser: IChat, currentUser: IChat) => {
+        return selectedUser.id == currentUser.id && selectedUser.private;
+    });
+
+    return chats[0];
+  };
 
   onMessagePressed = () => {
-    const { createPrivateChat, navigation } = this.props;
-    const recipientId = navigation.getParam('id');
+    const { createPrivateChat, selectedUser: { id }} = this.props;
 
-    createPrivateChat(recipientId);
+    // TODO: Chat & messages screens
+    if (id) {
+      const { id: chatId } = this.getChatId();
+
+      if (chatId) {
+        console.info(chatId);
+      } else {
+        createPrivateChat(id);
+      }
+    }
+
   };
 
   render() {

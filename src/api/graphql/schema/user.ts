@@ -41,6 +41,7 @@ export const getUser = gql `
       }
       chats {
         id
+        private
         lastMessage {
           message
         }
@@ -66,6 +67,7 @@ export const getUserById = gql `
       }
       chats {
         id
+        private
         lastMessage {
           message
         }
@@ -91,6 +93,7 @@ export const updateUser = gql `
       }
       chats {
         id
+        private
         lastMessage {
           message
         }

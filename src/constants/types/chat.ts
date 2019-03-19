@@ -6,6 +6,7 @@ export interface IChat {
   name?: string;
   description?: string;
   icon?: string;
+  private: boolean;
   lastMessage: IMessage;
   members: IUser[];
   creatorId: string;
