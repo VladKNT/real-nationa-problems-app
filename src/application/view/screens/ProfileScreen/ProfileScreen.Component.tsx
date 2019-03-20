@@ -128,14 +128,24 @@ class ProfileScreen extends Component <IProps, IState> {
   };
 
   onMessagePressed = () => {
-    const { createPrivateChat, selectedUser: { id }} = this.props;
+    const {
+      navigation: {
+        navigate
+      },
+      createPrivateChat,
+      selectedUser: {
+        id
+      }
+    } = this.props;
 
     // TODO: Chat & messages screens
     if (id) {
       const { id: chatId } = this.getChatId();
 
       if (chatId) {
+        navigate("ChatScreen", { chatId });
         console.info(chatId);
+
       } else {
         createPrivateChat(id);
       }

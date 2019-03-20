@@ -17,3 +17,21 @@ export const createPrivateChat = gql `
     }
   }
 `;
+
+export const getChat = gql `
+  query chat($id: ID!) {
+    chat(id: $id) {
+      id
+      private,
+      lastMessage {
+        message,
+        owner {
+          username,
+          userProfile {
+            profilePhoto
+          }
+        }
+      }
+    }
+  }
+`;

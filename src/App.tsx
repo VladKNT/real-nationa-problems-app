@@ -14,6 +14,7 @@ import EditProfileScreen from './application/view/screens/EditProfileScreen/Edit
 import EventScreen from './application/view/screens/EventScreen/EventScreen.Component';
 import SaveEventScreen from './application/view/screens/SaveEventScreen/SaveEventScreen.Component';
 import MapScreen from './application/view/screens/MapScreen/MapScreen.Component';
+import ChatScreen from './application/view/screens/ChatScreen/ChatScreen.Component';
 
 const ICON_SIZE = 35;
 
@@ -39,7 +40,8 @@ const Feed = createStackNavigator(
     EventScreen: EventScreen,
     MapScreen: MapScreen,
     ProfileScreen: ProfileScreen,
-    EditProfileScreen: EditProfileScreen
+    EditProfileScreen: EditProfileScreen,
+    ChatScreen: ChatScreen
   }, {
     initialRouteName: 'FeedScreen',
     ...defaultNavigationOptions
@@ -58,7 +60,8 @@ Feed.navigationOptions = ({ navigation }: any) => {
 const Profile = createStackNavigator(
   {
     ProfileScreen: ProfileScreen,
-    EditProfileScreen: EditProfileScreen
+    EditProfileScreen: EditProfileScreen,
+    ChatScreen: ChatScreen
   }, {
     initialRouteName: 'ProfileScreen',
     ...defaultNavigationOptions

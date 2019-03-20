@@ -3,7 +3,11 @@ import { IChat, IChatReducer } from "../../../../constants/types/chat";
 import {
   CREATE_PRIVATE_CHAT_REQUESTING,
   CREATE_PRIVATE_CHAT_SUCCESS,
-  CREATE_PRIVATE_CHAT_ERROR
+  CREATE_PRIVATE_CHAT_ERROR,
+
+  GET_CHAT_REQUESTING,
+  GET_CHAT_SUCCESS,
+  GET_CHAT_ERROR
 } from "./chatActionTypes";
 import { initUser } from "../user/userReducer";
 import { initMessage } from "../message/messageReducer";
@@ -27,6 +31,7 @@ const initState: IChatReducer = {
 
 export default function (state: IChatReducer = initState, action: AnyAction) {
   switch (action.type) {
+    case GET_CHAT_REQUESTING:
     case CREATE_PRIVATE_CHAT_REQUESTING: {
       return {
         ...state,
@@ -34,6 +39,7 @@ export default function (state: IChatReducer = initState, action: AnyAction) {
       }
     }
 
+    case GET_CHAT_SUCCESS:
     case CREATE_PRIVATE_CHAT_SUCCESS: {
       return {
         ...state,
@@ -42,6 +48,7 @@ export default function (state: IChatReducer = initState, action: AnyAction) {
       }
     }
 
+    case GET_CHAT_ERROR:
     case CREATE_PRIVATE_CHAT_ERROR: {
       return {
         ...state,
@@ -50,4 +57,6 @@ export default function (state: IChatReducer = initState, action: AnyAction) {
       }
     }
   }
+
+  return state;
 }
