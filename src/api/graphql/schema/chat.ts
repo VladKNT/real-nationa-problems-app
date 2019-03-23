@@ -4,14 +4,25 @@ export const createPrivateChat = gql `
   mutation createPrivateChat($recipientId: ID!) {
     createPrivateChat(recipientId: $recipientId) {
       id
-      private,
+      private
       lastMessage {
-        message,
+        message
         owner {
           username,
           userProfile {
             profilePhoto
+            firstName
+            lastName
           }
+        }
+      }
+      members {
+        id
+        username
+        userProfile {
+          profilePhoto
+          firstName
+          lastName
         }
       }
     }
@@ -24,12 +35,23 @@ export const getChat = gql `
       id
       private,
       lastMessage {
-        message,
+        message
         owner {
           username,
           userProfile {
             profilePhoto
+            firstName
+            lastName
           }
+        }
+      }
+      members {
+        id
+        username
+        userProfile {
+          profilePhoto
+          firstName
+          lastName
         }
       }
     }
