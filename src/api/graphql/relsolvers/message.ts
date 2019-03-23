@@ -1,10 +1,9 @@
 import configureClient from '../configureClient';
-import { messageSent } from '../schema/message';
+import { messageSent, getMessages } from '../schema/message';
 import TokenService from '../../../application/data/services/TokenService';
-import { ISaveEventParams } from '../../../constants/types/event';
 
-interface IGetMessageSentSubscription {
-  messageSent: any;
+interface IGetMessages {
+  messages: any;
 }
 
 const client = configureClient();
@@ -22,6 +21,20 @@ export default class MessageResolver {
           }
         });
 
+    } catch (error) {
+      console.info(error);
+    }
+  }
+
+  static async getMessages(chatId: string) {
+    try {
+      await TokenService.checkTokenExpired();
+      const response = await client.query<IGetMessages>({
+        query: getMessages,
+        variables: { chatId }
+      });
+
+      return response.data.messages;
     } catch (error) {
       console.info(error);
     }

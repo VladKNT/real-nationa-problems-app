@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 export const getEvent = gql `
   query event($id: ID!) {
     event(id: $id) {
-       id
+      id
       name
       description
       photo

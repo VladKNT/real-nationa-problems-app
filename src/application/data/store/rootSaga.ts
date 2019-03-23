@@ -7,16 +7,28 @@ import {
   UPDATE_USER_PROFILE,
   GET_USER_BY_ID
 } from "./user/userActionTypes";
+
 import {
   FETCH_EVENT,
   FETCH_EVENTS,
   CREATE_EVENT,
   FOLLOW_EVENT
 } from "./event/eventActionTypes";
-import { CREATE_PRIVATE_CHAT, GET_CHAT } from "./chat/chatActionTypes";
+
+import {
+  CREATE_PRIVATE_CHAT,
+  GET_CHAT
+} from "./chat/chatActionTypes";
+
+import {
+  GET_MESSAGES,
+  SEND_MESSAGE
+} from "./message/messageActionTypes";
+
 import * as userProfileSaga from './user/userSaga';
 import * as eventSaga from "./event/eventSaga";
 import * as chatSaga from "./chat/chatSaga";
+import * as messageSaga from "./message/messageSaga";
 
 
 function* rootSaga() {
@@ -34,6 +46,9 @@ function* rootSaga() {
 
   yield takeLatest(CREATE_PRIVATE_CHAT, chatSaga.createPrivateChat);
   yield takeLatest(GET_CHAT, chatSaga.getChat);
+
+  yield takeLatest(GET_MESSAGES, messageSaga.getMessages);
+  yield takeLatest(SEND_MESSAGE, messageSaga.sendMessage);
 }
 
 export default rootSaga;

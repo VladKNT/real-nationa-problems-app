@@ -22,7 +22,6 @@ class ChatScreen extends Component<IProps> {
   }
 
 
-
   render(): React.ReactNode {
     return (
       <View>

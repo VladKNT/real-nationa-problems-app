@@ -12,3 +12,10 @@ export interface IMessage {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IMessageReducer {
+  message: IMessage,
+  messages: IMessage[],
+  loading: boolean,
+  error: string
+}

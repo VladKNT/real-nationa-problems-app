@@ -9,3 +9,21 @@ export const messageSent = gql `
     }
   }
 `;
+
+export const getMessages = gql `
+  query messages($chatId: ID!) {
+    messages(chatId: $chatId) {
+      id
+      message
+      owner {
+        id
+        username
+        userProfile {
+          profilePhoto
+        }
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;

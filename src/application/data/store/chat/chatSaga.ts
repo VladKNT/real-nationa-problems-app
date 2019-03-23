@@ -8,7 +8,9 @@ import {
   GET_CHAT_SUCCESS,
   GET_CHAT_ERROR
 } from "./chatActionTypes";
+import { GET_MESSAGES } from "../message/messageActionTypes";
 import ChatResolver from '../../../../api/graphql/relsolvers/chat';
+import nav from "../../services/NavigationSecrvice";
 
 export function* createPrivateChat(action: any) {
   try {
@@ -17,16 +19,19 @@ export function* createPrivateChat(action: any) {
     yield put({ type: CREATE_PRIVATE_CHAT_REQUESTING });
     const chat = yield call(ChatResolver.createPrivateChat, recipientId);
 
-    if (chat){
+    if (chat) {
       yield put({ type: CREATE_PRIVATE_CHAT_SUCCESS, chat });
+      yield put({ type: GET_MESSAGES });
+      nav.navigate('ChatScreen');
       return chat;
     }
+
 
     return null;
 
   } catch (error) {
     yield put({ type: CREATE_PRIVATE_CHAT_ERROR, error });
-    console.warn('Error create private chat: Unauthorized');
+    console.warn('Error create private chat', error);
   }
 }
 
@@ -37,8 +42,10 @@ export function* getChat(action: any) {
     yield put({ type: GET_CHAT_REQUESTING });
     const chat = yield call(ChatResolver.getChat, id);
 
-    if (chat){
+    if (chat) {
       yield put({ type: GET_CHAT_SUCCESS, chat });
+      yield put({ type: GET_MESSAGES });
+
       return chat;
     }
 
@@ -46,6 +53,6 @@ export function* getChat(action: any) {
 
   } catch (error) {
     yield put({ type: GET_CHAT_ERROR, error });
-    console.warn('Error get chat: Unauthorized');
+    console.warn('Error get chat', error);
   }
 }
