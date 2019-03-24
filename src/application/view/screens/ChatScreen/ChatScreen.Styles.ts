@@ -1,8 +1,5 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import COLORS from "../../../../constants/colors";
-
-
-const { height } = Dimensions.get("window");
 
 export default StyleSheet.create({
   container: {
@@ -12,23 +9,34 @@ export default StyleSheet.create({
   },
 
   listContainer: {
-    paddingHorizontal: 10,
-    height: height * 0.75
+    flex: 1,
+    paddingHorizontal: 10
   },
 
   inputContainer: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    padding: 20,
+  },
+
+  inputBody: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderColor: COLORS.BORDER,
+    borderRadius: 30,
+    borderWidth: 1,
     paddingHorizontal: 20,
   },
 
   input: {
-    borderColor: COLORS.BORDER,
-    borderRadius: 15,
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    width: "100%"
+    flex: 1,
+    fontSize: 16
+  },
+
+  buttonText: {
+    fontWeight: "bold"
   }
 })

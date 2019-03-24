@@ -23,5 +23,14 @@ export default StyleSheet.create({
 
   userMessageBody: {
     alignSelf: "flex-end",
+    backgroundColor: COLORS.BORDER
+  },
+
+  messageText: {
+    color: COLORS.TEXT
+  },
+
+  timeText: {
+    fontSize: 12
   }
 })

@@ -12,6 +12,7 @@ import { IUser } from "../../../../constants/types/user";
 import { ChatList } from "../../components/Chat/ChatList/ChatList.Component";
 
 import styles from "./ChatScreen.Styles";
+import { HighlightButton } from "../../components/common";
 
 interface IProps {
   navigation: any;
@@ -29,7 +30,19 @@ interface IProps {
   getChat: (id: string) => void;
 }
 
-class ChatScreen extends Component<IProps> {
+interface IState {
+  input: string;
+}
+
+class ChatScreen extends Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+
+    this.state = {
+      input: ""
+    }
+  }
+
   componentDidMount(): void {
     const { getChat, navigation } = this.props;
     const id = navigation.getParam("chatId");
@@ -39,9 +52,13 @@ class ChatScreen extends Component<IProps> {
     }
   }
 
+  onChangeInput = (input: string) => {
+    this.setState({ input });
+  };
 
   render(): React.ReactNode {
     const { messages, messageLoading, user } = this.props;
+    const { input } = this.state;
 
     return (
       <View style={styles.container}>
@@ -49,7 +66,22 @@ class ChatScreen extends Component<IProps> {
           <ChatList messages={messages} loading={messageLoading} user={user} />
         </View>
         <View style={styles.inputContainer}>
-          <TextInput underlineColorAndroid={"transparent"} style={styles.input} />
+          <View style={styles.inputBody}>
+            <TextInput
+              value={input}
+              maxHeight={100}
+              maxLength={255}
+              multiline={true}
+              style={styles.input}
+              placeholder={"Message..."}
+              onChangeText={this.onChangeInput}
+              underlineColorAndroid={"transparent"} />
+            {!!input &&
+              <HighlightButton textStyle={styles.buttonText}>
+                Send
+              </HighlightButton>
+            }
+          </View>
         </View>
       </View>
     );

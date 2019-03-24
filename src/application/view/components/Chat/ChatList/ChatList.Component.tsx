@@ -13,12 +13,12 @@ interface IProps {
 }
 
 export class ChatList extends Component<IProps> {
-  componentDidMount(): void {
-    console.info(this.props.messages);
-  }
+  isCurrentUser = (ownerId: string) => {
+    const { user: { id }} = this.props;
+    return id == ownerId;
+  };
 
   weekDay = '';
-
   renderDate = (date: string) => {
     const formattedDate = moment(parseInt(date)).format('MMM D');
 
@@ -37,18 +37,13 @@ export class ChatList extends Component<IProps> {
   renderTime = (time: string) => {
     const formattedTime = moment(parseInt(time)).format("LT");
     return (
-      <Text>
+      <Text style={styles.timeText}>
         {formattedTime}
       </Text>
     )
   };
 
   renderMessage = ({ item }: any) => {
-    const {
-      user: {
-        id: userId
-      }
-    } = this.props;
     const {
       id,
       message,
@@ -63,8 +58,8 @@ export class ChatList extends Component<IProps> {
         <View style={styles.dateContainer}>
           {this.renderDate(createdAt)}
         </View>
-        <View style={[styles.messageBody, userId == ownerId && styles.userMessageBody]}>
-          <Text>
+        <View style={[styles.messageBody, this.isCurrentUser(ownerId) && styles.userMessageBody]}>
+          <Text style={styles.messageText}>
             {message}
           </Text>
           {this.renderTime(createdAt)}
@@ -78,6 +73,7 @@ export class ChatList extends Component<IProps> {
 
     return (
       <FlatList
+        inverted
         data={messages}
         renderItem={this.renderMessage}
       />
