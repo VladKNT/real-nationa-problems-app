@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { View, Text, TextInput } from "react-native";
+import _ from "lodash";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { getChat } from "../../../data/store/chat/chatActions";
+import { getMessages } from "../../../data/store/message/messageActions";
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { IMessage } from "../../../../constants/types/message";
 import { IChat } from "../../../../constants/types/chat";
@@ -27,7 +29,8 @@ interface IProps {
   messageLoading: boolean;
   messageError: string;
 
-  getChat: (id: string) => void;
+  getChat(id: string): void;
+  getMessages(): void;
 }
 
 interface IState {
@@ -39,7 +42,7 @@ class ChatScreen extends Component<IProps, IState> {
     super(props);
 
     this.state = {
-      input: ""
+      input: "",
     }
   }
 
@@ -56,6 +59,8 @@ class ChatScreen extends Component<IProps, IState> {
     this.setState({ input });
   };
 
+  getMessages = _.throttle(() => this.props.getMessages(), 1000);
+
   render(): React.ReactNode {
     const { messages, messageLoading, user } = this.props;
     const { input } = this.state;
@@ -63,7 +68,11 @@ class ChatScreen extends Component<IProps, IState> {
     return (
       <View style={styles.container}>
         <View style={styles.listContainer}>
-          <ChatList messages={messages} loading={messageLoading} user={user} />
+          <ChatList
+            messages={messages}
+            loading={messageLoading}
+            getMessages={this.getMessages}
+            user={user} />
         </View>
         <View style={styles.inputContainer}>
           <View style={styles.inputBody}>
@@ -107,7 +116,8 @@ const mapStateToProps = (state: IReducerStates) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    getChat: (id: string) => dispatch(getChat(id))
+    getChat: (id: string) => dispatch(getChat(id)),
+    getMessages: () => dispatch(getMessages())
   }
 };
 

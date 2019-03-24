@@ -11,8 +11,8 @@ export const messageSent = gql `
 `;
 
 export const getMessages = gql `
-  query messages($chatId: ID!) {
-    messages(chatId: $chatId) {
+  query messages($chatId: ID!, $offset: Int, $limit: Int) {
+    messages(chatId: $chatId, offset: $offset, limit: $limit) {
       id
       message
       owner {

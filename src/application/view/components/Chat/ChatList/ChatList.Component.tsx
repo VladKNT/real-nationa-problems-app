@@ -10,6 +10,7 @@ interface IProps {
   user: IUser;
   messages: IMessage[];
   loading: boolean;
+  getMessages(): void
 }
 
 export class ChatList extends Component<IProps> {
@@ -18,18 +19,25 @@ export class ChatList extends Component<IProps> {
     return id == ownerId;
   };
 
-  weekDay = '';
-  renderDate = (date: string) => {
+  _messageDay = '';
+  renderDate = (date: string, index: number) => {
+    const { messages } = this.props;
     const formattedDate = moment(parseInt(date)).format('MMM D');
 
-    if (formattedDate === this.weekDay) {
+    if (index === 0) {
+      this._messageDay = formattedDate;
+    }
+
+    if (formattedDate === this._messageDay && index !== messages.length - 1) {
       return null;
     }
-    this.weekDay = formattedDate;
+
+    const displayingDate = this._messageDay;
+    this._messageDay = formattedDate;
 
     return (
       <Text>
-        {formattedDate}
+        {displayingDate}
       </Text>
     )
   };
@@ -43,7 +51,7 @@ export class ChatList extends Component<IProps> {
     )
   };
 
-  renderMessage = ({ item }: any) => {
+  renderMessage = ({ item, index }: any) => {
     const {
       id,
       message,
@@ -56,7 +64,7 @@ export class ChatList extends Component<IProps> {
     return (
       <View key={id} style={styles.messageContainer}>
         <View style={styles.dateContainer}>
-          {this.renderDate(createdAt)}
+          {this.renderDate(createdAt, index)}
         </View>
         <View style={[styles.messageBody, this.isCurrentUser(ownerId) && styles.userMessageBody]}>
           <Text style={styles.messageText}>
@@ -69,13 +77,17 @@ export class ChatList extends Component<IProps> {
   };
 
   render(): React.ReactNode {
-    const { messages } = this.props;
+    const { messages, getMessages } = this.props;
 
     return (
       <FlatList
         inverted
         data={messages}
         renderItem={this.renderMessage}
+        keyExtractor={(item) => item.id}
+        ListEmptyComponent={() => <View/>}
+        onEndReached={getMessages}
+        onEndReachedThreshold={0.5}
       />
     )
   }

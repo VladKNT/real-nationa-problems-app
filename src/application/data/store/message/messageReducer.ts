@@ -1,4 +1,5 @@
 import { AnyAction } from "redux";
+import _ from "lodash";
 import { IMessage, IMessageReducer } from "../../../../constants/types/message"
 import { initUser } from "../user/userReducer";
 
@@ -24,7 +25,7 @@ export const initMessage: IMessage = {
 
 export const initState = {
   message: initMessage,
-  messages: [initMessage],
+  messages: [],
   loading: false,
   error: ''
 };
@@ -42,7 +43,7 @@ export default function (state: IMessageReducer = initState, action: AnyAction) 
       return {
         ...state,
         loading: false,
-        messages: action.messages
+        messages: _.union(state.messages, action.messages)
       }
     }
 

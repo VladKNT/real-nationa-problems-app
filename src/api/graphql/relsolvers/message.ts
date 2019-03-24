@@ -26,12 +26,12 @@ export default class MessageResolver {
     }
   }
 
-  static async getMessages(chatId: string) {
+  static async getMessages(chatId: string, page: number = 1) {
     try {
       await TokenService.checkTokenExpired();
       const response = await client.query<IGetMessages>({
         query: getMessages,
-        variables: { chatId }
+        variables: { chatId, offset: 20 * (page - 1), limit: 20 }
       });
 
       return response.data.messages;
