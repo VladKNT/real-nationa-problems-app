@@ -5,7 +5,7 @@ import _ from "lodash";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { getChat } from "../../../data/store/chat/chatActions";
-import { getMessages } from "../../../data/store/message/messageActions";
+import { getMessages, sendMessage } from "../../../data/store/message/messageActions";
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { IMessage } from "../../../../constants/types/message";
 import { IChat } from "../../../../constants/types/chat";
@@ -31,10 +31,11 @@ interface IProps {
 
   getChat(id: string): void;
   getMessages(): void;
+  sendMessage(message: string): void;
 }
 
 interface IState {
-  input: string;
+  message: string;
 }
 
 class ChatScreen extends Component<IProps, IState> {
@@ -42,7 +43,7 @@ class ChatScreen extends Component<IProps, IState> {
     super(props);
 
     this.state = {
-      input: "",
+      message: "",
     }
   }
 
@@ -55,15 +56,23 @@ class ChatScreen extends Component<IProps, IState> {
     }
   }
 
-  onChangeInput = (input: string) => {
-    this.setState({ input });
+  onChangeInput = (message: string) => {
+    this.setState({ message });
+  };
+
+  submitMessage = () => {
+    const { sendMessage } = this.props;
+    const { message } = this.state;
+    this.setState({ message: "" });
+
+    sendMessage(message);
   };
 
   getMessages = _.throttle(() => this.props.getMessages(), 1000);
 
   render(): React.ReactNode {
     const { messages, messageLoading, user } = this.props;
-    const { input } = this.state;
+    const { message } = this.state;
 
     return (
       <View style={styles.container}>
@@ -77,7 +86,7 @@ class ChatScreen extends Component<IProps, IState> {
         <View style={styles.inputContainer}>
           <View style={styles.inputBody}>
             <TextInput
-              value={input}
+              value={message}
               maxHeight={100}
               maxLength={255}
               multiline={true}
@@ -85,8 +94,8 @@ class ChatScreen extends Component<IProps, IState> {
               placeholder={"Message..."}
               onChangeText={this.onChangeInput}
               underlineColorAndroid={"transparent"} />
-            {!!input &&
-              <HighlightButton textStyle={styles.buttonText}>
+            {!!message &&
+              <HighlightButton textStyle={styles.buttonText} onPress={this.submitMessage}>
                 Send
               </HighlightButton>
             }
@@ -117,7 +126,8 @@ const mapStateToProps = (state: IReducerStates) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getChat: (id: string) => dispatch(getChat(id)),
-    getMessages: () => dispatch(getMessages())
+    getMessages: () => dispatch(getMessages()),
+    sendMessage: (message: string) => dispatch(sendMessage(message))
   }
 };
 

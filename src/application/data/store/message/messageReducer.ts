@@ -6,7 +6,11 @@ import { initUser } from "../user/userReducer";
 import {
   GET_MESSAGES_REQUESTING,
   GET_MESSAGES_SUCCESS,
-  GET_MESSAGES_ERROR
+  GET_MESSAGES_ERROR,
+
+  SEND_MESSAGE_REQUESTING,
+  SEND_MESSAGE_SUCCESS,
+  SEND_MESSAGE_ERROR
 } from "./messageActionTypes";
 
 
@@ -32,7 +36,8 @@ export const initState = {
 
 export default function (state: IMessageReducer = initState, action: AnyAction) {
   switch (action.type) {
-    case GET_MESSAGES_REQUESTING: {
+    case GET_MESSAGES_REQUESTING:
+    case SEND_MESSAGE_REQUESTING: {
       return {
         ...state,
         loading: true
@@ -47,7 +52,16 @@ export default function (state: IMessageReducer = initState, action: AnyAction) 
       }
     }
 
-    case GET_MESSAGES_ERROR: {
+    case SEND_MESSAGE_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        messages: [ action.deliveredMessage, ...state.messages ]
+      }
+    }
+
+    case GET_MESSAGES_ERROR:
+    case SEND_MESSAGE_ERROR: {
       return {
         ...state,
         loading: false,

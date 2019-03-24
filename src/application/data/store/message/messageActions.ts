@@ -6,8 +6,9 @@ export const getMessages = () => {
   }
 };
 
-export const sendMessage = () => {
+export const sendMessage = (message: string) => {
   return {
-    type: SEND_MESSAGE
+    type: SEND_MESSAGE,
+    message
   }
 };

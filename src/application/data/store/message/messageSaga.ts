@@ -32,18 +32,18 @@ export function* getMessages() {
   }
 }
 
-export function* sendMessage() {
+export function* sendMessage({ message }: { message: string }) {
   try {
     const store = yield select();
     const { id: chatId } = store.chatReducer.chat;
 
     yield put({ type: SEND_MESSAGE_REQUESTING });
-    // const messages = yield call(MessageResolver.sendMessage, chatId);
-    //
-    // if (messages) {
-    //   yield put({ type: SEND_MESSAGE_SUCCESS, messages });
-    //   return messages;
-    // }
+    const deliveredMessage = yield call(MessageResolver.sendMessage, message, chatId);
+
+    if (deliveredMessage) {
+      yield put({ type: SEND_MESSAGE_SUCCESS, deliveredMessage });
+      return deliveredMessage;
+    }
 
     return null;
   } catch (error) {

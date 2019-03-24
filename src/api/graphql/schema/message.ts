@@ -27,3 +27,21 @@ export const getMessages = gql `
     }
   }
 `;
+
+export const sendMessage = gql `
+  mutation sendMessage($message: String!, $chatId: ID!) {
+    sendMessage(message: $message, chatId: $chatId) {
+      id
+      message
+      owner {
+        id
+        username
+        userProfile {
+          profilePhoto
+        }
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
