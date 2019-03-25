@@ -10,7 +10,9 @@ import {
 
   SEND_MESSAGE_REQUESTING,
   SEND_MESSAGE_SUCCESS,
-  SEND_MESSAGE_ERROR
+  SEND_MESSAGE_ERROR,
+
+  SUBSCRIBED_MESSAGE
 } from "./messageActionTypes";
 
 
@@ -48,7 +50,9 @@ export default function (state: IMessageReducer = initState, action: AnyAction) 
       return {
         ...state,
         loading: false,
-        messages: _.union(state.messages, action.messages)
+        messages: _.unionWith(state.messages, action.messages, (item1, item2) => {
+          return item1.id === item2.id;
+        })
       }
     }
 
@@ -57,6 +61,13 @@ export default function (state: IMessageReducer = initState, action: AnyAction) 
         ...state,
         loading: false,
         messages: [ action.deliveredMessage, ...state.messages ]
+      }
+    }
+
+    case SUBSCRIBED_MESSAGE: {
+      return {
+        ...state,
+        messages: [action.message, ...state.messages]
       }
     }
 

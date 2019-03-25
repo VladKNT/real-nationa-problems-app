@@ -1,4 +1,5 @@
-import { GET_MESSAGES, SEND_MESSAGE } from "./messageActionTypes";
+import { GET_MESSAGES, SEND_MESSAGE, SUBSCRIBED_MESSAGE } from "./messageActionTypes";
+import { IMessage } from "../../../../constants/types/message";
 
 export const getMessages = () => {
   return {
@@ -9,6 +10,13 @@ export const getMessages = () => {
 export const sendMessage = (message: string) => {
   return {
     type: SEND_MESSAGE,
+    message
+  }
+};
+
+export const subscribedMessage = (message: IMessage) => {
+  return {
+    type: SUBSCRIBED_MESSAGE,
     message
   }
 };

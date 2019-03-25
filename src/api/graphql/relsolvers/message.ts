@@ -9,15 +9,15 @@ interface IGetMessages {
 const client = configureClient();
 
 export default class MessageResolver {
-  static messageSent(chatId: string) {
+  static subscribeMessages(chatId: string, callback: any) {
     try {
-      client.subscribe({
+      return client.subscribe({
         query: messageSent,
         variables: { chatId }
       })
         .subscribe({
-          next(value: any): void {
-            console.info(value);
+          next(response: any): void {
+            callback(response.data.messageSent);
           }
         });
 

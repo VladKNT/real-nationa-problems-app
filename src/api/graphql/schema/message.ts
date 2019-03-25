@@ -1,11 +1,19 @@
 import gql from 'graphql-tag';
 
 export const messageSent = gql `
-  subscription {
-    messageSent {
+  subscription messageSent($chatId: ID!) {
+    messageSent(chatId: $chatId) {
       id
-      chatId
       message
+      owner {
+        id
+        username
+        userProfile {
+          profilePhoto
+        }
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

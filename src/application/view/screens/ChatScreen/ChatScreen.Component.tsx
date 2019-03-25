@@ -5,13 +5,15 @@ import _ from "lodash";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { getChat } from "../../../data/store/chat/chatActions";
-import { getMessages, sendMessage } from "../../../data/store/message/messageActions";
+import { getMessages, sendMessage, subscribedMessage } from "../../../data/store/message/messageActions";
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { IMessage } from "../../../../constants/types/message";
 import { IChat } from "../../../../constants/types/chat";
 import { IUser } from "../../../../constants/types/user";
 
 import { ChatList } from "../../components/Chat/ChatList/ChatList.Component";
+
+import MessageResolver from "../../../../api/graphql/relsolvers/message";
 
 import styles from "./ChatScreen.Styles";
 import { HighlightButton } from "../../components/common";
@@ -32,6 +34,7 @@ interface IProps {
   getChat(id: string): void;
   getMessages(): void;
   sendMessage(message: string): void;
+  subscribedMessage(message: IMessage): void;
 }
 
 interface IState {
@@ -44,16 +47,34 @@ class ChatScreen extends Component<IProps, IState> {
 
     this.state = {
       message: "",
-    }
+    };
+
+    this.subscriprionToMessages = null;
   }
 
   componentDidMount(): void {
-    const { getChat, navigation } = this.props;
+    const {
+      getChat,
+      chat: {
+        id: chatId
+      },
+      navigation
+    } = this.props;
     const id = navigation.getParam("chatId");
+    let subscriptionId;
 
     if (id) {
+      subscriptionId = id;
       getChat(id);
+    } else {
+      subscriptionId = chatId;
     }
+
+    this.subscriprionToMessages = MessageResolver.subscribeMessages(subscriptionId, this.subscribedMessage);
+  }
+
+  componentWillUnmount(): void {
+    this.subscriprionToMessages.unsubscribe();
   }
 
   onChangeInput = (message: string) => {
@@ -66,6 +87,23 @@ class ChatScreen extends Component<IProps, IState> {
     this.setState({ message: "" });
 
     sendMessage(message);
+  };
+
+  subscribedMessage = (message: IMessage) => {
+    const {
+      subscribedMessage,
+      user: {
+        id: userId
+      }
+    } = this.props;
+    const {
+      owner: {
+        id: ownerId
+      }
+    } = message;
+    if (userId != ownerId) {
+      subscribedMessage(message);
+    }
   };
 
   getMessages = _.throttle(() => this.props.getMessages(), 1000);
@@ -127,7 +165,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getChat: (id: string) => dispatch(getChat(id)),
     getMessages: () => dispatch(getMessages()),
-    sendMessage: (message: string) => dispatch(sendMessage(message))
+    sendMessage: (message: string) => dispatch(sendMessage(message)),
+    subscribedMessage: (message: IMessage) => dispatch(subscribedMessage(message)),
   }
 };
 
