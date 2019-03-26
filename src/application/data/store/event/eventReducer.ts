@@ -7,8 +7,14 @@ import {
   FETCH_EVENTS_SUCCESS,
   FETCH_EVENTS_ERROR,
 
+  CREATE_EVENT_REQUESTING,
+  CREATE_EVENT_SUCCESS,
+  CREATE_EVENT_ERROR,
+
   SET_SAVE_EVENT_DATA,
-  CLEAR_SAVE_EVENT_DATA
+  CLEAR_SAVE_EVENT_DATA,
+
+  SUBSCRIBED_EVENT
 } from "./eventActionTypes";
 
 import { AnyAction } from 'redux';
@@ -41,7 +47,7 @@ const saveEvent: ISaveEvent = {
 
 const initialState = {
   event: event,
-  events: [event],
+  events: [],
   saveEvent: saveEvent,
 
   loading: false,
@@ -50,7 +56,9 @@ const initialState = {
 
 export default function(state: IEventReducer = initialState, action: AnyAction) {
   switch (action.type) {
-    case FETCH_EVENT_REQUESTING: {
+    case FETCH_EVENT_REQUESTING:
+    case FETCH_EVENTS_REQUESTING:
+    case CREATE_EVENT_REQUESTING: {
       return {
         ...state,
         loading: true
@@ -65,21 +73,6 @@ export default function(state: IEventReducer = initialState, action: AnyAction) 
       }
     }
 
-    case FETCH_EVENT_ERROR: {
-      return {
-        ...state,
-        error: action.error,
-        loading: false
-      }
-    }
-
-    case FETCH_EVENTS_REQUESTING: {
-      return {
-        ...state,
-        loading: true
-      };
-    }
-
     case FETCH_EVENTS_SUCCESS: {
       return {
         ...state,
@@ -88,7 +81,9 @@ export default function(state: IEventReducer = initialState, action: AnyAction) 
       }
     }
 
-    case FETCH_EVENTS_ERROR: {
+    case FETCH_EVENT_ERROR:
+    case FETCH_EVENTS_ERROR:
+    case CREATE_EVENT_ERROR: {
       return {
         ...state,
         error: action.error,
@@ -107,6 +102,21 @@ export default function(state: IEventReducer = initialState, action: AnyAction) 
       return {
         ...state,
         saveEvent: initialState.saveEvent
+      }
+    }
+
+    case CREATE_EVENT_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        events: [ action.event, ...state.events ]
+      }
+    }
+
+    case SUBSCRIBED_EVENT: {
+      return {
+        ...state,
+        events: [action.event, ...state.events]
       }
     }
   }

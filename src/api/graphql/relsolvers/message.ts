@@ -9,7 +9,7 @@ interface IGetMessages {
 const client = configureClient();
 
 export default class MessageResolver {
-  static subscribeMessages(chatId: string, callback: any) {
+  static subscribeMessages(chatId: string, updater: any) {
     try {
       return client.subscribe({
         query: messageSent,
@@ -17,7 +17,7 @@ export default class MessageResolver {
       })
         .subscribe({
           next(response: any): void {
-            callback(response.data.messageSent);
+            updater(response.data.messageSent);
           }
         });
 

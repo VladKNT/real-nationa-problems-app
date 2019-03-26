@@ -1,17 +1,23 @@
 import React, { Component } from "react";
 import { View, FlatList } from "react-native";
-import EventCardComponent from "../../components/EventCard/EventCard.Component";
-import styles from "./FeedScreen.Styles";
-import { IReducerStates } from "../../../data/store/rootReducer";
+
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { getEvents } from "../../../data/store/event/eventActions";
+import { IReducerStates } from "../../../data/store/rootReducer";
+
+import EventCardComponent from "../../components/EventCard/EventCard.Component";
+import EventResolver from "../../../../api/graphql/relsolvers/event";
+import { getEvents, subscribedEvent } from "../../../data/store/event/eventActions";
 import { IEvent } from "../../../../constants/types/event";
+import { IUser } from "../../../../constants/types/user";
+import styles from "./FeedScreen.Styles";
 
 interface IProps {
   navigation: any;
-  getEvents(): void;
   events: IEvent[];
+  user: IUser;
+  getEvents(): void;
+  subscribedEvent(event: IEvent): void;
 }
 
 interface IState {
@@ -21,11 +27,38 @@ interface IState {
 class FeedScreen extends Component <IProps, IState> {
   constructor(props: IProps) {
     super(props);
+
+    this.subscriprionToEvents = null;
   }
 
   componentDidMount() {
+    this.subscriprionToEvents = EventResolver.eventCreated(this.subscribedEvent);
     this.props.getEvents();
   }
+
+  componentWillUnmount(): void {
+    if (this.subscriprionToEvents) {
+      this.subscriprionToEvents.unsubscribe();
+    }
+  }
+
+  subscribedEvent = (event: IEvent) => {
+    const {
+      subscribedEvent,
+      user: {
+        id: userId
+      }
+    } = this.props;
+    const {
+      creator: {
+        id: creatorId
+      }
+    } = event;
+
+    if (userId != creatorId) {
+      subscribedEvent(event);
+    }
+  };
 
   onCardPressed = (id: string) => {
     this.props.navigation.navigate("EventScreen", { id });
@@ -51,17 +84,21 @@ class FeedScreen extends Component <IProps, IState> {
 
 const mapStateToProps = (state: IReducerStates) => {
   const { events, loading, error } = state.eventReducer;
+  const { user } = state.userProfileReducer;
   return {
     events,
     loading,
-    error
+    error,
+
+    user
   };
 };
 
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    getEvents: () => dispatch(getEvents())
+    getEvents: () => dispatch(getEvents()),
+    subscribedEvent: (event: IEvent) => dispatch(subscribedEvent(event))
   };
 };
 

@@ -93,3 +93,36 @@ export const follow = gql `
     }
   }
 `;
+
+export const eventCreated = gql `
+  subscription {
+    eventCreated {
+      id
+      name
+      description
+      photo
+      dateStart
+      dateEnd
+      longitude,
+      latitude,
+      participants {
+        id
+        username
+        userProfile {
+          firstName
+          lastName
+          profilePhoto
+        }
+      }
+      creator {
+        id
+        username
+        userProfile {
+          firstName
+          lastName
+          profilePhoto
+        }
+      }
+    }
+  }
+`;

@@ -1,5 +1,5 @@
 import configureClient from '../configureClient';
-import { getEvent, getEvents, createEvent, follow } from '../schema/event';
+import { getEvent, getEvents, createEvent, follow, eventCreated } from '../schema/event';
 import TokenService from '../../../application/data/services/TokenService';
 import { ISaveEventParams } from '../../../constants/types/event';
 
@@ -69,6 +69,21 @@ export default class EventResolver {
     } catch (error) {
       console.info(error);
       return null;
+    }
+  }
+
+  static async eventCreated(updater: any) {
+    try {
+      return client.subscribe({
+        query: eventCreated
+      })
+        .subscribe({
+          next(response: any): void {
+            updater(response.data.eventCreated);
+          }
+        });
+    } catch (error) {
+      console.info(error);
     }
   }
 }

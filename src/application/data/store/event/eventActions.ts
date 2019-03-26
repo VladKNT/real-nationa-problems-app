@@ -4,9 +4,10 @@ import {
   SET_SAVE_EVENT_DATA,
   CLEAR_SAVE_EVENT_DATA,
   CREATE_EVENT,
-  FOLLOW_EVENT
+  FOLLOW_EVENT,
+  SUBSCRIBED_EVENT
 } from "./eventActionTypes";
-import { ISaveEventParams } from "../../../../constants/types/event";
+import { ISaveEventParams, IEvent } from "../../../../constants/types/event";
 
 export const getEvent = (id: string) => {
   return {
@@ -45,5 +46,12 @@ export const followEvent = (id: string) => {
   return {
     type: FOLLOW_EVENT,
     id
+  }
+};
+
+export const subscribedEvent = (event: IEvent) => {
+  return {
+    type: SUBSCRIBED_EVENT,
+    event
   }
 };

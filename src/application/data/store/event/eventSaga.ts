@@ -65,7 +65,7 @@ export function* createEvent() {
     const event = yield call(EventResolver.createEvent, { name, description, latitude, longitude, dateEnd, dateStart, imageFile });
 
     if (event) {
-      yield put({ type: CREATE_EVENT_SUCCESS });
+      yield put({ type: CREATE_EVENT_SUCCESS, event });
       yield put({ type: CLEAR_SAVE_EVENT_DATA });
       nav.navigate('FeedScreen');
     }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, TextInput } from "react-native";
 import _ from "lodash";
 
 import { connect } from "react-redux";
@@ -74,7 +74,9 @@ class ChatScreen extends Component<IProps, IState> {
   }
 
   componentWillUnmount(): void {
-    this.subscriprionToMessages.unsubscribe();
+    if (this.subscriprionToMessages) {
+      this.subscriprionToMessages.unsubscribe();
+    }
   }
 
   onChangeInput = (message: string) => {
