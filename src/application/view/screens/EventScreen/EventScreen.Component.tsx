@@ -7,7 +7,9 @@ import moment from 'moment';
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { getEvent, followEvent } from "../../../data/store/event/eventActions";
+import { getEvent, followEvent, subscribedFollowEvent } from "../../../data/store/event/eventActions";
+
+import EventResolver from "../../../../api/graphql/relsolvers/event";
 
 import UserAvatar from "../../components/UserAvatar/UserAvatar.Component";
 import { HighlightButton } from "../../components/common";
@@ -25,6 +27,7 @@ interface IProps {
   userId: string;
   getEvent(id: string): void;
   followEvent(id: string): void;
+  subscribedFollowEvent(event: IEvent): void;
 }
 
 interface IState {
@@ -34,17 +37,32 @@ interface IState {
 class EventScreen extends Component <IProps, IState> {
   constructor(props: IProps) {
     super(props);
+
+    this.subscriprionToFollowEvent = null;
   };
 
   componentDidMount() {
     const { navigation, getEvent } = this.props;
     const id = navigation.getParam("id");
+    this.subscriprionToFollowEvent = EventResolver.followEventSubscription(id, this.subscribedFollowEvent);
 
     getEvent(id);
 
     navigation.setParams({
       onShowMap: this.onShowMap
     });
+  };
+
+  componentWillUnmount(): void {
+    if (this.subscriprionToEvents) {
+      this.subscriprionToEvents.unsubscribe();
+    }
+  }
+
+  subscribedFollowEvent = (event: IEvent) => {
+    const { subscribedFollowEvent } = this.props;
+
+    subscribedFollowEvent(event);
   };
 
   static navigationOptions = ({ navigation }: any) => ({
@@ -203,7 +221,8 @@ const mapStateToProps = (state: IReducerStates) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getEvent: (id: string) => dispatch(getEvent(id)),
-    followEvent: (id: string) => dispatch(followEvent(id))
+    followEvent: (id: string) => dispatch(followEvent(id)),
+    subscribedFollowEvent: (event: IEvent) => dispatch(subscribedFollowEvent(event))
   };
 };
 

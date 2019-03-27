@@ -90,6 +90,31 @@ export const follow = gql `
   mutation follow($id: ID!) {
     follow(id: $id) {
       id
+      name
+      description
+      photo
+      dateStart
+      dateEnd
+      longitude,
+      latitude,
+      participants {
+        id
+        username
+        userProfile {
+          firstName
+          lastName
+          profilePhoto
+        }
+      }
+      creator {
+        id
+        username
+        userProfile {
+          firstName
+          lastName
+          profilePhoto
+        }
+      }
     }
   }
 `;
@@ -97,6 +122,39 @@ export const follow = gql `
 export const eventCreated = gql `
   subscription {
     eventCreated {
+      id
+      name
+      description
+      photo
+      dateStart
+      dateEnd
+      longitude,
+      latitude,
+      participants {
+        id
+        username
+        userProfile {
+          firstName
+          lastName
+          profilePhoto
+        }
+      }
+      creator {
+        id
+        username
+        userProfile {
+          firstName
+          lastName
+          profilePhoto
+        }
+      }
+    }
+  }
+`;
+
+export const followEventSubscription = gql `
+  subscription followEvent($id: ID!) {
+    followEvent(id: $id) {
       id
       name
       description

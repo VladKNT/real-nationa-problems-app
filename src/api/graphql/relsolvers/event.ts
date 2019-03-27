@@ -1,5 +1,12 @@
 import configureClient from '../configureClient';
-import { getEvent, getEvents, createEvent, follow, eventCreated } from '../schema/event';
+import {
+  follow,
+  getEvent,
+  getEvents,
+  createEvent,
+  eventCreated,
+  followEventSubscription
+} from '../schema/event';
 import TokenService from '../../../application/data/services/TokenService';
 import { ISaveEventParams } from '../../../constants/types/event';
 
@@ -65,7 +72,7 @@ export default class EventResolver {
         mutation: follow
       });
 
-      return response.data.createEvent;
+      return response.data.follow;
     } catch (error) {
       console.info(error);
       return null;
@@ -80,6 +87,22 @@ export default class EventResolver {
         .subscribe({
           next(response: any): void {
             updater(response.data.eventCreated);
+          }
+        });
+    } catch (error) {
+      console.info(error);
+    }
+  }
+
+  static async followEventSubscription(id: string, updater: any) {
+    try {
+      return client.subscribe({
+        variables: { id },
+        query: followEventSubscription
+      })
+        .subscribe({
+          next(response: any): void {
+            updater(response.data.followEvent);
           }
         });
     } catch (error) {

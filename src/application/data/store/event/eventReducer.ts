@@ -1,3 +1,4 @@
+import _ from "lodash";
 import {
   FETCH_EVENT_REQUESTING,
   FETCH_EVENT_SUCCESS,
@@ -14,12 +15,17 @@ import {
   SET_SAVE_EVENT_DATA,
   CLEAR_SAVE_EVENT_DATA,
 
-  SUBSCRIBED_EVENT
+  SUBSCRIBED_EVENT,
+  SUBSCRIBED_FOLLOW_EVENT,
+
+  FOLLOW_EVENT_REQUESTING,
+  FOLLOW_EVENT_SUCCESS,
+  FOLLOW_EVENT_ERROR
 } from "./eventActionTypes";
 
-import { AnyAction } from 'redux';
+import { AnyAction } from "redux";
 import { IEvent, ISaveEvent, IEventReducer } from "../../../../constants/types/event";
-import { initUser } from '../user/userReducer';
+import { initUser } from "../user/userReducer";
 
 const event: IEvent = {
   id: '',
@@ -58,6 +64,7 @@ export default function(state: IEventReducer = initialState, action: AnyAction) 
   switch (action.type) {
     case FETCH_EVENT_REQUESTING:
     case FETCH_EVENTS_REQUESTING:
+    case FOLLOW_EVENT_REQUESTING:
     case CREATE_EVENT_REQUESTING: {
       return {
         ...state,
@@ -83,6 +90,7 @@ export default function(state: IEventReducer = initialState, action: AnyAction) 
 
     case FETCH_EVENT_ERROR:
     case FETCH_EVENTS_ERROR:
+    case FOLLOW_EVENT_ERROR:
     case CREATE_EVENT_ERROR: {
       return {
         ...state,
@@ -117,6 +125,15 @@ export default function(state: IEventReducer = initialState, action: AnyAction) 
       return {
         ...state,
         events: [action.event, ...state.events]
+      }
+    }
+
+    case FOLLOW_EVENT_SUCCESS:
+    case SUBSCRIBED_FOLLOW_EVENT: {
+      return {
+        ...state,
+        loading: false,
+        event: action.event
       }
     }
   }

@@ -25,7 +25,7 @@ import nav from '../../services/NavigationSecrvice';
 export function* getEvent(action: any) {
   try {
     yield put({ type: FETCH_EVENT_REQUESTING });
-    const event =  yield call(EventResolver.getEvent, action.id);
+    const event = yield call(EventResolver.getEvent, action.id);
 
     if (event){
       yield put({ type: FETCH_EVENT_SUCCESS, event });
@@ -83,8 +83,7 @@ export function* followEvent(action: any) {
     const event = yield call(EventResolver.follow, { id });
 
     if (event) {
-      yield put({ type: FOLLOW_EVENT_SUCCESS });
-      nav.navigate('FeedScreen');
+      yield put({ type: FOLLOW_EVENT_SUCCESS, event });
     }
 
   } catch (error) {
