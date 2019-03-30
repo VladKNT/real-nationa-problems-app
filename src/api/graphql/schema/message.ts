@@ -5,6 +5,7 @@ export const messageSent = gql `
     messageSent(chatId: $chatId) {
       id
       message
+      read
       owner {
         id
         username
@@ -23,6 +24,7 @@ export const getMessages = gql `
     messages(chatId: $chatId, offset: $offset, limit: $limit) {
       id
       message
+      read
       owner {
         id
         username
@@ -41,6 +43,7 @@ export const sendMessage = gql `
     sendMessage(message: $message, chatId: $chatId) {
       id
       message
+      read
       owner {
         id
         username

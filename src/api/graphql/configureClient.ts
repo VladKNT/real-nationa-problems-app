@@ -1,7 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
-import { HttpLink} from 'apollo-link-http';
 import { createUploadLink } from 'apollo-upload-client';
 import URLS from '../../constants/urls';
 import { WebSocketLink } from 'apollo-link-ws';
@@ -43,34 +42,35 @@ function configureClient() {
       };
     }
 
-        return context;
-    });
+      return context;
+  });
 
-    const wsLink = new WebSocketLink({
-      uri: URLS.WS_URL,
-      options: {
-        reconnect: true,
-      },
-    });
+  const wsLink = new WebSocketLink({
+    uri: URLS.WS_URL,
+    options: {
+      reconnect: true,
+      connectionParams: async () => ({"x-token": await AsyncStorage.getItem('@SessionStorage:accessToken')})
+    },
+  });
 
-    const terminatingLink = split(
-      ({ query }) => {
-      const { kind, operation } = getMainDefinition(query);
-        return (
-          kind === 'OperationDefinition' && operation === 'subscription'
-        );
-      },
-      wsLink,
-      authLink.concat(httpLink),
-    );
+  const terminatingLink = split(
+    ({ query }) => {
+    const { kind, operation } = getMainDefinition(query);
+      return (
+        kind === 'OperationDefinition' && operation === 'subscription'
+      );
+    },
+    wsLink,
+    authLink.concat(httpLink),
+  );
 
-    return new ApolloClient({
-      cache,
-      link: ApolloLink.from([
-        errorLink,
-        terminatingLink
-      ])
-    });
+  return new ApolloClient({
+    cache,
+    link: ApolloLink.from([
+      errorLink,
+      terminatingLink
+    ])
+  });
 }
 
 export default configureClient;

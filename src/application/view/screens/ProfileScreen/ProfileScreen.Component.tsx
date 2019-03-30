@@ -110,7 +110,7 @@ class ProfileScreen extends Component <IProps, IState> {
     console.info('UNMOUNT!');
   }
 
-  getChatId = () => {
+  getChat = () => {
     const {
       selectedUser: {
         chats: selectedUserChats
@@ -140,9 +140,11 @@ class ProfileScreen extends Component <IProps, IState> {
 
     // TODO: Chat & messages screens
     if (id) {
-      const { id: chatId } = this.getChatId();
+      const chat = this.getChat();
 
-      if (chatId) {
+      if (chat) {
+        const { id: chatId } = chat;
+
         navigate("ChatScreen", { chatId });
       } else {
         createPrivateChat(id);

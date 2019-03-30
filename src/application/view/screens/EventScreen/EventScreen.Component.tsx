@@ -54,7 +54,7 @@ class EventScreen extends Component <IProps, IState> {
   };
 
   componentWillUnmount(): void {
-    if (this.subscriprionToEvents) {
+    if (this.subscriprionToEvents.unsubscribe) {
       this.subscriprionToEvents.unsubscribe();
     }
   }
