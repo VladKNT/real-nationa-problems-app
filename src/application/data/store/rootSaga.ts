@@ -17,7 +17,8 @@ import {
 
 import {
   CREATE_PRIVATE_CHAT,
-  GET_CHAT
+  GET_CHAT,
+  USER_CHATS
 } from "./chat/chatActionTypes";
 
 import {
@@ -46,6 +47,7 @@ function* rootSaga() {
 
   yield takeLatest(CREATE_PRIVATE_CHAT, chatSaga.createPrivateChat);
   yield takeLatest(GET_CHAT, chatSaga.getChat);
+  yield takeLatest(USER_CHATS, chatSaga.userChats);
 
   yield takeLatest(GET_MESSAGES, messageSaga.getMessages);
   yield takeLatest(SEND_MESSAGE, messageSaga.sendMessage);

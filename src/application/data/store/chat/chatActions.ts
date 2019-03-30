@@ -1,4 +1,4 @@
-import { CREATE_PRIVATE_CHAT, GET_CHAT } from "./chatActionTypes";
+import { CREATE_PRIVATE_CHAT, GET_CHAT, USER_CHATS } from "./chatActionTypes";
 
 export const createPrivateChat = (recipientId: string) => {
   return {
@@ -11,5 +11,11 @@ export const getChat = (id: string) => {
   return {
     type: GET_CHAT,
     id
+  }
+};
+
+export const userChats = () => {
+  return {
+    type: USER_CHATS
   }
 };

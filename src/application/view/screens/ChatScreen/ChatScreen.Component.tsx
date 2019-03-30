@@ -5,7 +5,7 @@ import _ from "lodash";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { getChat } from "../../../data/store/chat/chatActions";
-import { getMessages, sendMessage, subscribedMessage } from "../../../data/store/message/messageActions";
+import { getMessages, sendMessage, subscribedMessage, cleanMessages } from "../../../data/store/message/messageActions";
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { IMessage } from "../../../../constants/types/message";
 import { IChat } from "../../../../constants/types/chat";
@@ -33,6 +33,7 @@ interface IProps {
 
   getChat(id: string): void;
   getMessages(): void;
+  cleanMessages(): void;
   sendMessage(message: string): void;
   subscribedMessage(message: IMessage): void;
 }
@@ -74,9 +75,13 @@ class ChatScreen extends Component<IProps, IState> {
   }
 
   componentWillUnmount(): void {
+    const { cleanMessages } = this.props;
+
     if (this.subscriprionToMessages) {
       this.subscriprionToMessages.unsubscribe();
     }
+
+    cleanMessages();
   }
 
   onChangeInput = (message: string) => {
@@ -167,6 +172,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getChat: (id: string) => dispatch(getChat(id)),
     getMessages: () => dispatch(getMessages()),
+    cleanMessages: () => dispatch(cleanMessages()),
     sendMessage: (message: string) => dispatch(sendMessage(message)),
     subscribedMessage: (message: IMessage) => dispatch(subscribedMessage(message)),
   }

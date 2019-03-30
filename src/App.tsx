@@ -15,6 +15,7 @@ import EventScreen from './application/view/screens/EventScreen/EventScreen.Comp
 import SaveEventScreen from './application/view/screens/SaveEventScreen/SaveEventScreen.Component';
 import MapScreen from './application/view/screens/MapScreen/MapScreen.Component';
 import ChatScreen from './application/view/screens/ChatScreen/ChatScreen.Component';
+import ChatListScreen from './application/view/screens/ChatListScreen/ChatListScreen.Component';
 
 const ICON_SIZE = 35;
 
@@ -41,7 +42,8 @@ const Feed = createStackNavigator(
     MapScreen: MapScreen,
     ProfileScreen: ProfileScreen,
     EditProfileScreen: EditProfileScreen,
-    ChatScreen: ChatScreen
+    ChatScreen: ChatScreen,
+    ChatListScreen: ChatListScreen
   }, {
     initialRouteName: 'FeedScreen',
     ...defaultNavigationOptions
@@ -61,7 +63,8 @@ const Profile = createStackNavigator(
   {
     ProfileScreen: ProfileScreen,
     EditProfileScreen: EditProfileScreen,
-    ChatScreen: ChatScreen
+    ChatScreen: ChatScreen,
+    ChatListScreen: ChatListScreen
   }, {
     initialRouteName: 'ProfileScreen',
     ...defaultNavigationOptions

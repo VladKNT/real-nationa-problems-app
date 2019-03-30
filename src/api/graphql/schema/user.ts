@@ -44,6 +44,7 @@ export const getUser = gql `
         private
         lastMessage {
           message
+          createdAt
         }
         members {
           id
@@ -70,6 +71,7 @@ export const getUserById = gql `
         private
         lastMessage {
           message
+          createdAt
         }
         members {
           id
@@ -96,6 +98,7 @@ export const updateUser = gql `
         private
         lastMessage {
           message
+          createdAt
         }
         members {
           id

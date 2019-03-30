@@ -14,6 +14,7 @@ export interface IChat {
 
 export interface IChatReducer {
   chat: IChat;
+  userChats: IChat[];
   loading: boolean;
   error: string;
 }

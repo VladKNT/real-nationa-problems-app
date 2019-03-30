@@ -12,7 +12,9 @@ import {
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_ERROR,
 
-  SUBSCRIBED_MESSAGE
+  SUBSCRIBED_MESSAGE,
+
+  CLEAN_MESSAGES
 } from "./messageActionTypes";
 
 
@@ -68,6 +70,13 @@ export default function (state: IMessageReducer = initState, action: AnyAction) 
       return {
         ...state,
         messages: [action.message, ...state.messages]
+      }
+    }
+
+    case CLEAN_MESSAGES: {
+      return {
+        ...state,
+        messages: []
       }
     }
 

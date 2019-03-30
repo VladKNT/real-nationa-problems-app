@@ -144,11 +144,11 @@ class ProfileScreen extends Component <IProps, IState> {
 
       if (chatId) {
         navigate("ChatScreen", { chatId });
-        console.info(chatId);
-
       } else {
         createPrivateChat(id);
       }
+    } else {
+      navigate("ChatListScreen");
     }
 
   };

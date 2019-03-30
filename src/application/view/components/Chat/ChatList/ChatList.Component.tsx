@@ -10,7 +10,7 @@ interface IProps {
   user: IUser;
   messages: IMessage[];
   loading: boolean;
-  getMessages(): void
+  getMessages(): void;
 }
 
 export class ChatList extends Component<IProps> {

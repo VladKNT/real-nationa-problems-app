@@ -7,6 +7,7 @@ export const createPrivateChat = gql `
       private
       lastMessage {
         message
+        createdAt
         owner {
           username,
           userProfile {
@@ -36,6 +37,37 @@ export const getChat = gql `
       private,
       lastMessage {
         message
+        createdAt
+        owner {
+          username,
+          userProfile {
+            profilePhoto
+            firstName
+            lastName
+          }
+        }
+      }
+      members {
+        id
+        username
+        userProfile {
+          profilePhoto
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+
+export const userChats = gql `
+  query {
+    userChats {
+      id
+      private,
+      lastMessage {
+        message
+        createdAt
         owner {
           username,
           userProfile {

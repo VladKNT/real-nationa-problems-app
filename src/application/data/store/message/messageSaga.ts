@@ -32,11 +32,11 @@ export function* getMessages() {
   }
 }
 
-export function* sendMessage({ message }: { message: string }) {
+export function* sendMessage(action: any) {
   try {
     const store = yield select();
     const { id: chatId } = store.chatReducer.chat;
-
+    const { message } = action;
     yield put({ type: SEND_MESSAGE_REQUESTING });
     const deliveredMessage = yield call(MessageResolver.sendMessage, message, chatId);
 

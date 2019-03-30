@@ -6,7 +6,11 @@ import {
 
   GET_CHAT_REQUESTING,
   GET_CHAT_SUCCESS,
-  GET_CHAT_ERROR
+  GET_CHAT_ERROR,
+
+  USER_CHATS_REQUESTING,
+  USER_CHATS_SUCCESS,
+  USER_CHATS_ERROR
 } from "./chatActionTypes";
 import { GET_MESSAGES } from "../message/messageActionTypes";
 import ChatResolver from '../../../../api/graphql/relsolvers/chat';
@@ -54,5 +58,25 @@ export function* getChat(action: any) {
   } catch (error) {
     yield put({ type: GET_CHAT_ERROR, error });
     console.warn('Error get chat', error);
+  }
+}
+
+export function* userChats() {
+  try {
+
+    yield put({ type: USER_CHATS_REQUESTING });
+    const userChats = yield call(ChatResolver.userChats);
+
+    if (userChats) {
+      yield put({ type: USER_CHATS_SUCCESS, userChats });
+
+      return userChats;
+    }
+
+    return null;
+
+  } catch (error) {
+    yield put({ type: USER_CHATS_ERROR, error });
+    console.warn('Error get user chats', error);
   }
 }
