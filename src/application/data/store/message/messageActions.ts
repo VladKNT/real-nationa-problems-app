@@ -1,4 +1,10 @@
-import { GET_MESSAGES, SEND_MESSAGE, SUBSCRIBED_MESSAGE, CLEAN_MESSAGES } from "./messageActionTypes";
+import {
+  GET_MESSAGES,
+  SEND_MESSAGE,
+  SUBSCRIBED_MESSAGE,
+  CLEAN_MESSAGES,
+  READ_MESSAGES
+} from "./messageActionTypes";
 import { IMessage } from "../../../../constants/types/message";
 
 export const getMessages = () => {
@@ -17,6 +23,13 @@ export const sendMessage = (message: string) => {
 export const cleanMessages = () => {
   return {
     type: CLEAN_MESSAGES
+  }
+};
+
+export const readMessages = (messagesId: string[]) => {
+  return {
+    type: READ_MESSAGES,
+    messagesId
   }
 };
 

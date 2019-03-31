@@ -56,3 +56,12 @@ export const sendMessage = gql `
     }
   }
 `;
+
+export const readMessages = gql `
+  mutation readMessages($messagesId: [ID]!) {
+    readMessages(messagesId: $messagesId) {
+      id
+      message
+    }
+  }
+`;

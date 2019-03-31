@@ -1,5 +1,5 @@
 import configureClient from '../configureClient';
-import { messageSent, getMessages, sendMessage } from '../schema/message';
+import { messageSent, getMessages, sendMessage, readMessages } from '../schema/message';
 import TokenService from '../../../application/data/services/TokenService';
 
 interface IGetMessages {
@@ -49,6 +49,20 @@ export default class MessageResolver {
       });
 
       return response.data.sendMessage;
+    } catch (error) {
+      console.info(error);
+    }
+  }
+
+  static async readMessages(messagesId: string[]) {
+    try {
+      await TokenService.checkTokenExpired();
+      const response = await client.mutate({
+        mutation: readMessages,
+        variables: { messagesId },
+      });
+
+      return response.data.readMessages;
     } catch (error) {
       console.info(error);
     }

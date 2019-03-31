@@ -58,11 +58,12 @@ export class ChatList extends Component<IProps> {
       owner: {
         id: ownerId
       },
+      read,
       createdAt
     } = item;
 
     return (
-      <View key={id} style={styles.messageContainer}>
+      <View key={id} style={[styles.messageContainer, !read && styles.unreadMessageContainer]}>
         <View style={styles.dateContainer}>
           {this.renderDate(createdAt, index)}
         </View>

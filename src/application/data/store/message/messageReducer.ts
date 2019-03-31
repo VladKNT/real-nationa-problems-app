@@ -14,8 +14,12 @@ import {
 
   SUBSCRIBED_MESSAGE,
 
-  CLEAN_MESSAGES
+  CLEAN_MESSAGES,
+
+  READ_MESSAGES_SUCCESS,
+  READ_MESSAGES_ERROR
 } from "./messageActionTypes";
+import message from "../../../../api/graphql/relsolvers/message";
 
 
 export const initMessage: IMessage = {
@@ -27,6 +31,7 @@ export const initMessage: IMessage = {
   deleted: false,
   deletedForAll: false,
   edited: false,
+  read: false,
   createdAt: "",
   updatedAt: ""
 };
@@ -77,6 +82,20 @@ export default function (state: IMessageReducer = initState, action: AnyAction) 
       return {
         ...state,
         messages: []
+      }
+    }
+
+    case READ_MESSAGES_SUCCESS: {
+      return {
+        ...state,
+        messages: _.map(state.messages, (message) => {
+          console.info(action.messagesId);
+          if (_.includes(action.messagesId, message.id)) {
+            return { ...message, read: true }
+          }
+
+          return message;
+        })
       }
     }
 

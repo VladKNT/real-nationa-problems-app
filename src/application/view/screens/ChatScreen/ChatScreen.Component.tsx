@@ -5,7 +5,13 @@ import _ from "lodash";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { getChat } from "../../../data/store/chat/chatActions";
-import { getMessages, sendMessage, subscribedMessage, cleanMessages } from "../../../data/store/message/messageActions";
+import {
+  getMessages,
+  sendMessage,
+  subscribedMessage,
+  cleanMessages,
+  readMessages
+} from "../../../data/store/message/messageActions";
 import { IReducerStates } from "../../../data/store/rootReducer";
 import { IMessage } from "../../../../constants/types/message";
 import { IChat } from "../../../../constants/types/chat";
@@ -34,6 +40,7 @@ interface IProps {
   getChat(id: string): void;
   getMessages(): void;
   cleanMessages(): void;
+  readMessages(messagesId: string[]): void;
   sendMessage(message: string): void;
   subscribedMessage(message: IMessage): void;
 }
@@ -83,6 +90,22 @@ class ChatScreen extends Component<IProps, IState> {
 
     cleanMessages();
   }
+
+
+  onFocusInput = () => {
+    const { messages, readMessages } = this.props;
+
+    const unreadMessagesId = _.reduce(messages, (result: string[], message: IMessage) => {
+      if (!message.read) {
+        result.push(message.id);
+      }
+      return result;
+    }, []);
+
+    if (_.some(unreadMessagesId)) {
+      readMessages(unreadMessagesId);
+    }
+  };
 
   onChangeInput = (message: string) => {
     this.setState({ message });
@@ -138,6 +161,7 @@ class ChatScreen extends Component<IProps, IState> {
               style={styles.input}
               placeholder={"Message..."}
               onChangeText={this.onChangeInput}
+              onFocus={this.onFocusInput}
               underlineColorAndroid={"transparent"} />
             {!!message &&
               <HighlightButton textStyle={styles.buttonText} onPress={this.submitMessage}>
@@ -174,6 +198,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     getMessages: () => dispatch(getMessages()),
     cleanMessages: () => dispatch(cleanMessages()),
     sendMessage: (message: string) => dispatch(sendMessage(message)),
+    readMessages:(messagesId: string[]) => dispatch(readMessages(messagesId)),
     subscribedMessage: (message: IMessage) => dispatch(subscribedMessage(message)),
   }
 };

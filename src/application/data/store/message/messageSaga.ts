@@ -7,7 +7,11 @@ import {
 
   SEND_MESSAGE_REQUESTING,
   SEND_MESSAGE_SUCCESS,
-  SEND_MESSAGE_ERROR
+  SEND_MESSAGE_ERROR,
+
+  READ_MESSAGES_REQUESTING,
+  READ_MESSAGES_SUCCESS,
+  READ_MESSAGES_ERROR
 } from "./messageActionTypes";
 
 export function* getMessages() {
@@ -49,5 +53,26 @@ export function* sendMessage(action: any) {
   } catch (error) {
     yield put({ type: SEND_MESSAGE_ERROR, error });
     console.warn('Error send message', error);
+  }
+}
+
+export function* readMessages(action: any) {
+  try {
+    const { messagesId } = action;
+    console.info(messagesId);
+
+    yield put({ type: READ_MESSAGES_REQUESTING });
+    const readMessages = yield call(MessageResolver.readMessages, messagesId);
+    console.info(readMessages);
+
+    if (readMessages) {
+      yield put({ type: READ_MESSAGES_SUCCESS, messagesId });
+      return readMessages;
+    }
+
+    return null;
+  } catch (error) {
+    yield put({ type: READ_MESSAGES_ERROR, error });
+    console.warn('Error read messages', error);
   }
 }

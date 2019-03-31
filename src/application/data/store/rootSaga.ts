@@ -23,6 +23,7 @@ import {
 
 import {
   GET_MESSAGES,
+  READ_MESSAGES,
   SEND_MESSAGE
 } from "./message/messageActionTypes";
 
@@ -51,6 +52,7 @@ function* rootSaga() {
 
   yield takeLatest(GET_MESSAGES, messageSaga.getMessages);
   yield takeLatest(SEND_MESSAGE, messageSaga.sendMessage);
+  yield takeLatest(READ_MESSAGES, messageSaga.readMessages);
 }
 
 export default rootSaga;

@@ -5,6 +5,7 @@ export const createPrivateChat = gql `
     createPrivateChat(recipientId: $recipientId) {
       id
       private
+      unreadMessages
       lastMessage {
         message
         createdAt
@@ -35,6 +36,7 @@ export const getChat = gql `
     chat(id: $id) {
       id
       private,
+      unreadMessages
       lastMessage {
         message
         createdAt
@@ -65,6 +67,7 @@ export const userChats = gql `
     userChats {
       id
       private,
+      unreadMessages
       lastMessage {
         message
         createdAt

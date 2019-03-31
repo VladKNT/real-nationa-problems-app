@@ -9,6 +9,7 @@ export interface IMessage {
   deleted: boolean
   deletedForAll: boolean;
   edited: boolean;
+  read: boolean;
   createdAt: string;
   updatedAt: string;
 }

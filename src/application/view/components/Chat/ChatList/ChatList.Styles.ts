@@ -7,6 +7,10 @@ export default StyleSheet.create({
     flexDirection: "column"
   },
 
+  unreadMessageContainer: {
+    backgroundColor: COLORS.LIGHT_GRAY
+  },
+
   dateContainer: {
     alignSelf: "center",
     alignItems: "center"
@@ -15,6 +19,7 @@ export default StyleSheet.create({
   messageBody: {
     alignSelf: "flex-start",
     borderColor: COLORS.BORDER,
+    backgroundColor: COLORS.WHITE,
     borderWidth: 1,
     borderRadius: 8,
     margin: 10,
