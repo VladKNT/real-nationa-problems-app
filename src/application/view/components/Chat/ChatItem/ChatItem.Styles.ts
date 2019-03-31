@@ -40,5 +40,22 @@ export default StyleSheet.create({
     lineHeight: 22,
     fontWeight: "bold",
     color: COLORS.TITLE
+  },
+
+  badge: {
+    position: "absolute",
+    top: -2,
+    right: -2,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: COLORS.HIGHLIGHT,
+  },
+
+  badgeText: {
+    color: COLORS.WHITE
   }
 });

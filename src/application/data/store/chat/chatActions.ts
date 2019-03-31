@@ -1,4 +1,4 @@
-import { CREATE_PRIVATE_CHAT, GET_CHAT, USER_CHATS } from "./chatActionTypes";
+import { CREATE_PRIVATE_CHAT, GET_CHAT, USER_CHATS, CLEAN_CHAT } from "./chatActionTypes";
 
 export const createPrivateChat = (recipientId: string) => {
   return {
@@ -17,5 +17,12 @@ export const getChat = (id: string) => {
 export const userChats = () => {
   return {
     type: USER_CHATS
+  }
+};
+
+
+export const cleanChat = () => {
+  return {
+    type: CLEAN_CHAT
   }
 };

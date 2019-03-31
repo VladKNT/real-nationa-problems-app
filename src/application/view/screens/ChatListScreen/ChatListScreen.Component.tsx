@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import {
-  View,
-  Text,
-  ScrollView, TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import _ from "lodash";
 
@@ -55,12 +53,19 @@ class ChatListScreen extends Component<IProps> {
       const {
         id,
         members,
-        lastMessage
+        lastMessage,
+        unreadMessages
       } = chat;
 
       const user = _.filter(members, (member) => member.id !== userId);
 
-      return <ChatItem key={id} id={id} user={user[0]} lastMessage={lastMessage} onPress={this.onPressChat} />;
+      return <ChatItem
+        key={id}
+        id={id}
+        user={user[0]}
+        unreadMessages={unreadMessages}
+        lastMessage={lastMessage}
+        onPress={this.onPressChat} />;
     })
   }
 

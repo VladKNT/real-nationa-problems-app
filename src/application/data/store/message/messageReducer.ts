@@ -89,7 +89,6 @@ export default function (state: IMessageReducer = initState, action: AnyAction) 
       return {
         ...state,
         messages: _.map(state.messages, (message) => {
-          console.info(action.messagesId);
           if (_.includes(action.messagesId, message.id)) {
             return { ...message, read: true }
           }

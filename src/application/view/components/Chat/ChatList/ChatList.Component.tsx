@@ -10,10 +10,17 @@ interface IProps {
   user: IUser;
   messages: IMessage[];
   loading: boolean;
+  cleanChat(): void;
   getMessages(): void;
 }
 
 export class ChatList extends Component<IProps> {
+  componentWillUnmount(): void {
+    const { cleanChat } = this.props;
+
+    cleanChat();
+  }
+
   isCurrentUser = (ownerId: string) => {
     const { user: { id }} = this.props;
     return id == ownerId;

@@ -4,7 +4,7 @@ import _ from "lodash";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { getChat } from "../../../data/store/chat/chatActions";
+import { cleanChat, getChat } from "../../../data/store/chat/chatActions";
 import {
   getMessages,
   sendMessage,
@@ -38,6 +38,7 @@ interface IProps {
   messageError: string;
 
   getChat(id: string): void;
+  cleanChat(): void;
   getMessages(): void;
   cleanMessages(): void;
   readMessages(messagesId: string[]): void;
@@ -139,7 +140,7 @@ class ChatScreen extends Component<IProps, IState> {
   getMessages = _.throttle(() => this.props.getMessages(), 1000);
 
   render(): React.ReactNode {
-    const { messages, messageLoading, user } = this.props;
+    const { messages, messageLoading, user, cleanChat } = this.props;
     const { message } = this.state;
 
     return (
@@ -149,6 +150,7 @@ class ChatScreen extends Component<IProps, IState> {
             messages={messages}
             loading={messageLoading}
             getMessages={this.getMessages}
+            cleanChat={cleanChat}
             user={user} />
         </View>
         <View style={styles.inputContainer}>
@@ -195,6 +197,7 @@ const mapStateToProps = (state: IReducerStates) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getChat: (id: string) => dispatch(getChat(id)),
+    cleanChat: () => dispatch(cleanChat()),
     getMessages: () => dispatch(getMessages()),
     cleanMessages: () => dispatch(cleanMessages()),
     sendMessage: (message: string) => dispatch(sendMessage(message)),

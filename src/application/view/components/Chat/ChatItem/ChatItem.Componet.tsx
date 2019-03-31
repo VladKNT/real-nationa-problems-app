@@ -12,10 +12,27 @@ interface IProps {
   id: string;
   user: IUser;
   lastMessage: IMessage;
+  unreadMessages: string;
   onPress(id: string): void;
 }
 
 export default class ChatItem extends Component<IProps> {
+  renderBadge = () => {
+    const { unreadMessages } = this.props;
+
+    if (parseInt(unreadMessages) > 0) {
+      return (
+        <View style={styles.badge}>
+          <Text style={styles.badgeText}>
+            {unreadMessages}
+          </Text>
+        </View>
+      )
+    }
+
+    return null;
+  };
+
   renderMessageDate = () => {
     const { lastMessage } = this.props;
 
@@ -83,7 +100,10 @@ export default class ChatItem extends Component<IProps> {
 
     return(
       <TouchableOpacity style={styles.container} onPress={this.onPress}>
-        <UserAvatar size={50} uri={profilePhoto} />
+        <View>
+          <UserAvatar size={50} uri={profilePhoto} />
+          {this.renderBadge()}
+        </View>
         <View style={styles.infoContainer}>
           {this.renderFirstRow()}
           {this.renderSecondMessage()}

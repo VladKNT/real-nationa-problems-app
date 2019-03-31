@@ -11,7 +11,9 @@ import {
 
   USER_CHATS_REQUESTING,
   USER_CHATS_SUCCESS,
-  USER_CHATS_ERROR
+  USER_CHATS_ERROR,
+
+  CLEAN_CHAT
 } from "./chatActionTypes";
 import { initUser } from "../user/userReducer";
 import { initMessage } from "../message/messageReducer";
@@ -22,6 +24,7 @@ export const initChat: IChat = {
   description: '',
   icon: '',
   private: true,
+  unreadMessages: '0',
   lastMessage: initMessage,
   members: [initUser],
   creatorId: ''
@@ -59,6 +62,13 @@ export default function (state: IChatReducer = initState, action: AnyAction) {
         ...state,
         userChats: action.userChats,
         loading: false
+      }
+    }
+
+    case CLEAN_CHAT: {
+      return {
+        ...state,
+       chat: []
       }
     }
 
