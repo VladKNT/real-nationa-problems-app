@@ -11,6 +11,17 @@ import { onError } from 'apollo-link-error';
 
 function configureClient() {
   const cache = new InMemoryCache();
+  const defaultOptions = {
+    watchQuery: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all',
+    },
+  };
+
 
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors)
@@ -66,6 +77,7 @@ function configureClient() {
 
   return new ApolloClient({
     cache,
+    defaultOptions,
     link: ApolloLink.from([
       errorLink,
       terminatingLink
