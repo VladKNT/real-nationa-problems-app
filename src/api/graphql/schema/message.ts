@@ -19,6 +19,37 @@ export const messageSent = gql `
   }
 `;
 
+export const updateChat = gql `
+  subscription {
+    updateChat {
+      id
+      private,
+      unreadMessages
+      lastMessage {
+        message
+        createdAt
+        owner {
+          username,
+          userProfile {
+            profilePhoto
+            firstName
+            lastName
+          }
+        }
+      }
+      members {
+        id
+        username
+        userProfile {
+          profilePhoto
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+
 export const getMessages = gql `
   query messages($chatId: ID!, $offset: Int, $limit: Int) {
     messages(chatId: $chatId, offset: $offset, limit: $limit) {

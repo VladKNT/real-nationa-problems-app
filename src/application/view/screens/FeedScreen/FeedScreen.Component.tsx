@@ -31,8 +31,8 @@ class FeedScreen extends Component <IProps, IState> {
     this.subscriprionToEvents = null;
   }
 
-  subscribeToEvents = () => {
-    this.subscriprionToEvents = EventResolver.eventCreated(this.subscribedEvent);
+  subscribeToEvents = async () => {
+    this.subscriprionToEvents = await EventResolver.eventCreated(this.subscribedEvent);
   };
 
   unsubscribeFromEvents = () => {
@@ -41,8 +41,8 @@ class FeedScreen extends Component <IProps, IState> {
 
   componentDidMount() {
     this.subs = [
-      this.props.navigation.addListener('willBlur', () => this.unsubscribeFromEvents),
-      this.props.navigation.addListener('didFocus', () => this.subscribeToEvents),
+      this.props.navigation.addListener('didFocus', this.subscribeToEvents),
+      this.props.navigation.addListener('willBlur', this.unsubscribeFromEvents)
     ];
 
     this.props.getEvents();

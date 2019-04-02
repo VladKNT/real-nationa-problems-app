@@ -1,5 +1,11 @@
 import configureClient from '../configureClient';
-import { messageSent, getMessages, sendMessage, readMessages } from '../schema/message';
+import {
+  messageSent,
+  getMessages,
+  sendMessage,
+  readMessages,
+  updateChat
+} from '../schema/message';
 import TokenService from '../../../application/data/services/TokenService';
 
 interface IGetMessages {
@@ -18,6 +24,22 @@ export default class MessageResolver {
         .subscribe({
           next(response: any): void {
             updater(response.data.messageSent);
+          }
+        });
+
+    } catch (error) {
+      console.info(error);
+    }
+  }
+
+  static subscribeUpdateChat(updater: any) {
+    try {
+      return client.subscribe({
+        query: updateChat
+      })
+        .subscribe({
+          next(response: any): void {
+            updater(response.data.updateChat);
           }
         });
 
