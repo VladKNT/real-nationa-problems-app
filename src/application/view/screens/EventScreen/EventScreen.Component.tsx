@@ -41,10 +41,23 @@ class EventScreen extends Component <IProps, IState> {
     this.subscriprionToFollowEvent = null;
   };
 
+  subscribeToEvent = () => {
+    const id = navigation.getParam("id");
+    this.subscriprionToFollowEvent = EventResolver.followEventSubscription(id, this.subscribedFollowEvent);
+  };
+
+  unsubscribeFromEvent = () => {
+    this.subscriprionToEvents.unsubscribe();
+  };
+
   componentDidMount() {
     const { navigation, getEvent } = this.props;
     const id = navigation.getParam("id");
-    this.subscriprionToFollowEvent = EventResolver.followEventSubscription(id, this.subscribedFollowEvent);
+
+    this.subs = [
+      this.props.navigation.addListener('willBlur', () => this.unsubscribeFromEvent),
+      this.props.navigation.addListener('didFocus', () => this.subscribeToEvent),
+    ];
 
     getEvent(id);
 
@@ -54,9 +67,9 @@ class EventScreen extends Component <IProps, IState> {
   };
 
   componentWillUnmount(): void {
-    if (this.subscriprionToEvents.unsubscribe) {
-      this.subscriprionToEvents.unsubscribe();
-    }
+    this.subs.forEach((sub) => {
+      sub.remove();
+    });
   }
 
   subscribedFollowEvent = (event: IEvent) => {
