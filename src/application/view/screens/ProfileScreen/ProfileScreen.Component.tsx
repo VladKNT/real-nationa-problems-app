@@ -4,7 +4,7 @@ import _ from 'lodash';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { getUserById } from "../../../data/store/user/userActions";
+import { getUserById, cleanSelectedUser } from "../../../data/store/user/userActions";
 import { createPrivateChat } from "../../../data/store/chat/chatActions";
 import UserAvatar from "../../components/UserAvatar/UserAvatar.Component";
 import { HighlightButton } from "../../components/common";
@@ -21,6 +21,7 @@ interface IProps {
   selectedUser: IUser;
   loading: boolean;
   getUserById(id: string): void;
+  cleanSelectedUser(): void;
   createPrivateChat(recipientId: string): void;
 }
 
@@ -105,9 +106,10 @@ class ProfileScreen extends Component <IProps, IState> {
       });
     }
   }
-  // TODO: Clear selected user
+
   componentWillUnmount() {
-    console.info('UNMOUNT!');
+    const { cleanSelectedUser } = this.props;
+    cleanSelectedUser();
   }
 
   getChat = () => {
@@ -212,6 +214,7 @@ const mapStateToProps = (state: IReducerStates) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getUserById: (id: string) => dispatch(getUserById(id)),
+    cleanSelectedUser: () => dispatch(cleanSelectedUser()),
     createPrivateChat: (recipientId: string) => dispatch(createPrivateChat(recipientId))
   };
 };

@@ -4,7 +4,8 @@ import {
   UPDATE_USER_PROFILE,
   GET_USER_BY_ID,
   LOGIN_USER_PROFILE,
-  LOGOUT_USER
+  LOGOUT_USER,
+  CLEAN_SELECTED_USER
 } from "./userActionTypes";
 
 import { IEditProfile } from "../../../../constants/types/user";
@@ -57,5 +58,11 @@ export const getUserById = (id: string) => {
   return {
     type: GET_USER_BY_ID,
     id
+  }
+};
+
+export const cleanSelectedUser = () => {
+  return {
+    type: CLEAN_SELECTED_USER
   }
 };

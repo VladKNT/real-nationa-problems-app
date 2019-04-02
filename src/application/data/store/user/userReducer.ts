@@ -10,7 +10,9 @@ import {
 
   GET_USER_BY_ID_REQUESTING,
   GET_USER_BY_ID_SUCCESS,
-  GET_USER_BY_ID_ERROR
+  GET_USER_BY_ID_ERROR,
+
+  CLEAN_SELECTED_USER
 } from "./userActionTypes";
 import { IUser, IUserProfile, IUserReducer } from "../../../../constants/types/user";
 import {initChat} from "../chat/chatReducer";
@@ -72,6 +74,13 @@ export default function(state: IUserReducer = initialState, action: AnyAction) {
         ...state,
         selectedUser: action.user,
         loading: false
+      }
+    }
+
+    case CLEAN_SELECTED_USER: {
+      return {
+        ...state,
+        selectedUser: initUser
       }
     }
   }
