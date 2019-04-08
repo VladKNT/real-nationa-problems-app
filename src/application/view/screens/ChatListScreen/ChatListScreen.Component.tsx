@@ -6,7 +6,7 @@ import _ from "lodash";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { userChats } from "../../../data/store/chat/chatActions";
+import { userChats, subscribedChat } from "../../../data/store/chat/chatActions";
 
 import MessageResolver from "../../../../api/graphql/relsolvers/message";
 import { IChat } from "../../../../constants/types/chat";
@@ -24,6 +24,7 @@ interface IProps {
   chatError: string;
 
   getUserChats(): void;
+  subscribedChat(chat: IChat): void;
 }
 
 class ChatListScreen extends Component<IProps> {
@@ -33,9 +34,17 @@ class ChatListScreen extends Component<IProps> {
     this.subscriprionToUpdateChat = null;
   };
 
-  // TODO: UPDATE CHAT!
+  subscribedChat = (chat: IChat) => {
+    const { subscribedChat } = this.props;
+
+    subscribedChat(chat);
+  };
+
   subscribeToUpdateChat = async () => {
-    this.subscriprionToUpdateChat = await MessageResolver.subscribeUpdateChat((res) => console.info(res));
+    const { getUserChats } = this.props;
+    getUserChats();
+
+    this.subscriprionToUpdateChat = await MessageResolver.subscribeUpdateChat(this.subscribedChat);
   };
 
   unsubscribeFromUpdateChat = () => {
@@ -44,14 +53,10 @@ class ChatListScreen extends Component<IProps> {
 
 
   componentDidMount() {
-    const { getUserChats } = this.props;
-
     this.subs = [
       this.props.navigation.addListener('didFocus', this.subscribeToUpdateChat),
       this.props.navigation.addListener('willBlur', this.unsubscribeFromUpdateChat)
     ];
-
-    getUserChats();
   }
 
   componentWillUnmount() {
@@ -121,7 +126,8 @@ const mapStateToProps = (state: IReducerStates) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    getUserChats: () => dispatch(userChats())
+    getUserChats: () => dispatch(userChats()),
+    subscribedChat: (chat: IChat) => dispatch(subscribedChat(chat))
   }
 };
 

@@ -59,11 +59,9 @@ export function* sendMessage(action: any) {
 export function* readMessages(action: any) {
   try {
     const { messagesId } = action;
-    console.info(messagesId);
 
     yield put({ type: READ_MESSAGES_REQUESTING });
     const readMessages = yield call(MessageResolver.readMessages, messagesId);
-    console.info(readMessages);
 
     if (readMessages) {
       yield put({ type: READ_MESSAGES_SUCCESS, messagesId });

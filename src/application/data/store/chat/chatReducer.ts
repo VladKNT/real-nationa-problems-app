@@ -1,4 +1,5 @@
 import { AnyAction } from "redux";
+import _ from "lodash";
 import { IChat, IChatReducer } from "../../../../constants/types/chat";
 import {
   CREATE_PRIVATE_CHAT_REQUESTING,
@@ -13,7 +14,9 @@ import {
   USER_CHATS_SUCCESS,
   USER_CHATS_ERROR,
 
-  CLEAN_CHAT
+  CLEAN_CHAT,
+
+  SUBSCRIBED_CHAT
 } from "./chatActionTypes";
 import { initUser } from "../user/userReducer";
 import { initMessage } from "../message/messageReducer";
@@ -60,7 +63,7 @@ export default function (state: IChatReducer = initState, action: AnyAction) {
     case USER_CHATS_SUCCESS: {
       return {
         ...state,
-        userChats: action.userChats,
+        userChats:  _.orderBy(action.userChats, ( chat ) => (chat.lastMessage ? chat.lastMessage.createdAt : ""), 'desc'),
         loading: false
       }
     }
@@ -69,6 +72,22 @@ export default function (state: IChatReducer = initState, action: AnyAction) {
       return {
         ...state,
        chat: []
+      }
+    }
+
+    case SUBSCRIBED_CHAT: {
+      const chats = state.userChats;
+      const index = _.findIndex(chats, { id: action.chat.id });
+
+      if (index === -1) {
+        chats.push(action.chat);
+      } else {
+        chats[index] = action.chat;
+      }
+
+      return {
+        ...state,
+        userChats:  _.orderBy(chats, ( chat ) => (chat.lastMessage ? chat.lastMessage.createdAt : ""), 'desc'),
       }
     }
 

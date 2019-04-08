@@ -64,18 +64,33 @@ export default function (state: IMessageReducer = initState, action: AnyAction) 
     }
 
     case SEND_MESSAGE_SUCCESS: {
+      const index = _.findIndex(state.messages, { id: action.deliveredMessage.id });
+
+      if (index === -1) {
+        return {
+          ...state,
+          loading: false,
+          messages: [ action.deliveredMessage, ...state.messages ]
+        }
+      }
+
       return {
         ...state,
-        loading: false,
-        messages: [ action.deliveredMessage, ...state.messages ]
+        loading: false
       }
     }
 
     case SUBSCRIBED_MESSAGE: {
-      return {
-        ...state,
-        messages: [action.message, ...state.messages]
+      const index = _.findIndex(state.messages, { id: action.message.id });
+
+      if (index === -1) {
+        return {
+          ...state,
+          messages: [action.message, ...state.messages]
+        }
       }
+
+      return { ...state }
     }
 
     case CLEAN_MESSAGES: {

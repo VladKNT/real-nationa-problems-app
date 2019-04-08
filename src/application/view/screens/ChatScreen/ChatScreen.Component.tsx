@@ -82,6 +82,18 @@ class ChatScreen extends Component<IProps, IState> {
     this.subscriprionToMessages = MessageResolver.subscribeMessages(subscriptionId, this.subscribedMessage);
   }
 
+  componentDidUpdate(prevProps: Readonly<IProps>): void {
+    const { messages, readMessages } = this.props;
+
+    if (messages.length !== prevProps.messages.length && _.some(prevProps.messages)) {
+      const message = messages[0];
+
+      if (!message.read) {
+        readMessages([message.id]);
+      }
+    }
+  }
+
   componentWillUnmount(): void {
     const { cleanMessages } = this.props;
 
@@ -92,8 +104,7 @@ class ChatScreen extends Component<IProps, IState> {
     cleanMessages();
   }
 
-
-  onFocusInput = () => {
+  readMessage() {
     const { messages, readMessages } = this.props;
 
     const unreadMessagesId = _.reduce(messages, (result: string[], message: IMessage) => {
@@ -106,6 +117,11 @@ class ChatScreen extends Component<IProps, IState> {
     if (_.some(unreadMessagesId)) {
       readMessages(unreadMessagesId);
     }
+  }
+
+
+  onFocusInput = () => {
+    this.readMessage();
   };
 
   onChangeInput = (message: string) => {
@@ -121,20 +137,9 @@ class ChatScreen extends Component<IProps, IState> {
   };
 
   subscribedMessage = (message: IMessage) => {
-    const {
-      subscribedMessage,
-      user: {
-        id: userId
-      }
-    } = this.props;
-    const {
-      owner: {
-        id: ownerId
-      }
-    } = message;
-    if (userId != ownerId) {
-      subscribedMessage(message);
-    }
+    const { subscribedMessage } = this.props;
+
+    subscribedMessage(message);
   };
 
   getMessages = _.throttle(() => this.props.getMessages(), 1000);
