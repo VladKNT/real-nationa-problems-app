@@ -76,7 +76,12 @@ project.ext.react = [
     entryFile: "index.js"
 ]
 
+project.ext.vectoricons = [
+        iconFontNames: [ 'Ionicons.ttf' ] // Name of the font files you want to copy
+]
+
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -94,18 +99,19 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion "28.0.0"
 
     defaultConfig {
         applicationId "com.rnp"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -137,9 +143,19 @@ android {
 }
 
 dependencies {
+    compile(project(':react-native-maps')){
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
+    }
+    compile project(':react-native-image-crop-picker')
+    compile project(':react-native-date-picker')
+    compile project(':react-native-gesture-handler')
+    compile project(':react-native-vector-icons')
     compile project(':react-native-splash-screen')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:27.1.1"
+    compile "com.android.support:appcompat-v7:28.0.0"
+    compile "com.google.android.gms:play-services-base:+"
+    compile "com.google.android.gms:play-services-maps:+"
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 
